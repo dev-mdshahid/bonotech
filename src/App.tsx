@@ -3,6 +3,7 @@ import { Navbar } from '@/components/sections/Navbar/Navbar'
 import { Hero } from '@/components/sections/Hero/Hero'
 import { Clients } from '@/components/sections/Clients/Clients'
 import { WhatWeDo } from '@/components/sections/WhatWeDo/WhatWeDo'
+import { Projects } from '@/components/sections/Projects/Projects'
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
       <Hero />
       <Clients />
       <WhatWeDo />
+      <Projects />
     </main>
   )
 }
