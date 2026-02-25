@@ -1,5 +1,8 @@
 import { cn } from '@/lib/utils'
+import { ArrowUp } from 'lucide-react'
 import type { FooterProps, FooterLinkGroup } from './Footer.types'
+import { FooterBrand } from './components/FooterBrand'
+import { FooterLinkColumn } from './components/FooterLinkColumn'
 import footerBg from '@/assets/footer-bg.jpg'
 import footerLogo from '@/assets/footer-logo.png'
 
@@ -95,95 +98,39 @@ export function Footer({ className }: FooterProps) {
                 className="relative mx-auto w-full max-w-(--width-container) px-(--spacing-container-x)"
                 style={{ zIndex: 2 }}
             >
-                {/* ─── Links Grid ─── */}
+                {/* ─── Main grid: Brand + Link columns ─── */}
                 <div
-                    className="grid grid-cols-2 gap-y-10 sm:grid-cols-3"
-                    style={{
-                        paddingTop: '80px',
-                        paddingBottom: '64px',
-                        maxWidth: '520px',
-                    }}
+                    className="grid grid-cols-1 lg:grid-cols-12 gap-y-12 lg:gap-x-16"
+                    style={{ paddingTop: '80px', paddingBottom: '56px' }}
                 >
-                    {LINK_GROUPS.map((group) => (
-                        <div key={group.title} className="flex flex-col" style={{ gap: '20px' }}>
-                            {/* Column header */}
-                            <span
-                                className="font-body text-white"
-                                style={{
-                                    fontSize: '14px',
-                                    lineHeight: '140%',
-                                    fontWeight: 400,
-                                    fontStyle: 'italic',
-                                    opacity: 0.5,
-                                }}
-                            >
-                                {group.title}
-                            </span>
+                    {/* Brand area — left */}
+                    <div className="lg:col-span-4">
+                        <FooterBrand />
+                    </div>
 
-                            {/* Links */}
-                            <nav
-                                aria-label={`${group.title} links`}
-                                className="flex flex-col"
-                                style={{ gap: '12px' }}
-                            >
-                                {group.links.map((link) => (
-                                    <a
-                                        key={link.label}
-                                        href={link.href}
-                                        className="font-body text-white inline-flex items-center transition-(--transition-base) hover:opacity-80"
-                                        style={{
-                                            fontSize: '14px',
-                                            lineHeight: '140%',
-                                            fontWeight: 400,
-                                            opacity: 0.9,
-                                            gap: '8px',
-                                            textDecoration: 'none',
-                                        }}
-                                    >
-                                        {link.label}
-                                        {link.badge && (
-                                            <span
-                                                className="font-body inline-flex items-center justify-center"
-                                                style={{
-                                                    fontSize: '10px',
-                                                    fontWeight: 600,
-                                                    lineHeight: 1,
-                                                    letterSpacing: '0.04em',
-                                                    color: '#FFFFFF',
-                                                    backgroundColor: 'rgba(255,255,255,0.15)',
-                                                    border: '1px solid rgba(255,255,255,0.25)',
-                                                    borderRadius: '100px',
-                                                    padding: '4px 8px',
-                                                    textTransform: 'uppercase',
-                                                }}
-                                            >
-                                                {link.badge}
-                                            </span>
-                                        )}
-                                    </a>
-                                ))}
-                            </nav>
-                        </div>
-                    ))}
+                    {/* Link columns — right */}
+                    <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-y-10 gap-x-8">
+                        {LINK_GROUPS.map((group) => (
+                            <FooterLinkColumn key={group.title} group={group} />
+                        ))}
+                    </div>
                 </div>
 
-                {/* ─── Divider ─── */}
+                {/* ─── Gradient divider ─── */}
                 <div
                     style={{
                         width: '100%',
                         height: '1px',
-                        backgroundColor: 'rgba(255,255,255,0.12)',
+                        background:
+                            'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 20%, rgba(255,255,255,0.15) 80%, transparent 100%)',
                     }}
                     aria-hidden="true"
                 />
 
-                {/* ─── Bottom Bar ─── */}
+                {/* ─── Bottom bar ─── */}
                 <div
                     className="flex flex-col sm:flex-row items-start sm:items-center justify-between"
-                    style={{
-                        paddingTop: '24px',
-                        paddingBottom: '24px',
-                    }}
+                    style={{ paddingTop: '24px', paddingBottom: '24px' }}
                 >
                     {/* Left — Legal links */}
                     <div
@@ -194,12 +141,12 @@ export function Footer({ className }: FooterProps) {
                             <a
                                 key={link.label}
                                 href={link.href}
-                                className="font-body text-white transition-(--transition-base) hover:opacity-80"
+                                className="font-body text-white transition-(--transition-base) hover:opacity-70"
                                 style={{
                                     fontSize: '13px',
                                     lineHeight: '140%',
                                     fontWeight: 400,
-                                    opacity: 0.6,
+                                    opacity: 0.45,
                                     textDecoration: 'none',
                                 }}
                             >
@@ -212,16 +159,21 @@ export function Footer({ className }: FooterProps) {
                     <button
                         type="button"
                         onClick={handleBackToTop}
-                        className="font-body text-white cursor-pointer bg-transparent border-none transition-(--transition-base) hover:opacity-80 mt-4 sm:mt-0"
+                        className="group font-body text-white cursor-pointer bg-transparent border-none transition-(--transition-base) hover:opacity-100 mt-4 sm:mt-0 inline-flex items-center"
                         style={{
                             fontSize: '13px',
                             lineHeight: '140%',
                             fontWeight: 400,
-                            opacity: 0.6,
+                            opacity: 0.45,
+                            gap: '6px',
                         }}
                         aria-label="Scroll back to top"
                     >
                         Back to top
+                        <ArrowUp
+                            size={14}
+                            className="transition-(--transition-fast) group-hover:-translate-y-0.5"
+                        />
                     </button>
                 </div>
             </div>
@@ -239,9 +191,7 @@ export function Footer({ className }: FooterProps) {
                     src={footerLogo}
                     alt="Bonotech.io"
                     className="relative w-full object-cover object-top select-none pointer-events-none"
-                    style={{
-                        maxWidth: '1400px',
-                    }}
+                    style={{ maxWidth: '1400px' }}
                 />
             </div>
         </footer>
