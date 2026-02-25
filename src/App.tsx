@@ -5,6 +5,8 @@ import { Clients } from '@/components/sections/Clients/Clients'
 import { WhatWeDo } from '@/components/sections/WhatWeDo/WhatWeDo'
 import { Projects } from '@/components/sections/Projects/Projects'
 import { Testimonials } from '@/components/sections/Testimonials/Testimonials'
+import { FAQ } from '@/components/sections/FAQ/FAQ'
+import { Contact } from '@/components/sections/Contact/Contact'
 
 export default function App() {
   return (
@@ -16,6 +18,8 @@ export default function App() {
       <WhatWeDo />
       <Projects />
       <Testimonials />
+      <FAQ />
+      <Contact />
     </main>
   )
 }

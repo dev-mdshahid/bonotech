@@ -1,5 +1,5 @@
-import { useState, useCallback } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useCallback, useRef } from 'react'
+import { motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { TestimonialsProps, TestimonialData } from './Testimonials.types'
@@ -40,11 +40,11 @@ const CARD_GAP = 48
 
 /** Stack visual config — per-layer overrides for a natural deck look */
 const STACK_LAYERS = [
-    // layer 0 = front card (no transform, handled by AnimatePresence)
+    // layer 0 = front card (full size, no transform)
     { rotation: 0, scale: 1, yOffset: 0, xOffset: 0 },
-    // layer 1 = first card behind (dark card peeking out)
+    // layer 1 = first card behind (peeking out)
     { rotation: 1, scale: 0.92, yOffset: -60, xOffset: 0 },
-    // layer 2 = second card behind (orange card peeking out further)
+    // layer 2 = second card behind (peeking out further)
     { rotation: -1, scale: 0.87, yOffset: -120, xOffset: 20 },
 ]
 const STACK_TOP_OFFSET = 60.31 // px — top offset from Figma
@@ -149,42 +149,46 @@ function TestimonialCard({ testimonial }: TestimonialCardProps) {
 }
 
 export function Testimonials({ className }: TestimonialsProps) {
-    // The order of cards in the stack (index 0 = front / top)
+    // cardOrder[0] = front/top card, cardOrder[1] = behind it, etc.
     const [cardOrder, setCardOrder] = useState<number[]>(
         TESTIMONIALS.map((_, i) => i)
     )
-    const [exitDirection, setExitDirection] = useState<'left' | 'right'>('left')
     const [isAnimating, setIsAnimating] = useState(false)
+    const directionRef = useRef<'next' | 'prev'>('next')
+    const hasCompletedRef = useRef(false)
 
     const handleNext = useCallback(() => {
         if (isAnimating) return
-        setExitDirection('left')
+        directionRef.current = 'next'
+        hasCompletedRef.current = false
         setIsAnimating(true)
     }, [isAnimating])
 
     const handlePrev = useCallback(() => {
         if (isAnimating) return
-        setExitDirection('right')
+        directionRef.current = 'prev'
+        hasCompletedRef.current = false
         setIsAnimating(true)
     }, [isAnimating])
 
-    const handleExitComplete = useCallback(() => {
+    /** Called once when the driving card's animation finishes. */
+    const handleAnimationComplete = useCallback(() => {
+        if (hasCompletedRef.current) return
+        hasCompletedRef.current = true
+
         setCardOrder((prev) => {
-            if (exitDirection === 'left') {
-                // Move front card to back
+            if (directionRef.current === 'next') {
+                // Top card goes to bottom
                 const [front, ...rest] = prev
                 return [...rest, front]
             } else {
-                // Move back card to front
+                // Bottom card comes to top
                 const last = prev[prev.length - 1]
                 return [last, ...prev.slice(0, prev.length - 1)]
             }
         })
         setIsAnimating(false)
-    }, [exitDirection])
-
-    // Build the visible stack (reversed so the first in array renders last = on top)
-    const stackCards = [...cardOrder].reverse()
+    }, [])
 
     return (
         <section
@@ -196,7 +200,7 @@ export function Testimonials({ className }: TestimonialsProps) {
                 className="relative mx-auto w-full max-w-(--width-container) px-(--spacing-container-x) flex flex-col items-center"
                 style={{ paddingTop: '112px', paddingBottom: '112px' }}
             >
-                {/* Section Title — "Testimonial" with gradient matching Projects */}
+                {/* Section Title */}
                 <div className="relative flex flex-col items-center select-none mb-10">
                     <h2
                         id="testimonials-heading"
@@ -221,88 +225,123 @@ export function Testimonials({ className }: TestimonialsProps) {
                     className="relative w-full flex justify-center"
                     style={{
                         marginTop: `${STACK_TOP_OFFSET}px`,
-                        height: `${CARD_HEIGHT + 40}px`, // extra room for the rotated back cards peeking out
+                        height: `${CARD_HEIGHT + 40}px`,
                     }}
                 >
-                    {/* Background / stacked cards (static, always visible) */}
-                    {stackCards.map((cardIndex, stackPosition) => {
-                        const totalVisible = stackCards.length
-                        const zIndex = stackPosition + 1
-                        const distanceFromFront =
-                            totalVisible - 1 - stackPosition
+                    {cardOrder.map((cardIndex, position) => {
+                        const direction = directionRef.current
+                        const lastPos = cardOrder.length - 1
 
-                        // Skip the front card — it's handled by AnimatePresence below
-                        if (distanceFromFront === 0) return null
-
-                        // Use per-layer config (clamp to last layer if more cards than layers)
+                        // Current resting layer
                         const layerIndex = Math.min(
-                            distanceFromFront,
+                            position,
                             STACK_LAYERS.length - 1
                         )
                         const layer = STACK_LAYERS[layerIndex]
 
+                        // Default target = current layer
+                        let targetProps = {
+                            rotate: layer.rotation,
+                            scale: layer.scale,
+                            y: layer.yOffset,
+                            x: layer.xOffset,
+                            opacity: 1,
+                        }
+                        let zIndex = cardOrder.length - position
+
+                        /* ── Next: top fades out, others shift up ── */
+                        if (isAnimating && direction === 'next') {
+                            if (position === 0) {
+                                // Front card fades away
+                                targetProps = {
+                                    rotate: 0,
+                                    scale: 0.85,
+                                    y: -30,
+                                    x: 0,
+                                    opacity: 0,
+                                }
+                            } else {
+                                // Shift up one layer
+                                const newIdx = Math.min(
+                                    position - 1,
+                                    STACK_LAYERS.length - 1
+                                )
+                                const nl = STACK_LAYERS[newIdx]
+                                targetProps = {
+                                    rotate: nl.rotation,
+                                    scale: nl.scale,
+                                    y: nl.yOffset,
+                                    x: nl.xOffset,
+                                    opacity: 1,
+                                }
+                            }
+                        }
+
+                        /* ── Prev: bottom rises to front, others shift down ── */
+                        if (isAnimating && direction === 'prev') {
+                            if (position === lastPos) {
+                                // Bottom card rises to front
+                                const fl = STACK_LAYERS[0]
+                                targetProps = {
+                                    rotate: fl.rotation,
+                                    scale: fl.scale,
+                                    y: fl.yOffset,
+                                    x: fl.xOffset,
+                                    opacity: 1,
+                                }
+                                zIndex = cardOrder.length + 1
+                            } else {
+                                // Shift down one layer
+                                const newIdx = Math.min(
+                                    position + 1,
+                                    STACK_LAYERS.length - 1
+                                )
+                                const nl = STACK_LAYERS[newIdx]
+                                targetProps = {
+                                    rotate: nl.rotation,
+                                    scale: nl.scale,
+                                    y: nl.yOffset,
+                                    x: nl.xOffset,
+                                    opacity: 1,
+                                }
+                            }
+                        }
+
+                        // The card that drives the completion callback
+                        const isDriver =
+                            isAnimating &&
+                            ((direction === 'next' && position === 0) ||
+                                (direction === 'prev' &&
+                                    position === lastPos))
+
                         return (
-                            <div
-                                key={`bg-${TESTIMONIALS[cardIndex].id}`}
+                            <motion.div
+                                key={TESTIMONIALS[cardIndex].id}
                                 className="absolute flex justify-center"
+                                initial={false}
                                 style={{
                                     width: '100%',
                                     maxWidth: `${CARD_WIDTH}px`,
                                     zIndex,
-                                    transform: `rotate(${layer.rotation}deg) scale(${layer.scale}) translateY(${layer.yOffset}px) translateX(${layer.xOffset}px)`,
                                     transformOrigin: 'bottom center',
                                 }}
+                                animate={targetProps}
+                                transition={{
+                                    duration: 0.5,
+                                    ease: [0.4, 0, 0.2, 1],
+                                }}
+                                onAnimationComplete={
+                                    isDriver
+                                        ? handleAnimationComplete
+                                        : undefined
+                                }
                             >
                                 <TestimonialCard
                                     testimonial={TESTIMONIALS[cardIndex]}
                                 />
-                            </div>
+                            </motion.div>
                         )
                     })}
-
-                    {/* Front card (animated) */}
-                    <AnimatePresence
-                        mode="popLayout"
-                        onExitComplete={handleExitComplete}
-                    >
-                        <motion.div
-                            key={TESTIMONIALS[cardOrder[0]].id}
-                            className="absolute flex justify-center"
-                            style={{
-                                width: '100%',
-                                maxWidth: `${CARD_WIDTH}px`,
-                                zIndex: stackCards.length + 1,
-                            }}
-                            initial={{
-                                x: exitDirection === 'left' ? 800 : -800,
-                                rotate: exitDirection === 'left' ? 15 : -15,
-                                opacity: 0,
-                            }}
-                            animate={{
-                                x: 0,
-                                rotate: 0,
-                                opacity: 1,
-                                transition: {
-                                    type: 'spring',
-                                    stiffness: 300,
-                                    damping: 30,
-                                },
-                            }}
-                            exit={{
-                                x: exitDirection === 'left' ? -1200 : 1200,
-                                rotate: exitDirection === 'left' ? -20 : 20,
-                                opacity: 0,
-                                transition: {
-                                    duration: 0.45,
-                                    ease: [0.4, 0, 0.2, 1],
-                                },
-                            }}
-                        >
-                            <TestimonialCard
-                                testimonial={TESTIMONIALS[cardOrder[0]]}
-                            />
-                        </motion.div>
-                    </AnimatePresence>
                 </div>
 
                 {/* ─── Navigation Arrows ─── */}
