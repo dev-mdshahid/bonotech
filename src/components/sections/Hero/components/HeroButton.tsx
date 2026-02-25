@@ -18,8 +18,8 @@ export function HeroButton({ label, href, className }: HeroButtonProps) {
                 backgroundColor: '#8269CF',
                 paddingLeft: '32px',
                 paddingRight: '32px',
-                paddingTop: '26px',
-                paddingBottom: '26px',
+                paddingTop: '20px',
+                paddingBottom: '20px',
                 fontSize: '16px',
                 lineHeight: '1.4',
             }}

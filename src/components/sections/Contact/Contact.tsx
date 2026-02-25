@@ -78,32 +78,32 @@ export function Contact({ className }: ContactProps) {
                         style={{
                             zIndex: 1,
                             background:
-                                'linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 100%)',
+                                'linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 100%)',
                         }}
                         aria-hidden="true"
                     />
 
                     {/* ─── Left Content ─── */}
                     <div
-                        className="relative flex flex-col justify-end"
-                        style={{ zIndex: 2, maxWidth: '340px' }}
+                        className="relative flex flex-col justify-center w-1/2"
+                        style={{ zIndex: 2 }}
                     >
                         <h3
                             className="font-body text-white"
                             style={{
-                                fontWeight: 700,
-                                fontSize: '36px',
+                                fontWeight: 500,
+                                fontSize: '40px',
                                 lineHeight: '110%',
                                 letterSpacing: '-0.01em',
                             }}
                         >
-                            Have an idea in{'\n'}your mind ?
+                            Have an idea in <br />your mind ?
                         </h3>
                         <p
                             className="font-body text-white"
                             style={{
-                                fontWeight: 600,
-                                fontSize: '14px',
+                                fontWeight: 500,
+                                fontSize: '18px',
                                 lineHeight: '140%',
                                 marginTop: '16px',
                                 opacity: 0.8,
@@ -116,11 +116,9 @@ export function Contact({ className }: ContactProps) {
                     {/* ─── Right Form ─── */}
                     <form
                         onSubmit={handleSubmit}
-                        className="relative flex flex-col justify-center"
+                        className="relative flex flex-col justify-center w-1/2 px-12"
                         style={{
                             zIndex: 2,
-                            width: '100%',
-                            maxWidth: '380px',
                             gap: '32px',
                         }}
                     >
@@ -132,13 +130,13 @@ export function Contact({ className }: ContactProps) {
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 aria-label="Name"
-                                className="font-body bg-transparent text-white outline-none w-full"
+                                className="font-body bg-transparent text-white placeholder:text-white outline-none w-full"
                                 style={{
                                     fontSize: '16px',
                                     lineHeight: '140%',
                                     fontWeight: 400,
                                     paddingBottom: '12px',
-                                    borderBottom: '1px solid rgba(255,255,255,0.3)',
+                                    borderBottom: '1px solid #E8E9EB',
                                 }}
                             />
                         </div>
@@ -151,13 +149,13 @@ export function Contact({ className }: ContactProps) {
                                 value={emailPhone}
                                 onChange={(e) => setEmailPhone(e.target.value)}
                                 aria-label="Email or Phone Number"
-                                className="font-body bg-transparent text-white outline-none w-full"
+                                className="font-body bg-transparent text-white placeholder:text-white outline-none w-full"
                                 style={{
                                     fontSize: '16px',
                                     lineHeight: '140%',
                                     fontWeight: 400,
                                     paddingBottom: '12px',
-                                    borderBottom: '1px solid rgba(255,255,255,0.3)',
+                                    borderBottom: '1px solid #E8E9EB',
                                 }}
                             />
                         </div>
@@ -172,13 +170,13 @@ export function Contact({ className }: ContactProps) {
                                     setProjectDetails(e.target.value)
                                 }
                                 aria-label="Project Details"
-                                className="font-body bg-transparent text-white outline-none w-full"
+                                className="font-body bg-transparent text-white placeholder:text-white outline-none w-full"
                                 style={{
                                     fontSize: '16px',
                                     lineHeight: '140%',
                                     fontWeight: 400,
                                     paddingBottom: '12px',
-                                    borderBottom: '1px solid rgba(255,255,255,0.3)',
+                                    borderBottom: '1px solid #E8E9EB',
                                 }}
                             />
                         </div>

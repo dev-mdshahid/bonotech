@@ -16,9 +16,9 @@ const TESTIMONIALS: TestimonialData[] = [
     {
         id: 'testimonial-2',
         quote:
-            'The team delivered an outstanding product that exceeded our expectations. Their attention to detail and commitment to quality made the entire process seamless.',
-        authorName: 'Sarah Chen',
-        authorRole: 'CEO, Lumina Digital',
+            'Created by my ex-students. They have made my classroom management much easier and have created all advanced custom features that I have asked for.',
+        authorName: 'Engr. Md. Nadim',
+        authorRole: 'Teacher, Edbase',
         backgroundColor: '#131314',
     },
     {

@@ -7,7 +7,7 @@ interface BrandLogoBarProps {
 export function BrandLogoBar({ brands }: BrandLogoBarProps) {
     return (
         <div className="flex flex-col gap-[16px]">
-            <p className="text-content-tertiary font-body" style={{ fontSize: '14px', lineHeight: '1.4' }}>
+            <p className="text-content-tertiary font-body font-semibold" style={{ fontSize: '14px', lineHeight: '1.4' }}>
                 Trusted by
                 <br />
                 Global Brands
@@ -27,7 +27,7 @@ export function BrandLogoBar({ brands }: BrandLogoBarProps) {
                         <img
                             src={brand.src}
                             alt={brand.alt}
-                            className="h-[20px] w-auto object-contain max-w-[120px]"
+                            className="h-[24px] w-auto object-contain grayscale"
                         />
                     </div>
                 ))}
