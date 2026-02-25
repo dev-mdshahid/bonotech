@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import { cn } from '@/lib/utils'
 import type { ProjectsProps, ProjectCardData } from './Projects.types'
 import { ProjectCard } from './components/ProjectCard'
@@ -28,7 +29,6 @@ const PROJECTS: ProjectCardData[] = [
         appStoreHref: '#',
         learnMoreHref: '#',
         opacity: 90,
-
     },
     {
         id: 'olmo',
@@ -50,23 +50,29 @@ const PROJECTS: ProjectCardData[] = [
     },
 ]
 
+/** Px from viewport top where the first card sticks */
+const STICKY_TOP = 80
+/** Px vertical offset between each stacked card */
+const STACK_OFFSET = 40
+/** Degrees to rotate each card after the first */
+const CARD_ROTATION = 2
+
 export function Projects({ className }: ProjectsProps) {
     return (
         <section
             id="projects"
             aria-labelledby="projects-heading"
             className={cn(
-                'relative w-full overflow-hidden bg-surface-neutral',
+                'relative w-full bg-surface-neutral',
                 className
             )}
         >
             <div
-                className="relative mx-auto w-full max-w-(--width-container) px-(--spacing-container-x) flex flex-col items-center"
-                style={{ paddingTop: '112px', paddingBottom: '112px' }}
+                className="relative mx-auto w-full max-w-(--width-container) px-(--spacing-container-x)"
+                style={{ paddingTop: '112px' }}
             >
-                {/* Section Title — "Projects" with gradient + reflection */}
-                <div className="relative flex flex-col items-center select-none">
-                    {/* Main title */}
+                {/* Section Title — "Projects" with gradient */}
+                <div className="relative flex flex-col items-center select-none mb-10">
                     <h2
                         id="projects-heading"
                         className="font-body font-normal text-center"
@@ -82,36 +88,41 @@ export function Projects({ className }: ProjectsProps) {
                     >
                         Projects
                     </h2>
-
-                    {/* Reflection */}
-                    <div
-                        aria-hidden="true"
-                        className="pointer-events-none font-body font-normal text-center"
-                        style={{
-                            fontSize: 'clamp(80px, 14vw, 181.9px)',
-                            lineHeight: '80%',
-                            letterSpacing: '0%',
-                            background: 'linear-gradient(180deg, #8269CF33 0%, transparent 50%)',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            backgroundClip: 'text',
-                            transform: 'scaleY(-1)',
-                            marginTop: '-4px',
-                            maskImage: 'linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 60%)',
-                            WebkitMaskImage: 'linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 60%)',
-                        }}
-                    >
-                        Projects
-                    </div>
                 </div>
 
-                {/* Project Cards */}
-                <div
-                    className="w-full flex flex-col items-center"
-                    style={{ gap: '32px', marginTop: '64px' }}
-                >
-                    {PROJECTS.map((project) => (
-                        <ProjectCard key={project.id} project={project} />
+                {/* ─── Stacking Cards Container ───
+                     IMPORTANT: All sticky cards MUST be direct children of
+                     this single container (via Fragment). If they are wrapped
+                     in individual parent divs, sticky breaks because each
+                     card can only stick within its own parent's bounds. */}
+                <div style={{ marginTop: '64px', paddingBottom: '112px' }}>
+                    {PROJECTS.map((project, index) => (
+                        <Fragment key={project.id}>
+                            {/* Sticky project card */}
+                            <div
+                                className="flex justify-center"
+                                style={{
+                                    position: 'sticky',
+                                    top: `${STICKY_TOP + index * STACK_OFFSET}px`,
+                                    zIndex: index + 1,
+                                    transform: index > 0
+                                        ? `rotate(${CARD_ROTATION}deg)`
+                                        : 'none',
+                                }}
+                            >
+                                <ProjectCard project={project} />
+                            </div>
+
+                            {/* Scroll spacer — creates room for the next card
+                                to scroll up and stack. Not rendered after the
+                                last card. */}
+                            {index < PROJECTS.length - 1 && (
+                                <div
+                                    style={{ height: '20vh' }}
+                                    aria-hidden="true"
+                                />
+                            )}
+                        </Fragment>
                     ))}
                 </div>
             </div>
