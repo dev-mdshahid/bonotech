@@ -291,9 +291,8 @@ export function SectionName({ ...props }: SectionNameProps) {
 1. `[SectionName].types.ts`
 2. Sub-components (if any)
 3. `[SectionName].tsx`
-4. `index.tsx`
-5. Any new `@theme` tokens to add to `globals.css`
-6. One-line usage example
+4. Any new `@theme` tokens to add to `globals.css`
+5. One-line usage example
 
 ---
 

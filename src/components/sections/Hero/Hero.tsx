@@ -47,12 +47,18 @@ export function Hero({
             {/* Interactive grid background — z-10, captures all hover events */}
             <HeroGrid />
 
+            {/* Top gradient overlay */}
+            <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-white to-transparent z-10 pointer-events-none" />
+
+            {/* Bottom gradient overlay */}
+            <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none" />
+
             {/* Content — pointer-events-none so grid receives hover, 
                  interactive children opt back in with pointer-events-auto */}
             <div className="relative z-20 pointer-events-none mx-auto w-full max-w-(--width-container) px-(--spacing-container-x)">
                 <div className="flex flex-col lg:flex-row items-center lg:items-stretch gap-[40px] lg:gap-[64px] py-[48px] lg:py-[80px]">
                     {/* Left column — text content */}
-                    <div className="flex flex-col justify-between flex-1 min-w-0">
+                    <div className="flex flex-col justify-between flex-1 min-w-0 my-10">
                         {/* Top: Pill + Title + Subtitle + CTA */}
                         <div className="flex flex-col">
                             {/* Pill */}

@@ -1,6 +1,7 @@
-// import { AnnouncementBar } from '@/components/sections/AnnouncementBar'
-import { Navbar } from '@/components/sections/Navbar'
-import { Hero } from '@/components/sections/Hero'
+// import { AnnouncementBar } from '@/components/sections/AnnouncementBar/AnnouncementBar'
+import { Navbar } from '@/components/sections/Navbar/Navbar'
+import { Hero } from '@/components/sections/Hero/Hero'
+import { Clients } from '@/components/sections/Clients/Clients'
 
 export default function App() {
   return (
@@ -8,6 +9,7 @@ export default function App() {
       {/* <AnnouncementBar /> */}
       <Navbar />
       <Hero />
+      <Clients />
     </main>
   )
 }
