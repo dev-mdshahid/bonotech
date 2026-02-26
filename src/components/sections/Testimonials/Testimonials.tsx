@@ -27,7 +27,7 @@ const TESTIMONIALS: TestimonialData[] = [
             'Working with Bonotech was a game-changer for our business. They transformed our vision into a beautiful, functional application that our users love.',
         authorName: 'James Wilson',
         authorRole: 'Founder, BrightPath',
-        backgroundColor: '#FFAB51',
+        backgroundColor: '#F59E0B',
     },
 ]
 
@@ -70,7 +70,7 @@ function getTextColor(bg: string): { primary: string; secondary: string } {
         return { primary: '#FFFFFF', secondary: 'rgba(255,255,255,0.6)' }
     }
     if (bg === '#FFAB51') {
-        return { primary: '#131314', secondary: 'rgba(19,19,20,0.6)' }
+        return { primary: '#FFFFFF', secondary: 'rgba(255,255,255,0.6)' }
     }
     // Default purple card
     return { primary: '#FFFFFF', secondary: 'rgba(255,255,255,0.6)' }

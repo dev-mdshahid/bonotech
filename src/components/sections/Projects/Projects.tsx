@@ -85,7 +85,9 @@ export function Projects({ className }: ProjectsProps) {
     const cardAreaH = cardH
 
     /* Scroll distance allocated for each card to animate in */
-    const scrollPerCard = Math.max(cardH * 0.5, 300)
+    const scrollPerCard = isDesktop
+        ? Math.max(cardH * 1.5, 600)
+        : Math.max(cardH * 0.5, 300)
 
     /* Total scroll needed for cards 2…N to enter */
     const totalCardScroll = scrollPerCard * (PROJECTS.length - 1)
@@ -193,7 +195,7 @@ export function Projects({ className }: ProjectsProps) {
                             {/* Section title */}
                             <div
                                 ref={titleRef}
-                                className="flex flex-col items-center select-none pb-16"
+                                className="flex flex-col items-center select-none mb-4"
                             >
                                 <h2
                                     id="projects-heading"
