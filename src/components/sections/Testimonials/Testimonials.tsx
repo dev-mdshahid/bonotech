@@ -31,13 +31,6 @@ const TESTIMONIALS: TestimonialData[] = [
     },
 ]
 
-/** Card dimensions from Figma */
-const CARD_WIDTH = 1200
-const CARD_HEIGHT = 397
-const CARD_PADDING = 64
-const CARD_RADIUS = 24
-const CARD_GAP = 48
-
 /** Stack visual config — per-layer overrides for a natural deck look */
 const STACK_LAYERS = [
     // layer 0 = front card (full size, no transform)
@@ -92,54 +85,31 @@ function TestimonialCard({ testimonial }: TestimonialCardProps) {
 
     return (
         <div
-            className="w-full flex flex-col justify-between"
+            className="w-full max-w-300 md:min-h-99.25 rounded-3xl p-8 md:p-16 flex flex-col gap-5 md:gap-12"
             style={{
-                maxWidth: `${CARD_WIDTH}px`,
-                minHeight: `${CARD_HEIGHT}px`,
-                borderRadius: `${CARD_RADIUS}px`,
-                padding: `${CARD_PADDING}px`,
                 backgroundColor: testimonial.backgroundColor,
                 color: colors.primary,
-                gap: `${CARD_GAP}px`,
             }}
         >
             {/* Quote icon */}
             <QuoteIcon />
 
             {/* Quote text */}
-            <p
-                className="font-body"
-                style={{
-                    fontWeight: 600,
-                    fontSize: '28px',
-                    lineHeight: '100%',
-                    letterSpacing: '-0.5%',
-                }}
-            >
+            <p className="font-body font-medium text-base md:font-semibold md:text-[28px] leading-snug md:leading-none tracking-[-0.005em]">
                 {testimonial.quote}
             </p>
 
             {/* Author */}
-            <div className="flex flex-col" style={{ gap: '4px' }}>
+            <div className="flex flex-col gap-1">
                 <span
-                    className="font-body"
-                    style={{
-                        fontWeight: 700,
-                        fontSize: '20px',
-                        lineHeight: '140%',
-                        color: colors.primary,
-                    }}
+                    className="font-body font-bold text-base md:text-xl leading-[1.4]"
+                    style={{ color: colors.primary }}
                 >
                     {testimonial.authorName}
                 </span>
                 <span
-                    className="font-body"
-                    style={{
-                        fontWeight: 400,
-                        fontSize: '18px',
-                        lineHeight: '140%',
-                        color: colors.secondary,
-                    }}
+                    className="font-body font-normal text-sm md:text-lg leading-[1.4]"
+                    style={{ color: colors.secondary }}
                 >
                     {testimonial.authorRole}
                 </span>
@@ -197,24 +167,13 @@ export function Testimonials({ className }: TestimonialsProps) {
             className={cn('relative w-full bg-surface-neutral', className)}
         >
             <div
-                className="relative mx-auto w-full max-w-(--width-container) px-(--spacing-container-x) flex flex-col items-center"
-                style={{ paddingTop: '112px', paddingBottom: '112px' }}
+                className="relative mx-auto w-full max-w-(--width-container) px-(--spacing-container-x) flex flex-col items-center py-28"
             >
                 {/* Section Title */}
                 <div className="relative flex flex-col items-center select-none mb-10">
                     <h2
                         id="testimonials-heading"
-                        className="font-body font-normal text-center"
-                        style={{
-                            fontSize: 'clamp(80px, 14vw, 181.9px)',
-                            lineHeight: '80%',
-                            letterSpacing: '0%',
-                            background:
-                                'linear-gradient(180deg, #8269cf81 0%, transparent 100%)',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            backgroundClip: 'text',
-                        }}
+                        className="font-body font-normal text-center text-[clamp(64px,12vw,181.9px)] leading-[0.8] tracking-normal bg-[linear-gradient(180deg,#8269cf81_0%,transparent_100%)] bg-clip-text text-transparent"
                     >
                         Testimonial
                     </h2>
@@ -222,10 +181,9 @@ export function Testimonials({ className }: TestimonialsProps) {
 
                 {/* ─── Stacked Cards ─── */}
                 <div
-                    className="relative w-full flex justify-center"
+                    className="relative w-full flex justify-center h-85 md:h-109.25"
                     style={{
                         marginTop: `${STACK_TOP_OFFSET}px`,
-                        height: `${CARD_HEIGHT + 40}px`,
                     }}
                 >
                     {cardOrder.map((cardIndex, position) => {
@@ -317,11 +275,9 @@ export function Testimonials({ className }: TestimonialsProps) {
                         return (
                             <motion.div
                                 key={TESTIMONIALS[cardIndex].id}
-                                className="absolute flex justify-center"
+                                className="absolute flex justify-center w-full max-w-300"
                                 initial={false}
                                 style={{
-                                    width: '100%',
-                                    maxWidth: `${CARD_WIDTH}px`,
                                     zIndex,
                                     transformOrigin: 'bottom center',
                                 }}
@@ -345,20 +301,13 @@ export function Testimonials({ className }: TestimonialsProps) {
                 </div>
 
                 {/* ─── Navigation Arrows ─── */}
-                <div
-                    className="flex items-center justify-center"
-                    style={{ gap: '12px', marginTop: '32px' }}
-                >
+                <div className="flex items-center justify-center gap-3 mt-8">
                     <button
                         type="button"
                         onClick={handlePrev}
                         disabled={isAnimating}
                         aria-label="Previous testimonial"
-                        className="flex items-center justify-center rounded-full border border-border-primary bg-surface-neutral hover:bg-surface-primary transition-(--transition-base) disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-                        style={{
-                            width: '48px',
-                            height: '48px',
-                        }}
+                        className="flex items-center justify-center w-12 h-12 rounded-full border border-border-primary bg-surface-neutral hover:bg-surface-primary transition-(--transition-base) disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                     >
                         <ChevronLeft size={20} strokeWidth={2} />
                     </button>
@@ -367,11 +316,7 @@ export function Testimonials({ className }: TestimonialsProps) {
                         onClick={handleNext}
                         disabled={isAnimating}
                         aria-label="Next testimonial"
-                        className="flex items-center justify-center rounded-full border border-border-primary bg-surface-neutral hover:bg-surface-primary transition-(--transition-base) disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-                        style={{
-                            width: '48px',
-                            height: '48px',
-                        }}
+                        className="flex items-center justify-center w-12 h-12 rounded-full border border-border-primary bg-surface-neutral hover:bg-surface-primary transition-(--transition-base) disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                     >
                         <ChevronRight size={20} strokeWidth={2} />
                     </button>
