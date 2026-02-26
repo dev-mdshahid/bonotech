@@ -42,42 +42,25 @@ export function FAQ({ className }: FAQProps) {
             id="faq"
             aria-labelledby="faq-heading"
             className={cn(
-                'relative w-full overflow-hidden',
+                'relative w-full overflow-hidden bg-surface-accent',
                 className
             )}
-            style={{ background: 'var(--surface-accent)' }}
         >
             {/* Background gradient overlay — same as WhatWeDo */}
             <div
-                className="absolute inset-0 opacity-[0.08]"
-                style={{
-                    background: 'linear-gradient(180deg, #6DA9EE 0%, #31C7BF 100%)',
-                }}
+                className="absolute inset-0 opacity-[0.08] bg-[linear-gradient(180deg,#6DA9EE_0%,#31C7BF_100%)]"
                 aria-hidden="true"
             />
 
             {/* Content */}
             <div
-                className="relative z-10 mx-auto w-full max-w-(--width-container) px-(--spacing-container-x) flex flex-col items-center"
-                style={{ paddingTop: '112px', paddingBottom: '112px' }}
+                className="relative z-10 mx-auto w-full max-w-(--width-container) px-(--spacing-container-x) flex flex-col items-center py-28"
             >
                 {/* Top Pill Badge — same as WhatWeDo */}
-                <div
-                    className="flex items-center gap-[8px] mb-[12px]"
-                    style={{
-                        paddingTop: '6px',
-                        paddingRight: '16px',
-                        paddingBottom: '6px',
-                        paddingLeft: '16px',
-                        borderRadius: '999px',
-                        background: '#2A3946',
-                        border: '0.5px solid #374B5C',
-                    }}
-                >
+                <div className="flex items-center gap-2 mb-3 py-1.5 px-4 rounded-full bg-[#2A3946] border-[0.5px] border-[#374B5C]">
                     {/* Orange dot */}
                     <div
-                        className="w-[8px] h-[8px] rounded-full shrink-0"
-                        style={{ background: '#FFAB50' }}
+                        className="w-2 h-2 rounded-full shrink-0 bg-[#FFAB50]"
                         aria-hidden="true"
                     />
                     <span className="font-display font-medium text-[13px] leading-[140%] text-content-white">
@@ -94,9 +77,9 @@ export function FAQ({ className }: FAQProps) {
                 </h2>
 
                 {/* FAQ Cards — Two independent columns */}
-                <div className="w-full flex flex-col lg:flex-row lg:items-start gap-[12px]">
+                <div className="w-full flex flex-col lg:flex-row lg:items-start gap-3">
                     {/* Left column */}
-                    <div className="w-full lg:w-[calc(50%-6px)] flex flex-col gap-[12px] min-w-0">
+                    <div className="w-full lg:w-[calc(50%-6px)] flex flex-col gap-3 min-w-0">
                         {leftColumn.map((item) => {
                             const originalIndex = FAQ_ITEMS.indexOf(item)
                             return (
@@ -111,7 +94,7 @@ export function FAQ({ className }: FAQProps) {
                     </div>
 
                     {/* Right column */}
-                    <div className="w-full lg:w-[calc(50%-6px)] flex flex-col gap-[12px] min-w-0">
+                    <div className="w-full lg:w-[calc(50%-6px)] flex flex-col gap-3 min-w-0">
                         {rightColumn.map((item) => {
                             const originalIndex = FAQ_ITEMS.indexOf(item)
                             return (
