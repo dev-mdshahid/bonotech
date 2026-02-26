@@ -49,16 +49,9 @@ export function HeroGrid() {
             cells.push(
                 <div
                     key={key}
-                    className="transition-colors duration-300 ease-out"
-                    style={{
-                        width: `${CELL_SIZE}px`,
-                        height: `${CELL_SIZE}px`,
-                        borderRight: '1px solid rgba(220, 221, 224, 0.5)',
-                        borderBottom: '1px solid rgba(220, 221, 224, 0.5)',
-                        backgroundColor: isHovered
-                            ? 'rgba(130, 105, 207, 0.06)'
-                            : 'transparent',
-                    }}
+                    className={`transition-colors duration-300 ease-out w-20 h-20 border-r border-b border-r-[rgba(220,221,224,0.5)] border-b-[rgba(220,221,224,0.5)] ${
+                        isHovered ? 'bg-[rgba(130,105,207,0.06)]' : 'bg-transparent'
+                    }`}
                 />,
             )
         }
@@ -74,9 +67,7 @@ export function HeroGrid() {
         >
             <div
                 className="flex flex-wrap"
-                style={{
-                    width: `${gridDimensions.cols * CELL_SIZE}px`,
-                }}
+                style={{ width: `${gridDimensions.cols * CELL_SIZE}px` }}
             >
                 {cells}
             </div>

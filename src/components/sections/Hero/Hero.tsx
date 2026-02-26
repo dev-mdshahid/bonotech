@@ -48,54 +48,43 @@ export function Hero({
             <HeroGrid />
 
             {/* Top gradient overlay */}
-            <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-white to-transparent z-10 pointer-events-none" />
+            <div className="absolute top-0 inset-x-0 h-32 bg-linear-to-b from-white to-transparent z-10 pointer-events-none" />
 
             {/* Bottom gradient overlay */}
-            <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none" />
+            <div className="absolute bottom-0 inset-x-0 h-32 bg-linear-to-t from-white to-transparent z-10 pointer-events-none" />
 
             {/* Content — pointer-events-none so grid receives hover, 
                  interactive children opt back in with pointer-events-auto */}
             <div className="relative z-20 pointer-events-none mx-auto w-full max-w-(--width-container) px-(--spacing-container-x)">
-                <div className="flex flex-col lg:flex-row items-center lg:items-stretch gap-[40px] lg:gap-[64px] py-[48px] lg:py-[80px]">
+                <div className="flex flex-col lg:flex-row items-center lg:items-stretch gap-10 lg:gap-16 py-12 lg:py-20">
                     {/* Left column — text content */}
-                    <div className="flex flex-col justify-between flex-1 min-w-0 my-10">
+                    <div className="flex flex-col justify-between flex-1 min-w-0 my-10 items-center lg:items-start text-center lg:text-left">
                         {/* Top: Pill + Title + Subtitle + CTA */}
-                        <div className="flex flex-col">
+                        <div className="flex flex-col items-center lg:items-start">
                             {/* Pill */}
                             <HeroPill text={pillText} />
 
                             {/* Title — 12px gap from pill */}
                             <h1
                                 id="hero-heading"
-                                className="font-display font-semibold text-content-primary mt-[12px]"
-                                style={{
-                                    fontSize: '48px',
-                                    lineHeight: '1.1',
-                                    letterSpacing: '-0.02em',
-                                }}
+                                className="font-display font-semibold text-content-primary mt-3 text-display-sm lg:text-display-md"
                             >
                                 {title}
                             </h1>
 
                             {/* Subtitle — 8px gap from title */}
-                            <p
-                                className="font-body text-content-tertiary mt-[8px]"
-                                style={{
-                                    fontSize: '18px',
-                                    lineHeight: '1.6',
-                                }}
-                            >
+                            <p className="font-body text-content-tertiary mt-2 text-lg leading-[1.6]">
                                 {subtitle}
                             </p>
 
                             {/* CTA — 32px gap from subtitle */}
-                            <div className="mt-[32px] pointer-events-auto self-start">
+                            <div className="mt-8 pointer-events-auto w-full lg:w-auto">
                                 <HeroButton label={ctaLabel} href={ctaHref} />
                             </div>
                         </div>
 
                         {/* Bottom: Brand logos */}
-                        <div className="mt-[48px] lg:mt-0 pointer-events-auto self-start">
+                        <div className="mt-12 lg:mt-0 pointer-events-auto w-full lg:w-auto">
                             <BrandLogoBar brands={brands} />
                         </div>
                     </div>

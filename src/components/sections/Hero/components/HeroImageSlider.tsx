@@ -45,17 +45,13 @@ export function HeroImageSlider({ images, slideDuration = 4000 }: HeroImageSlide
     }
 
     return (
-        <div
-            className="relative w-full lg:w-[600px] h-[400px] lg:h-[660px] overflow-hidden flex-shrink-0 pointer-events-auto"
-            style={{ borderRadius: '64px' }}
-        >
+        <div className="relative w-full lg:w-[600px] h-[420px] lg:h-[660px] overflow-hidden flex-shrink-0 pointer-events-auto rounded-[64px]">
             <AnimatePresence initial={false} custom={direction} mode="sync">
                 <motion.img
                     key={currentIndex}
                     src={images[currentIndex].src}
                     alt={images[currentIndex].alt}
-                    className="absolute inset-0 w-full h-full object-cover"
-                    style={{ borderRadius: '64px' }}
+                    className="absolute inset-0 w-full h-full object-cover rounded-[64px]"
                     custom={direction}
                     variants={slideVariants}
                     initial="enter"
@@ -66,22 +62,18 @@ export function HeroImageSlider({ images, slideDuration = 4000 }: HeroImageSlide
             </AnimatePresence>
 
             {/* Progress indicators */}
-            <div className="absolute bottom-[24px] left-1/2 -translate-x-1/2 flex items-center gap-[6px] z-10">
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10">
                 {images.map((_, index) => (
                     <button
                         key={index}
                         type="button"
                         onClick={() => goToSlide(index)}
                         aria-label={`Go to slide ${index + 1}`}
-                        className="transition-(--transition-base)"
-                        style={{
-                            width: index === currentIndex ? '24px' : '8px',
-                            height: '8px',
-                            borderRadius: '4px',
-                            backgroundColor: index === currentIndex
-                                ? 'rgba(255, 255, 255, 0.9)'
-                                : 'rgba(255, 255, 255, 0.4)',
-                        }}
+                        className={`transition-(--transition-base) h-2 rounded-full ${
+                            index === currentIndex
+                                ? 'w-6 bg-white/90'
+                                : 'w-2 bg-white/40'
+                        }`}
                     />
                 ))}
             </div>

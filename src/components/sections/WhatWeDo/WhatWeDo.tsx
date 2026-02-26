@@ -54,42 +54,23 @@ export function WhatWeDo({ className }: WhatWeDoProps) {
             id="what-we-do"
             aria-labelledby="what-we-do-heading"
             className={cn(
-                'relative w-full overflow-hidden',
+                'relative w-full overflow-hidden bg-surface-accent',
                 className
             )}
-            style={{ background: 'var(--surface-accent)' }}
         >
             {/* Background gradient overlay */}
             <div
-                className="absolute inset-0 opacity-[0.08]"
-                style={{
-                    background: 'linear-gradient(180deg, #6DA9EE 0%, #31C7BF 100%)',
-                }}
+                className="absolute inset-0 opacity-[0.08] bg-[linear-gradient(180deg,#6DA9EE_0%,#31C7BF_100%)]"
                 aria-hidden="true"
             />
 
             {/* Content */}
-            <div
-                className="relative z-10 mx-auto w-full max-w-(--width-container) px-(--spacing-container-x) flex flex-col items-center"
-                style={{ paddingTop: '112px', paddingBottom: '112px' }}
-            >
+            <div className="relative z-10 mx-auto w-full max-w-(--width-container) px-(--spacing-container-x) py-16 md:py-28 flex flex-col items-center">
                 {/* Top Pill Badge */}
-                <div
-                    className="flex items-center gap-[8px] mb-[12px]"
-                    style={{
-                        paddingTop: '6px',
-                        paddingRight: '16px',
-                        paddingBottom: '6px',
-                        paddingLeft: '16px',
-                        borderRadius: '999px',
-                        background: '#2A3946',
-                        border: '0.5px solid #374B5C',
-                    }}
-                >
+                <div className="flex items-center gap-2 mb-3 py-1.5 px-4 rounded-full bg-[#2A3946] border-[0.5px] border-[#374B5C]">
                     {/* Orange dot */}
                     <div
-                        className="w-[8px] h-[8px] rounded-full shrink-0"
-                        style={{ background: '#FFAB50' }}
+                        className="w-2 h-2 rounded-full shrink-0 bg-[#FFAB50]"
                         aria-hidden="true"
                     />
                     <span className="font-display font-medium text-[13px] leading-[140%] text-content-white">
@@ -100,15 +81,15 @@ export function WhatWeDo({ className }: WhatWeDoProps) {
                 {/* Heading */}
                 <h2
                     id="what-we-do-heading"
-                    className="font-display font-semibold text-[32px] leading-[125%] text-center text-content-white mb-10"
+                    className="font-display font-semibold text-2xl md:text-[32px] leading-[125%] text-center text-content-white mb-8 md:mb-10"
                 >
                     Blazing Fast Execution
                     <br />
-                    <span style={{ color: '#FFAC4D' }}>Unbeatable Prices</span>
+                    <span className="text-[#FFAC4D]">Unbeatable Prices</span>
                 </h2>
 
                 {/* Cards Grid */}
-                <div className="flex flex-wrap justify-center gap-[10px] justify-items-center">
+                <div className="grid grid-cols-2 md:flex md:flex-wrap md:justify-center gap-[10px] w-full md:max-w-none">
                     {SERVICE_CARDS.map((card) => (
                         <ServiceCardItem key={card.title} card={card} />
                     ))}

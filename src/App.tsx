@@ -17,11 +17,11 @@ export default function App() {
             <Hero />
             <Clients />
             <WhatWeDo />
-            <Projects />
-            <Testimonials />
-            <FAQ />
-            <Contact />
-            <Footer />
+            {/* <Projects /> */}
+            {/* <Testimonials /> */}
+            {/* <FAQ /> */}
+            {/* <Contact /> */}
+            {/* <Footer /> */}
         </main>
     )
 }
