@@ -6,10 +6,10 @@ import menuIcon from '@/assets/icons/menu-line-horizontal.svg'
 import type { NavbarProps, NavLink } from './Navbar.types'
 
 const DEFAULT_LINKS: NavLink[] = [
-    { label: 'About', href: '#about' },
-    { label: 'Testimonial', href: '#testimonial' },
-    { label: 'Portfolio', href: '#portfolio' },
-    { label: 'FAQs', href: '#faqs' },
+    { label: 'About', href: '#what-we-do' },
+    { label: 'Testimonial', href: '#testimonials' },
+    { label: 'Portfolio', href: '#projects' },
+    { label: 'FAQs', href: '#faq' },
 ]
 
 export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
