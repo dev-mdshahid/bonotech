@@ -3,12 +3,6 @@ import { cn } from '@/lib/utils'
 import type { ContactProps } from './Contact.types'
 import contactBg from '@/assets/contact-section-bg.png'
 
-/** Figma layout specs */
-const CARD_WIDTH = 1200
-const CARD_HEIGHT = 718
-const CARD_RADIUS = 32
-const CARD_PADDING = 64
-
 export function Contact({ className }: ContactProps) {
     const [name, setName] = useState('')
     const [emailPhone, setEmailPhone] = useState('')
@@ -30,24 +24,13 @@ export function Contact({ className }: ContactProps) {
             className={cn('relative w-full bg-surface-neutral', className)}
         >
             <div
-                className="relative mx-auto w-full max-w-(--width-container) px-(--spacing-container-x) flex flex-col items-center"
-                style={{ paddingTop: '112px', paddingBottom: '112px' }}
+                className="relative mx-auto w-full max-w-(--width-container) px-(--spacing-container-x) flex flex-col items-center py-28"
             >
                 {/* Section Title — "Let's Connect" with gradient */}
                 <div className="relative flex flex-col items-center select-none mb-10">
                     <h2
                         id="contact-heading"
-                        className="font-body font-normal text-center"
-                        style={{
-                            fontSize: 'clamp(80px, 14vw, 181.9px)',
-                            lineHeight: '80%',
-                            letterSpacing: '0%',
-                            background:
-                                'linear-gradient(180deg, #8269cf81 0%, transparent 100%)',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            backgroundClip: 'text',
-                        }}
+                        className="font-body font-normal text-center text-[clamp(44px,12vw,181.9px)] leading-[0.8] tracking-normal bg-[linear-gradient(180deg,#8269cf81_0%,transparent_100%)] bg-clip-text text-transparent"
                     >
                         Let's Connect
                     </h2>
@@ -55,60 +38,28 @@ export function Contact({ className }: ContactProps) {
 
                 {/* ─── Contact Card ─── */}
                 <div
-                    className="relative w-full overflow-hidden flex flex-col lg:flex-row justify-between"
-                    style={{
-                        maxWidth: `${CARD_WIDTH}px`,
-                        height: `${CARD_HEIGHT}px`,
-                        borderRadius: `${CARD_RADIUS}px`,
-                        padding: `${CARD_PADDING}px`,
-                    }}
+                    className="relative w-full max-w-300 overflow-hidden flex flex-col lg:flex-row justify-between rounded-4xl p-8 md:p-16 lg:h-179.5"
                 >
                     {/* Background image */}
                     <img
                         src={contactBg}
                         alt=""
                         aria-hidden="true"
-                        className="absolute inset-0 w-full h-full object-cover"
-                        style={{ zIndex: 0 }}
+                        className="absolute inset-0 w-full h-full object-cover z-0"
                     />
 
                     {/* Dark overlay for readability */}
                     <div
-                        className="absolute inset-0"
-                        style={{
-                            zIndex: 1,
-                            background:
-                                'linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 100%)',
-                        }}
+                        className="absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(0,0,0,0.1)_0%,rgba(0,0,0,0.3)_100%)]"
                         aria-hidden="true"
                     />
 
                     {/* ─── Left Content ─── */}
-                    <div
-                        className="relative flex flex-col justify-center w-1/2"
-                        style={{ zIndex: 2 }}
-                    >
-                        <h3
-                            className="font-body text-white"
-                            style={{
-                                fontWeight: 500,
-                                fontSize: '40px',
-                                lineHeight: '110%',
-                                letterSpacing: '-0.01em',
-                            }}
-                        >
-                            Have an idea in <br />your mind ?
+                    <div className="relative z-20 flex flex-col justify-center w-full lg:w-1/2">
+                        <h3 className="font-body font-medium text-white text-[32px] md:text-[40px] leading-[1.1] tracking-[-0.01em] lg:max-w-1/2">
+                            Have an idea in your mind?
                         </h3>
-                        <p
-                            className="font-body text-white"
-                            style={{
-                                fontWeight: 500,
-                                fontSize: '18px',
-                                lineHeight: '140%',
-                                marginTop: '16px',
-                                opacity: 0.8,
-                            }}
-                        >
+                        <p className="font-body font-medium text-white/80 text-base md:text-lg leading-[1.4] mt-4">
                             Let's make something happen together
                         </p>
                     </div>
@@ -116,52 +67,34 @@ export function Contact({ className }: ContactProps) {
                     {/* ─── Right Form ─── */}
                     <form
                         onSubmit={handleSubmit}
-                        className="relative flex flex-col justify-center w-1/2 px-12"
-                        style={{
-                            zIndex: 2,
-                            gap: '32px',
-                        }}
+                        className="relative z-20 flex flex-col justify-center w-full lg:w-1/2 lg:px-12 gap-8 mt-8 lg:mt-0"
                     >
                         {/* Name */}
-                        <div className="flex flex-col" style={{ gap: '8px' }}>
+                        <div>
                             <input
                                 type="text"
                                 placeholder="Name"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 aria-label="Name"
-                                className="font-body bg-transparent text-white placeholder:text-white outline-none w-full"
-                                style={{
-                                    fontSize: '16px',
-                                    lineHeight: '140%',
-                                    fontWeight: 400,
-                                    paddingBottom: '12px',
-                                    borderBottom: '1px solid #E8E9EB',
-                                }}
+                                className="font-body bg-transparent text-base leading-[1.4] font-normal text-white placeholder:text-white outline-none w-full pb-3 border-b border-[#E8E9EB]"
                             />
                         </div>
 
                         {/* Email / Phone */}
-                        <div className="flex flex-col" style={{ gap: '8px' }}>
+                        <div>
                             <input
                                 type="text"
                                 placeholder="Email/Phone No"
                                 value={emailPhone}
                                 onChange={(e) => setEmailPhone(e.target.value)}
                                 aria-label="Email or Phone Number"
-                                className="font-body bg-transparent text-white placeholder:text-white outline-none w-full"
-                                style={{
-                                    fontSize: '16px',
-                                    lineHeight: '140%',
-                                    fontWeight: 400,
-                                    paddingBottom: '12px',
-                                    borderBottom: '1px solid #E8E9EB',
-                                }}
+                                className="font-body bg-transparent text-base leading-[1.4] font-normal text-white placeholder:text-white outline-none w-full pb-3 border-b border-[#E8E9EB]"
                             />
                         </div>
 
                         {/* Project Details */}
-                        <div className="flex flex-col" style={{ gap: '8px' }}>
+                        <div>
                             <input
                                 type="text"
                                 placeholder="Project Details"
@@ -170,33 +103,14 @@ export function Contact({ className }: ContactProps) {
                                     setProjectDetails(e.target.value)
                                 }
                                 aria-label="Project Details"
-                                className="font-body bg-transparent text-white placeholder:text-white outline-none w-full"
-                                style={{
-                                    fontSize: '16px',
-                                    lineHeight: '140%',
-                                    fontWeight: 400,
-                                    paddingBottom: '12px',
-                                    borderBottom: '1px solid #E8E9EB',
-                                }}
+                                className="font-body bg-transparent text-base leading-[1.4] font-normal text-white placeholder:text-white outline-none w-full pb-3 border-b border-[#E8E9EB]"
                             />
                         </div>
 
                         {/* Submit Button */}
                         <button
                             type="submit"
-                            className="font-body cursor-pointer transition-(--transition-base) hover:opacity-90"
-                            style={{
-                                width: '100%',
-                                height: '56px',
-                                borderRadius: '100px',
-                                backgroundColor: '#FFFFFF',
-                                color: '#131314',
-                                fontWeight: 600,
-                                fontSize: '16px',
-                                lineHeight: '140%',
-                                border: 'none',
-                                marginTop: '8px',
-                            }}
+                            className="font-body cursor-pointer transition-(--transition-base) hover:opacity-90 w-full h-14 rounded-full bg-white text-[#131314] font-semibold text-base leading-[1.4] mt-2"
                         >
                             Send Message
                         </button>

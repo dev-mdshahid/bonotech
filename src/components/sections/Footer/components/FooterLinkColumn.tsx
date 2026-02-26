@@ -6,41 +6,22 @@ interface FooterLinkColumnProps {
 
 export function FooterLinkColumn({ group }: FooterLinkColumnProps) {
     return (
-        <div className="flex flex-col" style={{ gap: '20px' }}>
+        <div className="flex flex-col gap-5">
             {/* Column header — uppercase, tracked, subtle */}
-            <span
-                className="font-body text-white"
-                style={{
-                    fontSize: '11px',
-                    lineHeight: '140%',
-                    fontWeight: 600,
-                    letterSpacing: '0.1em',
-                    textTransform: 'uppercase' as const,
-                    opacity: 0.35,
-                }}
-            >
+            <span className="font-body text-[11px] leading-[1.4] font-semibold tracking-[0.1em] uppercase text-white opacity-35">
                 {group.title}
             </span>
 
             {/* Links */}
             <nav
                 aria-label={`${group.title} links`}
-                className="flex flex-col"
-                style={{ gap: '14px' }}
+                className="flex flex-col gap-3.5"
             >
                 {group.links.map((link) => (
                     <a
                         key={link.label}
                         href={link.href}
-                        className="group font-body text-white inline-flex items-center transition-(--transition-base) hover:opacity-100"
-                        style={{
-                            fontSize: '14px',
-                            lineHeight: '1.5',
-                            fontWeight: 400,
-                            opacity: 0.65,
-                            gap: '8px',
-                            textDecoration: 'none',
-                        }}
+                        className="group font-body text-sm leading-[1.5] font-normal text-white no-underline opacity-65 inline-flex items-center gap-2 transition-(--transition-base) hover:opacity-100"
                     >
                         {/* Link text with animated underline */}
                         <span className="relative">
@@ -53,23 +34,7 @@ export function FooterLinkColumn({ group }: FooterLinkColumnProps) {
 
                         {/* Badge */}
                         {link.badge && (
-                            <span
-                                className="font-body inline-flex items-center justify-center"
-                                style={{
-                                    fontSize: '9px',
-                                    fontWeight: 700,
-                                    lineHeight: 1,
-                                    letterSpacing: '0.06em',
-                                    color: '#FFFFFF',
-                                    background:
-                                        'linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.06))',
-                                    border: '1px solid rgba(255,255,255,0.18)',
-                                    borderRadius: '100px',
-                                    padding: '3px 8px',
-                                    textTransform: 'uppercase' as const,
-                                    backdropFilter: 'blur(4px)',
-                                }}
-                            >
+                            <span className="font-body inline-flex items-center justify-center text-[9px] font-bold leading-none tracking-[0.06em] uppercase text-white bg-[linear-gradient(135deg,rgba(255,255,255,0.18),rgba(255,255,255,0.06))] border border-[rgba(255,255,255,0.18)] rounded-full px-2 py-[3px] backdrop-blur-sm">
                                 {link.badge}
                             </span>
                         )}
