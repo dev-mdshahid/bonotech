@@ -17,7 +17,7 @@ export default function App() {
             <Hero />
             <Clients />
             <WhatWeDo />
-            {/* <Projects /> */}
+            <Projects />
             {/* <Testimonials /> */}
             {/* <FAQ /> */}
             {/* <Contact /> */}

@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 import { cn } from '@/lib/utils'
 import type { ProjectsProps, ProjectCardData } from './Projects.types'
 import { ProjectCard } from './components/ProjectCard'
@@ -50,14 +50,29 @@ const PROJECTS: ProjectCardData[] = [
     },
 ]
 
-/** Px from viewport top where the first card sticks */
-const STICKY_TOP = 80
+
+
+export function Projects({ className }: ProjectsProps) {
+    const [isDesktop, setIsDesktop] = useState(false)
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsDesktop(window.innerWidth >= 768)
+        }
+
+        handleResize()
+        window.addEventListener('resize', handleResize)
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
+
+
+    /** Px from viewport top where the first card sticks */
+const STICKY_TOP = isDesktop ? 80 : 10
 /** Px vertical offset between each stacked card */
 const STACK_OFFSET = 40
 /** Degrees to rotate each card after the first */
 const CARD_ROTATION = 2
 
-export function Projects({ className }: ProjectsProps) {
     return (
         <section
             id="projects"
@@ -67,24 +82,12 @@ export function Projects({ className }: ProjectsProps) {
                 className
             )}
         >
-            <div
-                className="relative mx-auto w-full max-w-(--width-container) px-(--spacing-container-x)"
-                style={{ paddingTop: '112px' }}
-            >
+            <div className="relative mx-auto w-full max-w-(--width-container) px-(--spacing-container-x) pt-28">
                 {/* Section Title — "Projects" with gradient */}
                 <div className="relative flex flex-col items-center select-none mb-10">
                     <h2
                         id="projects-heading"
-                        className="font-body font-normal text-center"
-                        style={{
-                            fontSize: 'clamp(80px, 14vw, 181.9px)',
-                            lineHeight: '80%',
-                            letterSpacing: '0%',
-                            background: 'linear-gradient(180deg, #8269cf81 0%, transparent 100%)',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            backgroundClip: 'text',
-                        }}
+                        className="font-body font-normal text-center text-[clamp(80px,14vw,181.9px)] leading-[0.8] tracking-normal bg-[linear-gradient(180deg,#8269cf81_0%,transparent_100%)] bg-clip-text text-transparent"
                     >
                         Projects
                     </h2>
@@ -95,17 +98,16 @@ export function Projects({ className }: ProjectsProps) {
                      this single container (via Fragment). If they are wrapped
                      in individual parent divs, sticky breaks because each
                      card can only stick within its own parent's bounds. */}
-                <div style={{ marginTop: '64px', paddingBottom: '112px' }}>
+                <div className="mt-16 pb-28">
                     {PROJECTS.map((project, index) => (
                         <Fragment key={project.id}>
                             {/* Sticky project card */}
                             <div
-                                className="flex justify-center"
+                                className="flex justify-center sticky"
                                 style={{
-                                    position: 'sticky',
                                     top: `${STICKY_TOP + index * STACK_OFFSET}px`,
                                     zIndex: index + 1,
-                                    transform: index > 0
+                                    transform: index > 0 && isDesktop
                                         ? `rotate(${CARD_ROTATION}deg)`
                                         : 'none',
                                 }}
@@ -118,7 +120,7 @@ export function Projects({ className }: ProjectsProps) {
                                 last card. */}
                             {index < PROJECTS.length - 1 && (
                                 <div
-                                    style={{ height: '20vh' }}
+                                    className="h-[20vh]"
                                     aria-hidden="true"
                                 />
                             )}
