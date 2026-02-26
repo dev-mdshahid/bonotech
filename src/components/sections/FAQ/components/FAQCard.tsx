@@ -26,44 +26,40 @@ export function FAQCard({ item, isOpen, onToggle }: FAQCardProps) {
                 }
             }}
         >
-            <div className="flex items-center justify-between gap-12">
-                <div className="flex-1 min-w-0">
-                    <h3
-                        className={cn(
-                            'font-display text-content-white text-2xl overflow-hidden text-ellipsis',
-                            isOpen ? 'whitespace-normal' : 'whitespace-nowrap'
-                        )}
-                    >
+            <div className="flex flex-col">
+                {/* Question row */}
+                <div className="flex items-center justify-between gap-4">
+                    <h3 className={cn('font-display text-content-white text-2xl min-w-0', isOpen ? 'whitespace-normal' : 'truncate')}>
                         {item.question}
                     </h3>
 
-                    {/* Answer */}
+                    {/* Toggle Icon */}
                     <div
-                        className="overflow-hidden transition-all duration-300 ease-in-out"
-                        style={{
-                            maxHeight: isOpen ? '300px' : '0px',
-                            opacity: isOpen ? 1 : 0,
-                            marginTop: isOpen ? '12px' : '0px',
-                        }}
+                        className={cn(
+                            'shrink-0 flex items-center justify-center w-9 h-9 rounded-full border border-white transition-all duration-300',
+                            isOpen ? 'bg-[rgba(74,94,111,0.3)]' : 'bg-white'
+                        )}
                     >
-                        <p className="font-body leading-[160%] font-normal pt-4 text-[#E8E9EB]">
-                            {item.answer}
-                        </p>
+                        {isOpen ? (
+                            <Minus size={16} color="white" strokeWidth={2} />
+                        ) : (
+                            <Plus size={16} color="#243240" strokeWidth={2} />
+                        )}
                     </div>
                 </div>
 
-                {/* Toggle Icon */}
+                {/* Answer - full width */}
                 <div
-                    className={cn(
-                        'shrink-0 flex items-center justify-center w-9 h-9 rounded-full border border-white transition-all duration-300',
-                        isOpen ? 'bg-[rgba(74,94,111,0.3)]' : 'bg-white'
-                    )}
+                    className="overflow-hidden transition-all duration-300 ease-in-out w-full"
+                    style={{
+                        maxHeight: isOpen ? '300px' : '0px',
+                        opacity: isOpen ? 1 : 0,
+                        marginTop: isOpen ? '12px' : '0px',
+                    }}
                 >
-                    {isOpen ? (
-                        <Minus size={16} color="white" strokeWidth={2} />
-                    ) : (
-                        <Plus size={16} color="#243240" strokeWidth={2} />
-                    )}
+                    <p className="font-body leading-[160%] font-normal pt-4 text-[#E8E9EB]">
+                        {item.answer}
+                    </p>
                 </div>
             </div>
         </div>
