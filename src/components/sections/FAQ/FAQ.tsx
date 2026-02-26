@@ -27,7 +27,7 @@ const FAQ_ITEMS: FAQItem[] = [
 ]
 
 export function FAQ({ className }: FAQProps) {
-    const [openIndex, setOpenIndex] = useState<number | null>(1)
+    const [openIndex, setOpenIndex] = useState<number | null>(null)
 
     const handleToggle = (index: number) => {
         setOpenIndex(openIndex === index ? null : index)

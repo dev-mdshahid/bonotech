@@ -153,7 +153,7 @@ export function Projects({ className }: ProjectsProps) {
             id="projects"
             aria-labelledby="projects-heading"
             className={cn(
-                'relative w-full bg-surface-neutral pt-28 pb-28',
+                'relative w-full bg-surface-neutral pt-28 lg:pb-28 pb-0',
                 className
             )}
         >
