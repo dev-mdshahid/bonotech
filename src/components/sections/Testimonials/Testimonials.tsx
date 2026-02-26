@@ -38,7 +38,7 @@ const STACK_LAYERS = [
     // layer 1 = first card behind (peeking out)
     { rotation: 1, scale: 0.92, yOffset: -60, xOffset: 0 },
     // layer 2 = second card behind (peeking out further)
-    { rotation: -1, scale: 0.87, yOffset: -120, xOffset: 20 },
+    { rotation: -1, scale: 0.82, yOffset: -130, xOffset: 10 },
 ]
 const STACK_TOP_OFFSET = 60.31 // px — top offset from Figma
 
