@@ -157,22 +157,10 @@ export function Projects({ className }: ProjectsProps) {
                 className
             )}
         >
-            {/* Scroll runway — oversized so the single sticky wrapper
-                stays pinned for the full card-animation duration */}
-            <div
-                ref={runwayRef}
-                className="relative mx-auto w-full max-w-(--width-container) px-(--spacing-container-x)"
-                style={{ height: runwayH }}
-            >
-                {/* ─── Sticky wrapper ───
-                     Pins below the navbar. Title + card viewport move
-                     as a single block when the runway scrolls past. */}
-                <div className="sticky" style={{ top: NAVBAR_H }}>
-                    {/* Section title */}
-                    <div
-                        ref={titleRef}
-                        className="flex flex-col items-center select-none pb-16"
-                    >
+            {/* ── Mobile layout: plain stacked cards, no animation ── */}
+            {!isDesktop && (
+                <div className="mx-auto w-full max-w-(--width-container) px-(--spacing-container-x)">
+                    <div className="flex flex-col items-center select-none pb-12">
                         <h2
                             id="projects-heading"
                             className="font-body font-normal text-center text-[clamp(80px,14vw,181.9px)] leading-[0.8] tracking-normal bg-[linear-gradient(180deg,#8269cf81_0%,transparent_100%)] bg-clip-text text-transparent"
@@ -180,34 +168,69 @@ export function Projects({ className }: ProjectsProps) {
                             Projects
                         </h2>
                     </div>
-
-                    {/* Card viewport — clipPath hides cards entering from below.
-                        Bottom inset is -80px so rotation corners aren't clipped,
-                        but still hides cards that start 100px below this edge. */}
-                    <div
-                        className="relative"
-                        style={{
-                            height: cardAreaH,
-                            clipPath: 'inset(-200px -200px -80px -200px)',
-                        }}
-                    >
-                        {PROJECTS.map((project, index) => (
-                            <div
-                                key={project.id}
-                                ref={(el) => {
-                                    cardEls.current[index] = el
-                                    if (index === 0)
-                                        firstCardRef.current = el
-                                }}
-                                className="absolute inset-x-0 flex justify-center will-change-transform"
-                                style={{ zIndex: index + 1 }}
-                            >
-                                <ProjectCard project={project} />
-                            </div>
+                    <div className="flex flex-col gap-8">
+                        {PROJECTS.map((project) => (
+                            <ProjectCard key={project.id} project={project} />
                         ))}
                     </div>
                 </div>
-            </div>
+            )}
+
+            {/* ── Desktop layout: scroll-driven stacking animation ── */}
+            {isDesktop && (
+                <>
+                    {/* Scroll runway — oversized so the single sticky wrapper
+                        stays pinned for the full card-animation duration */}
+                    <div
+                        ref={runwayRef}
+                        className="relative mx-auto w-full max-w-(--width-container) px-(--spacing-container-x)"
+                        style={{ height: runwayH }}
+                    >
+                        {/* ─── Sticky wrapper ───
+                             Pins below the navbar. Title + card viewport move
+                             as a single block when the runway scrolls past. */}
+                        <div className="sticky" style={{ top: NAVBAR_H }}>
+                            {/* Section title */}
+                            <div
+                                ref={titleRef}
+                                className="flex flex-col items-center select-none pb-16"
+                            >
+                                <h2
+                                    id="projects-heading"
+                                    className="font-body font-normal text-center text-[clamp(80px,14vw,181.9px)] leading-[0.8] tracking-normal bg-[linear-gradient(180deg,#8269cf81_0%,transparent_100%)] bg-clip-text text-transparent"
+                                >
+                                    Projects
+                                </h2>
+                            </div>
+
+                            {/* Card viewport — clipPath hides cards entering from below.
+                                Negative insets let rotated corners bleed without clipping. */}
+                            <div
+                                className="relative"
+                                style={{
+                                    height: cardAreaH,
+                                    clipPath: 'inset(-200px -200px -80px -200px)',
+                                }}
+                            >
+                                {PROJECTS.map((project, index) => (
+                                    <div
+                                        key={project.id}
+                                        ref={(el) => {
+                                            cardEls.current[index] = el
+                                            if (index === 0)
+                                                firstCardRef.current = el
+                                        }}
+                                        className="absolute inset-x-0 flex justify-center will-change-transform"
+                                        style={{ zIndex: index + 1 }}
+                                    >
+                                        <ProjectCard project={project} />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </>
+            )}
         </section>
     )
 }
