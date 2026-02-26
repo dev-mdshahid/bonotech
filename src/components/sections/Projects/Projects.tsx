@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { cn } from '@/lib/utils'
 import type { ProjectsProps, ProjectCardData } from './Projects.types'
 import { ProjectCard } from './components/ProjectCard'
@@ -50,82 +50,162 @@ const PROJECTS: ProjectCardData[] = [
     },
 ]
 
-
+/** Fixed height of the site navbar (px) */
+const NAVBAR_H = 80
+/** Degrees to rotate stacked cards (alternates ±) */
+const CARD_ROTATION = 2
 
 export function Projects({ className }: ProjectsProps) {
+    const runwayRef = useRef<HTMLDivElement>(null)
+    const titleRef = useRef<HTMLDivElement>(null)
+    const firstCardRef = useRef<HTMLDivElement>(null)
+    const cardEls = useRef<(HTMLDivElement | null)[]>([])
     const [isDesktop, setIsDesktop] = useState(false)
+    const [dims, setDims] = useState({ titleH: 200, cardH: 600 })
 
+    /* ── Measure title + card on mount / resize ── */
     useEffect(() => {
-        const handleResize = () => {
+        const measure = () => {
             setIsDesktop(window.innerWidth >= 768)
+            setDims({
+                titleH: titleRef.current?.offsetHeight || 200,
+                cardH: firstCardRef.current?.offsetHeight || 600,
+            })
         }
-
-        handleResize()
-        window.addEventListener('resize', handleResize)
-        return () => window.removeEventListener('resize', handleResize)
+        measure()
+        requestAnimationFrame(measure) // re‑measure after first paint
+        window.addEventListener('resize', measure)
+        return () => window.removeEventListener('resize', measure)
     }, [])
 
+    const { titleH, cardH } = dims
 
-    /** Px from viewport top where the first card sticks */
-const STICKY_TOP = isDesktop ? 80 : 10
-/** Px vertical offset between each stacked card */
-const STACK_OFFSET = 40
-/** Degrees to rotate each card after the first */
-const CARD_ROTATION = 2
+    /* Visible height of the card-stacking viewport
+       (all cards stack in the same position, no vertical offset) */
+    const cardAreaH = cardH
+
+    /* Scroll distance allocated for each card to animate in */
+    const scrollPerCard = Math.max(cardH * 0.5, 300)
+
+    /* Total scroll needed for cards 2…N to enter */
+    const totalCardScroll = scrollPerCard * (PROJECTS.length - 1)
+
+    /* The runway is taller than the sticky wrapper so the wrapper
+       stays pinned exactly until the last card finishes animating,
+       then everything scrolls away as one block. */
+    const stickyContentH = titleH + cardAreaH
+    const runwayH = stickyContentH + totalCardScroll
+
+    /* ── Scroll-driven card animation ── */
+    useEffect(() => {
+        let rafId: number
+
+        const update = () => {
+            if (!runwayRef.current) return
+            const rect = runwayRef.current.getBoundingClientRect()
+
+            /* progress = 0 → sticky wrapper just pinned
+               progress = N → user scrolled N px further */
+            const progress = Math.max(0, NAVBAR_H - rect.top)
+
+            cardEls.current.forEach((el, i) => {
+                if (!el) return
+
+                /* First card is always visible at the top */
+                if (i === 0) {
+                    el.style.transform = 'translateY(0px)'
+                    return
+                }
+
+                /* Subsequent cards slide up from below the clip area */
+                const animStart = (i - 1) * scrollPerCard
+                const t = Math.min(
+                    1,
+                    Math.max(0, (progress - animStart) / scrollPerCard)
+                )
+
+                const entryY = cardAreaH + 100 // below clip edge
+                const y = entryY + (0 - entryY) * t // target Y is 0 (same position)
+
+                /* Alternating rotation: +4°, -4°, +4°, … */
+                const sign = i % 2 === 0 ? 1 : -1
+                const rotation =
+                    isDesktop && t >= 1 ? sign * CARD_ROTATION : 0
+                el.style.transform = `translateY(${y}px) rotate(${rotation}deg)`
+            })
+        }
+
+        const handleScroll = () => {
+            cancelAnimationFrame(rafId)
+            rafId = requestAnimationFrame(update)
+        }
+
+        window.addEventListener('scroll', handleScroll, { passive: true })
+        handleScroll() // set initial positions
+        return () => {
+            window.removeEventListener('scroll', handleScroll)
+            cancelAnimationFrame(rafId)
+        }
+    }, [isDesktop, scrollPerCard, cardAreaH])
 
     return (
         <section
             id="projects"
             aria-labelledby="projects-heading"
             className={cn(
-                'relative w-full bg-surface-neutral',
+                'relative w-full bg-surface-neutral pt-28 pb-28',
                 className
             )}
         >
-            <div className="relative mx-auto w-full max-w-(--width-container) px-(--spacing-container-x) pt-28">
-                {/* Section Title — "Projects" with gradient */}
-                <div className="relative flex flex-col items-center select-none mb-10">
-                    <h2
-                        id="projects-heading"
-                        className="font-body font-normal text-center text-[clamp(80px,14vw,181.9px)] leading-[0.8] tracking-normal bg-[linear-gradient(180deg,#8269cf81_0%,transparent_100%)] bg-clip-text text-transparent"
+            {/* Scroll runway — oversized so the single sticky wrapper
+                stays pinned for the full card-animation duration */}
+            <div
+                ref={runwayRef}
+                className="relative mx-auto w-full max-w-(--width-container) px-(--spacing-container-x)"
+                style={{ height: runwayH }}
+            >
+                {/* ─── Sticky wrapper ───
+                     Pins below the navbar. Title + card viewport move
+                     as a single block when the runway scrolls past. */}
+                <div className="sticky" style={{ top: NAVBAR_H }}>
+                    {/* Section title */}
+                    <div
+                        ref={titleRef}
+                        className="flex flex-col items-center select-none pb-16"
                     >
-                        Projects
-                    </h2>
-                </div>
+                        <h2
+                            id="projects-heading"
+                            className="font-body font-normal text-center text-[clamp(80px,14vw,181.9px)] leading-[0.8] tracking-normal bg-[linear-gradient(180deg,#8269cf81_0%,transparent_100%)] bg-clip-text text-transparent"
+                        >
+                            Projects
+                        </h2>
+                    </div>
 
-                {/* ─── Stacking Cards Container ───
-                     IMPORTANT: All sticky cards MUST be direct children of
-                     this single container (via Fragment). If they are wrapped
-                     in individual parent divs, sticky breaks because each
-                     card can only stick within its own parent's bounds. */}
-                <div className="mt-16 pb-28">
-                    {PROJECTS.map((project, index) => (
-                        <Fragment key={project.id}>
-                            {/* Sticky project card */}
+                    {/* Card viewport — clipPath hides cards entering from below.
+                        Bottom inset is -80px so rotation corners aren't clipped,
+                        but still hides cards that start 100px below this edge. */}
+                    <div
+                        className="relative"
+                        style={{
+                            height: cardAreaH,
+                            clipPath: 'inset(-200px -200px -80px -200px)',
+                        }}
+                    >
+                        {PROJECTS.map((project, index) => (
                             <div
-                                className="flex justify-center sticky"
-                                style={{
-                                    top: `${STICKY_TOP + index * STACK_OFFSET}px`,
-                                    zIndex: index + 1,
-                                    transform: index > 0 && isDesktop
-                                        ? `rotate(${CARD_ROTATION}deg)`
-                                        : 'none',
+                                key={project.id}
+                                ref={(el) => {
+                                    cardEls.current[index] = el
+                                    if (index === 0)
+                                        firstCardRef.current = el
                                 }}
+                                className="absolute inset-x-0 flex justify-center will-change-transform"
+                                style={{ zIndex: index + 1 }}
                             >
                                 <ProjectCard project={project} />
                             </div>
-
-                            {/* Scroll spacer — creates room for the next card
-                                to scroll up and stack. Not rendered after the
-                                last card. */}
-                            {index < PROJECTS.length - 1 && (
-                                <div
-                                    className="h-[20vh]"
-                                    aria-hidden="true"
-                                />
-                            )}
-                        </Fragment>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>
