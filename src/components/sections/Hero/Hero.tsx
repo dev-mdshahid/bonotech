@@ -7,25 +7,22 @@ import { HeroGrid } from "./components/HeroGrid";
 
 import heroBg1 from "@/assets/hero/hero-bg-1.jpg";
 import heroBg2 from "@/assets/hero/hero-bg-2.jpg";
-import heroBg3 from "@/assets/hero/hero-bg-3.png";
-import heroBg4 from "@/assets/hero/hero-bg-4.png";
-import heroBg5 from "@/assets/hero/hero-bg-5.png";
-import electraLogo from "@/assets/brands/electra.png";
 import dekkoLogo from "@/assets/brands/dekko.png";
-import renataLogo from "@/assets/brands/renata.png";
+import kpmgLogo from "@/assets/brands/kpmg.png";
+import edutechsLogo from "@/assets/brands/edutechs.png";
 
 const DEFAULT_IMAGES = [
   { src: heroBg1, alt: "Project showcase — mobile app design" },
   { src: heroBg2, alt: "Project showcase — payment solution" },
   // { src: heroBg3, alt: 'Project showcase — cybersecurity platform' },
   // { src: heroBg4, alt: 'Project showcase — enterprise dashboard' },
-  { src: heroBg5, alt: "Project showcase — analytics platform" },
+  //   { src: heroBg5, alt: "Project showcase — analytics platform" },
 ];
 
 const DEFAULT_BRANDS = [
-  { src: electraLogo, alt: "Electra" },
-  { src: dekkoLogo, alt: "Dekko Isho Group" },
-  { src: renataLogo, alt: "Renata PLC" },
+  { src: dekkoLogo, alt: "Dekko Media" },
+  { src: kpmgLogo, alt: "KPMG" },
+  { src: edutechsLogo, alt: "Edutechs" },
 ];
 
 export function Hero({
