@@ -11,9 +11,10 @@ export interface ProjectCardData {
     borderColor: string
     buttonColor: string
     mockupSrc: string
-    iconSrc: string
+    iconSrc?: string
     logoSrc: string
     logoAlt: string
+    logoDark?: boolean
     playStoreHref?: string
     appStoreHref?: string
     learnMoreHref?: string

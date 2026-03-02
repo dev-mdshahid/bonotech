@@ -10,6 +10,8 @@ import gustavLogo from '@/assets/projects/gustav-logo.png'
 import olmoMockup from '@/assets/projects/olmo-mockup.png'
 import olmoIcon from '@/assets/projects/olmo-icon.png'
 import olmoLogo from '@/assets/projects/olmo-logo.svg'
+import milioMockup from '@/assets/projects/milio-mockup.png'
+import milioLogo from '@/assets/projects/milio-logo.svg'
 
 const PROJECTS: ProjectCardData[] = [
     {
@@ -47,6 +49,23 @@ const PROJECTS: ProjectCardData[] = [
         appStoreHref: '#',
         learnMoreHref: '#',
         opacity: 20,
+    },
+    {
+        id: 'milio',
+        category: 'Collectibles',
+        title: 'Where collectors Can buy their Collectibles',
+        subtitle:
+            'Milio is a game changing platform for collectors, helping them buy smarter and sell quicker. Its easy-to-use interface makes managing collectibles simple, allowing users to trade and sell with fellow enthusiasts. Whether you\'re expanding your collection or seeking the ideal buyer, we provides the tools to elevate your collecting journey.',
+        backgroundColor: '#EBEBEB',
+        borderColor: '#D4D4D4',
+        buttonColor: '#333333',
+        mockupSrc: milioMockup,
+        logoSrc: milioLogo,
+        logoAlt: 'Milio logo',
+        logoDark: true,
+        playStoreHref: '#',
+        appStoreHref: '#',
+        learnMoreHref: '#',
     },
 ]
 

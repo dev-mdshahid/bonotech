@@ -7,6 +7,7 @@ import { HeroGrid } from "./components/HeroGrid";
 
 import heroBg1 from "@/assets/hero/hero-bg-1.jpg";
 import heroBg2 from "@/assets/hero/hero-bg-2.jpg";
+import heroBg6 from "@/assets/hero/hero-bg-6.png";
 import dekkoLogo from "@/assets/brands/dekko.png";
 import kpmgLogo from "@/assets/brands/kpmg.png";
 import edutechsLogo from "@/assets/brands/edutechs.png";
@@ -14,9 +15,7 @@ import edutechsLogo from "@/assets/brands/edutechs.png";
 const DEFAULT_IMAGES = [
   { src: heroBg1, alt: "Project showcase — mobile app design" },
   { src: heroBg2, alt: "Project showcase — payment solution" },
-  // { src: heroBg3, alt: 'Project showcase — cybersecurity platform' },
-  // { src: heroBg4, alt: 'Project showcase — enterprise dashboard' },
-  //   { src: heroBg5, alt: "Project showcase — analytics platform" },
+  { src: heroBg6, alt: "Project showcase — creative design" },
 ];
 
 const DEFAULT_BRANDS = [

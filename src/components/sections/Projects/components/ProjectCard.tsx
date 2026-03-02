@@ -14,17 +14,19 @@ export function ProjectCard({ project }: ProjectCardProps) {
             }}
         >
             {/* Background Icon — centered, fills full height */}
-            <div
-                className="absolute inset-0 flex items-center justify-center pointer-events-none"
-                aria-hidden="true"
-            >
-                <img
-                    src={project.iconSrc}
-                    alt=""
-                    className="h-full w-auto object-contain max-h-[90%]"
-                    style={{ opacity: project.opacity ? project.opacity / 100 : 1 }}
-                />
-            </div>
+            {project.iconSrc && (
+                <div
+                    className="absolute inset-0 flex items-center justify-center pointer-events-none"
+                    aria-hidden="true"
+                >
+                    <img
+                        src={project.iconSrc}
+                        alt=""
+                        className="h-full w-auto object-contain max-h-[90%]"
+                        style={{ opacity: project.opacity ? project.opacity / 100 : 1 }}
+                    />
+                </div>
+            )}
 
             {/* Left Content */}
             <div className="relative z-10 flex flex-col items-center md:items-end justify-end shrink-0 flex-1 gap-6 self-stretch text-center md:text-right order-2 md:order-1">
@@ -67,6 +69,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                         src={project.logoSrc}
                         alt={project.logoAlt}
                         className="h-12 w-auto"
+                        style={project.logoDark ? { filter: 'brightness(0)' } : undefined}
                     />
                 </div>
 

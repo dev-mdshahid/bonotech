@@ -1,20 +1,26 @@
 import { cn } from '@/lib/utils'
 import type { ClientsProps } from './Clients.types'
 
-import verticalHorizonLogo from '@/assets/brands/vertical-horizon.png'
-import siddiquisLogo from '@/assets/brands/siddiquis.png'
-import edbridgeLogo from '@/assets/brands/edbridge.png'
-import itzLogo from '@/assets/brands/itz.png'
+// import verticalHorizonLogo from '@/assets/brands/vertical-horizon.png'
+// import siddiquisLogo from '@/assets/brands/siddiquis.png'
+// import edbridgeLogo from '@/assets/brands/edbridge.png'
+// import itzLogo from '@/assets/brands/itz.png'
 import mermaidLogo from '@/assets/brands/mermaid.png'
-import electraLogo from '@/assets/brands/electra.png'
+// import electraLogo from '@/assets/brands/electra.png'
+import DekkoLogo from '@/assets/brands/dekko.png'
+import Kpmg from '@/assets/brands/kpmg.png'
+import edutechsLogo from '@/assets/brands/edutechs.png'
 
 const CLIENT_LOGOS = [
-    { src: verticalHorizonLogo, alt: 'Vertical Horizon' },
-    { src: siddiquisLogo, alt: "Siddiqui's International School" },
-    { src: edbridgeLogo, alt: 'Edbridge' },
-    { src: itzLogo, alt: 'ITZ Academic Care' },
+    // { src: verticalHorizonLogo, alt: 'Vertical Horizon' },
+    { src: DekkoLogo, alt: "Dekko Group" },
+    { src: Kpmg, alt: "KPMG" },
+    { src: edutechsLogo, alt: "Edutechs" },
+
+    // { src: edbridgeLogo, alt: 'Edbridge' },
+    // { src: itzLogo, alt: 'ITZ Academic Care' },
     { src: mermaidLogo, alt: 'Mermaid Beach Resort' },
-    { src: electraLogo, alt: 'Electra' },
+    // { src: electraLogo, alt: 'Electra' },
 ]
 
 // Duplicate logos enough times to ensure it covers large screens seamlessly
