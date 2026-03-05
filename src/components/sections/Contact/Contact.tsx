@@ -93,7 +93,7 @@ export function Contact({ className }: ContactProps) {
         <div className="relative flex flex-col items-center select-none mb-10">
           <h2
             id="contact-heading"
-            className="font-body font-normal text-center text-[clamp(44px,12vw,181.9px)] leading-[0.8] tracking-normal bg-[linear-gradient(180deg,#8269cf81_0%,transparent_100%)] bg-clip-text text-transparent"
+            className="font-body font-semibold text-center text-[clamp(44px,9vw,128px)] leading-[1.15] tracking-normal bg-[linear-gradient(0deg,rgba(130,105,207,0.3)_0%,rgba(60,0,245,0.6)_100%)] bg-clip-text text-transparent"
           >
             Let's Connect
           </h2>

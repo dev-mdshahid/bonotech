@@ -22,8 +22,14 @@ export function ProjectCard({ project }: ProjectCardProps) {
                     <img
                         src={project.iconSrc}
                         alt=""
-                        className="h-full w-auto object-contain max-h-[90%]"
-                        style={{ opacity: project.opacity ? project.opacity / 100 : 1 }}
+                        className="object-contain"
+                        style={{
+                            ...(project.iconHeight ? { height: project.iconHeight } : {}),
+                            ...(project.iconWidth ? { width: project.iconWidth } : {}),
+                            maxWidth: '100%',
+                            maxHeight: '90%',
+                            opacity: project.opacity ? project.opacity / 100 : 1,
+                        }}
                     />
                 </div>
             )}
@@ -62,48 +68,60 @@ export function ProjectCard({ project }: ProjectCardProps) {
             </div>
 
             {/* Right Content */}
-            <div className="relative z-10 flex flex-col items-center md:items-start justify-end shrink-0 flex-1 gap-8 self-stretch order-3">
+            <div
+                className={`relative z-10 flex flex-col items-center md:items-start justify-end shrink-0 flex-1 self-stretch order-3 ${
+                    project.logoSrc ? 'gap-8' : 'gap-4'
+                }`}
+            >
                 {/* Logo */}
-                <div className="flex items-center">
-                    <img
-                        src={project.logoSrc}
-                        alt={project.logoAlt}
-                        className="h-12 w-auto"
-                        style={project.logoDark ? { filter: 'brightness(0)' } : undefined}
-                    />
-                </div>
+                {project.logoSrc && (
+                    <div className="flex items-center">
+                        <img
+                            src={project.logoSrc}
+                            alt={project.logoAlt || ''}
+                            className={project.logoHeight ? 'w-auto' : 'h-12 w-auto'}
+                            style={{
+                                ...(project.logoDark ? { filter: 'brightness(0)' } : {}),
+                                ...(project.logoWidth ? { width: project.logoWidth } : {}),
+                                ...(project.logoHeight ? { height: project.logoHeight } : {}),
+                            }}
+                        />
+                    </div>
+                )}
 
                 {/* Store Badges */}
-                <div className="flex items-center gap-3">
-                    {project.playStoreHref && (
-                        <a
-                            href={project.playStoreHref}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Get it on Google Play"
-                        >
-                            <img
-                                src={playStoreImg}
-                                alt="Google Play"
-                                className="h-10 w-auto"
-                            />
-                        </a>
-                    )}
-                    {project.appStoreHref && (
-                        <a
-                            href={project.appStoreHref}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Download on the App Store"
-                        >
-                            <img
-                                src={appStoreImg}
-                                alt="App Store"
-                                className="h-10 w-auto"
-                            />
-                        </a>
-                    )}
-                </div>
+                {(project.playStoreHref || project.appStoreHref) && (
+                    <div className="flex items-center gap-3">
+                        {project.playStoreHref && (
+                            <a
+                                href={project.playStoreHref}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Get it on Google Play"
+                            >
+                                <img
+                                    src={playStoreImg}
+                                    alt="Google Play"
+                                    className="h-10 w-auto"
+                                />
+                            </a>
+                        )}
+                        {project.appStoreHref && (
+                            <a
+                                href={project.appStoreHref}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Download on the App Store"
+                            >
+                                <img
+                                    src={appStoreImg}
+                                    alt="App Store"
+                                    className="h-10 w-auto"
+                                />
+                            </a>
+                        )}
+                    </div>
+                )}
 
                 {/* Learn More - Desktop only */}
                 {project.learnMoreHref && (

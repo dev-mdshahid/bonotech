@@ -40,7 +40,7 @@ const STACK_LAYERS = [
   // layer 2 = second card behind (peeking out further)
   { rotation: -1, scale: 0.82, yOffset: -130, xOffset: 10 },
 ];
-const STACK_TOP_OFFSET = 60.31; // px — top offset from Figma
+const STACK_TOP_OFFSET = 48; // px — desired space under title
 
 function QuoteIcon() {
   return (
@@ -184,10 +184,10 @@ export function Testimonials({ className }: TestimonialsProps) {
     >
       <div className="relative mx-auto w-full max-w-(--width-container) px-(--spacing-container-x) flex flex-col items-center py-28">
         {/* Section Title */}
-        <div className="relative flex flex-col items-center select-none mb-10">
+        <div className="relative flex flex-col items-center select-none">
           <h2
             id="testimonials-heading"
-            className="font-body font-normal text-center text-[clamp(64px,12vw,181.9px)] leading-[0.8] tracking-normal bg-[linear-gradient(180deg,#8269cf81_0%,transparent_100%)] bg-clip-text text-transparent"
+            className="font-body font-semibold text-center text-[clamp(64px,10vw,128px)] leading-[1.15] tracking-normal bg-[linear-gradient(0deg,rgba(130,105,207,0.3)_0%,rgba(60,0,245,0.6)_100%)] bg-clip-text text-transparent"
           >
             Testimonial
           </h2>

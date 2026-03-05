@@ -1,257 +1,267 @@
-import { useState, useEffect, useRef } from 'react'
-import { cn } from '@/lib/utils'
-import type { ProjectsProps, ProjectCardData } from './Projects.types'
-import { ProjectCard } from './components/ProjectCard'
+import { useState, useEffect, useRef } from "react";
+import { cn } from "@/lib/utils";
+import type { ProjectsProps, ProjectCardData } from "./Projects.types";
+import { ProjectCard } from "./components/ProjectCard";
 
 // Asset imports
-import gustavMockup from '@/assets/projects/gustav-mockup.png'
-import gustavIcon from '@/assets/projects/gustav-icon.png'
-import gustavLogo from '@/assets/projects/gustav-logo.png'
-import olmoMockup from '@/assets/projects/olmo-mockup.png'
-import olmoIcon from '@/assets/projects/olmo-icon.png'
-import olmoLogo from '@/assets/projects/olmo-logo.svg'
-import milioMockup from '@/assets/projects/milio-mockup.png'
-import milioLogo from '@/assets/projects/milio-logo.svg'
+import gustavMockup from "@/assets/projects/gustav-mockup.png";
+import gustavIcon from "@/assets/projects/gustav-icon.png";
+import gustavLogo from "@/assets/projects/gustav-logo.png";
+import olmoMockup from "@/assets/projects/olmo-mockup.png";
+import olmoIcon from "@/assets/projects/olmo-icon.svg";
+import olmoLogo from "@/assets/projects/olmo-logo.png";
+import milioMockup from "@/assets/projects/milio-mockup.png";
+import milioLogo from "@/assets/projects/milio-logo.svg";
+import milioIcon from "@/assets/projects/milio-icon.svg";
 
 const PROJECTS: ProjectCardData[] = [
-    {
-        id: 'gustav',
-        category: 'Travel & Tourism',
-        title: 'Gustav, Hotel Companion Mobile App',
-        subtitle:
-            'This app is your travel companion, offering everything from booking to check-out. Enjoy room service, concierge help, and local tips for a smooth stay.',
-        backgroundColor: '#E9E5E1',
-        borderColor: '#D2CBC5',
-        buttonColor: '#C0A080',
-        mockupSrc: gustavMockup,
-        iconSrc: gustavIcon,
-        logoSrc: gustavLogo,
-        logoAlt: 'Gustav logo',
-        playStoreHref: '#',
-        appStoreHref: '#',
-        learnMoreHref: '#',
-        opacity: 90,
-    },
-    {
-        id: 'olmo',
-        category: 'Real Estate',
-        title: 'Olmo, Property Management Mobile App',
-        subtitle:
-            'Olmo transforms real estate management by streamlining tenant communication, maintenance, and financial tracking. Making property management easier for all and gives new experience.',
-        backgroundColor: '#D2D4D7',
-        borderColor: '#A6A9AD',
-        buttonColor: '#2D343C',
-        mockupSrc: olmoMockup,
-        iconSrc: olmoIcon,
-        logoSrc: olmoLogo,
-        logoAlt: 'Olmo logo',
-        playStoreHref: '#',
-        appStoreHref: '#',
-        learnMoreHref: '#',
-        opacity: 20,
-    },
-    {
-        id: 'milio',
-        category: 'Collectibles',
-        title: 'Where collectors Can buy their Collectibles',
-        subtitle:
-            'Milio is a game changing platform for collectors, helping them buy smarter and sell quicker. Its easy-to-use interface makes managing collectibles simple, allowing users to trade and sell with fellow enthusiasts. Whether you\'re expanding your collection or seeking the ideal buyer, we provides the tools to elevate your collecting journey.',
-        backgroundColor: '#EBEBEB',
-        borderColor: '#D4D4D4',
-        buttonColor: '#333333',
-        mockupSrc: milioMockup,
-        logoSrc: milioLogo,
-        logoAlt: 'Milio logo',
-        logoDark: true,
-        playStoreHref: '#',
-        appStoreHref: '#',
-        learnMoreHref: '#',
-    },
-]
+  {
+    id: "gustav",
+    category: "Travel & Tourism",
+    title: "Gustav, Hotel Companion Mobile App",
+    subtitle:
+      "This app is your travel companion, offering everything from booking to check-out. Enjoy room service, concierge help, and local tips for a smooth stay.",
+    backgroundColor: "#FAF1E9",
+    borderColor: "#D2CBC5",
+    buttonColor: "#C0A080",
+    mockupSrc: gustavMockup,
+    iconSrc: gustavIcon,
+    logoSrc: gustavLogo,
+    logoAlt: "Gustav logo",
+    logoWidth: 240,
+    logoHeight: 78,
+    playStoreHref:
+      "https://play.google.com/store/apps/details?id=com.ekram211.zen",
+    appStoreHref: "https://apps.apple.com/ae/app/gustav/id6738002227",
+    learnMoreHref: "#",
+    opacity: 90,
+  },
+  {
+    id: "olmo",
+    category: "Real Estate",
+    title: "Olmo, Property Management Mobile App",
+    subtitle:
+      "Olmo transforms real estate management by streamlining tenant communication, maintenance, and financial tracking. Making property management easier for all and gives new experience.",
+    backgroundColor: "#A2A5AA",
+    borderColor: "#A6A9AD",
+    buttonColor: "#2D343C",
+    mockupSrc: olmoMockup,
+    iconSrc: olmoIcon,
+    logoSrc: olmoLogo,
+    logoAlt: "Olmo logo",
+    logoWidth: 166.43,
+    logoHeight: 124.11,
+    playStoreHref:
+      "https://play.google.com/store/apps/details?id=com.bonoholdings.proptech",
+    appStoreHref: "https://apps.apple.com/gb/app/olmo-homes/id6747893455",
+    learnMoreHref: "#",
+    opacity: 100,
+  },
+  {
+    id: "milio",
+    category: "Collectibles",
+    title: "Where collectors Can buy their Collectibles",
+    subtitle:
+      "Milio is a game changing platform for collectors, helping them buy smarter and sell quicker. Its easy-to-use interface makes managing collectibles simple, allowing users to trade and sell with fellow enthusiasts. Whether you're expanding your collection or seeking the ideal buyer, we provides the tools to elevate your collecting journey.",
+    backgroundColor: "#D8D8D8",
+    borderColor: "#D4D4D4",
+    buttonColor: "#333333",
+    mockupSrc: milioMockup,
+    iconSrc: milioIcon,
+    iconWidth: 765,
+    logoSrc: milioLogo,
+    logoAlt: "Milio logo",
+    logoDark: true,
+    logoWidth: 164.77,
+    logoHeight: 56,
+    playStoreHref: undefined,
+    appStoreHref: undefined,
+    learnMoreHref: "#",
+    opacity: 35,
+  },
+];
 
 /** Fixed height of the site navbar (px) */
-const NAVBAR_H = 80
+const NAVBAR_H = 80;
 /** Degrees to rotate stacked cards (alternates ±) */
-const CARD_ROTATION = 2
+const CARD_ROTATION = 2;
 
 export function Projects({ className }: ProjectsProps) {
-    const runwayRef = useRef<HTMLDivElement>(null)
-    const titleRef = useRef<HTMLDivElement>(null)
-    const firstCardRef = useRef<HTMLDivElement>(null)
-    const cardEls = useRef<(HTMLDivElement | null)[]>([])
-    const [isDesktop, setIsDesktop] = useState(false)
-    const [dims, setDims] = useState({ titleH: 200, cardH: 600 })
+  const runwayRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
+  const firstCardRef = useRef<HTMLDivElement>(null);
+  const cardEls = useRef<(HTMLDivElement | null)[]>([]);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [dims, setDims] = useState({ titleH: 200, cardH: 600 });
 
-    /* ── Measure title + card on mount / resize ── */
-    useEffect(() => {
-        const measure = () => {
-            setIsDesktop(window.innerWidth >= 768)
-            setDims({
-                titleH: titleRef.current?.offsetHeight || 200,
-                cardH: firstCardRef.current?.offsetHeight || 600,
-            })
-        }
-        measure()
-        requestAnimationFrame(measure) // re‑measure after first paint
-        window.addEventListener('resize', measure)
-        return () => window.removeEventListener('resize', measure)
-    }, [])
+  /* ── Measure title + card on mount / resize ── */
+  useEffect(() => {
+    const measure = () => {
+      setIsDesktop(window.innerWidth >= 768);
+      setDims({
+        titleH: titleRef.current?.offsetHeight || 200,
+        cardH: firstCardRef.current?.offsetHeight || 600,
+      });
+    };
+    measure();
+    requestAnimationFrame(measure); // re‑measure after first paint
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
 
-    const { titleH, cardH } = dims
+  const { titleH, cardH } = dims;
 
-    /* Visible height of the card-stacking viewport
+  /* Visible height of the card-stacking viewport
        (all cards stack in the same position, no vertical offset) */
-    const cardAreaH = cardH
+  const cardAreaH = cardH;
 
-    /* Scroll distance allocated for each card to animate in */
-    const scrollPerCard = isDesktop
-        ? Math.max(cardH * 1.5, 600)
-        : Math.max(cardH * 0.5, 300)
+  /* Scroll distance allocated for each card to animate in */
+  const scrollPerCard = isDesktop
+    ? Math.max(cardH * 1.5, 600)
+    : Math.max(cardH * 0.5, 300);
 
-    /* Total scroll needed for cards 2…N to enter */
-    const totalCardScroll = scrollPerCard * (PROJECTS.length - 1)
+  /* Total scroll needed for cards 2…N to enter */
+  const totalCardScroll = scrollPerCard * (PROJECTS.length - 1);
 
-    /* The runway is taller than the sticky wrapper so the wrapper
+  /* The runway is taller than the sticky wrapper so the wrapper
        stays pinned exactly until the last card finishes animating,
        then everything scrolls away as one block. */
-    const stickyContentH = titleH + cardAreaH
-    const runwayH = stickyContentH + totalCardScroll
+  const stickyContentH = titleH + cardAreaH;
+  const runwayH = stickyContentH + totalCardScroll;
 
-    /* ── Scroll-driven card animation ── */
-    useEffect(() => {
-        let rafId: number
+  /* ── Scroll-driven card animation ── */
+  useEffect(() => {
+    let rafId: number;
 
-        const update = () => {
-            if (!runwayRef.current) return
-            const rect = runwayRef.current.getBoundingClientRect()
+    const update = () => {
+      if (!runwayRef.current) return;
+      const rect = runwayRef.current.getBoundingClientRect();
 
-            /* progress = 0 → sticky wrapper just pinned
+      /* progress = 0 → sticky wrapper just pinned
                progress = N → user scrolled N px further */
-            const progress = Math.max(0, NAVBAR_H - rect.top)
+      const progress = Math.max(0, NAVBAR_H - rect.top);
 
-            cardEls.current.forEach((el, i) => {
-                if (!el) return
+      cardEls.current.forEach((el, i) => {
+        if (!el) return;
 
-                /* First card is always visible at the top */
-                if (i === 0) {
-                    el.style.transform = 'translateY(0px)'
-                    return
-                }
-
-                /* Subsequent cards slide up from below the clip area */
-                const animStart = (i - 1) * scrollPerCard
-                const t = Math.min(
-                    1,
-                    Math.max(0, (progress - animStart) / scrollPerCard)
-                )
-
-                const entryY = cardAreaH + 100 // below clip edge
-                const y = entryY + (0 - entryY) * t // target Y is 0 (same position)
-
-                /* Alternating rotation: +4°, -4°, +4°, … */
-                const sign = i % 2 === 0 ? 1 : -1
-                const rotation =
-                    isDesktop && t >= 1 ? sign * CARD_ROTATION : 0
-                el.style.transform = `translateY(${y}px) rotate(${rotation}deg)`
-            })
+        /* First card is always visible at the top */
+        if (i === 0) {
+          el.style.transform = "translateY(0px)";
+          return;
         }
 
-        const handleScroll = () => {
-            cancelAnimationFrame(rafId)
-            rafId = requestAnimationFrame(update)
-        }
+        /* Subsequent cards slide up from below the clip area */
+        const animStart = (i - 1) * scrollPerCard;
+        const t = Math.min(
+          1,
+          Math.max(0, (progress - animStart) / scrollPerCard),
+        );
 
-        window.addEventListener('scroll', handleScroll, { passive: true })
-        handleScroll() // set initial positions
-        return () => {
-            window.removeEventListener('scroll', handleScroll)
-            cancelAnimationFrame(rafId)
-        }
-    }, [isDesktop, scrollPerCard, cardAreaH])
+        const entryY = cardAreaH + 100; // below clip edge
+        const y = entryY + (0 - entryY) * t; // target Y is 0 (same position)
 
-    return (
-        <section
-            id="projects"
-            aria-labelledby="projects-heading"
-            className={cn(
-                'relative w-full bg-surface-neutral pt-28 lg:pb-28 pb-0',
-                className
-            )}
-        >
-            {/* ── Mobile layout: plain stacked cards, no animation ── */}
-            {!isDesktop && (
-                <div className="mx-auto w-full max-w-(--width-container) px-(--spacing-container-x)">
-                    <div className="flex flex-col items-center select-none pb-12">
-                        <h2
-                            id="projects-heading"
-                            className="font-body font-normal text-center text-[clamp(80px,14vw,181.9px)] leading-[0.8] tracking-normal bg-[linear-gradient(180deg,#8269cf81_0%,transparent_100%)] bg-clip-text text-transparent"
-                        >
-                            Projects
-                        </h2>
-                    </div>
-                    <div className="flex flex-col gap-8">
-                        {PROJECTS.map((project) => (
-                            <ProjectCard key={project.id} project={project} />
-                        ))}
-                    </div>
-                </div>
-            )}
+        /* Alternating rotation: +4°, -4°, +4°, … */
+        const sign = i % 2 === 0 ? 1 : -1;
+        const rotation = isDesktop && t >= 1 ? sign * CARD_ROTATION : 0;
+        el.style.transform = `translateY(${y}px) rotate(${rotation}deg)`;
+      });
+    };
 
-            {/* ── Desktop layout: scroll-driven stacking animation ── */}
-            {isDesktop && (
-                <>
-                    {/* Scroll runway — oversized so the single sticky wrapper
+    const handleScroll = () => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(update);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // set initial positions
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      cancelAnimationFrame(rafId);
+    };
+  }, [isDesktop, scrollPerCard, cardAreaH]);
+
+  return (
+    <section
+      id="projects"
+      aria-labelledby="projects-heading"
+      className={cn(
+        "relative w-full bg-surface-neutral pt-28 lg:pb-28 pb-0",
+        className,
+      )}
+    >
+      {/* ── Mobile layout: plain stacked cards, no animation ── */}
+      {!isDesktop && (
+        <div className="mx-auto w-full max-w-(--width-container) px-(--spacing-container-x)">
+          <div className="flex flex-col items-center select-none pb-12">
+            <h2
+              id="projects-heading"
+              className="font-body font-semibold text-center text-[clamp(64px,10vw,128px)] leading-[1.15] tracking-normal bg-[linear-gradient(0deg,rgba(130,105,207,0.3)_0%,rgba(60,0,245,0.6)_100%)] bg-clip-text text-transparent"
+            >
+              Projects
+            </h2>
+          </div>
+          <div className="flex flex-col gap-8">
+            {PROJECTS.map((project) => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ── Desktop layout: scroll-driven stacking animation ── */}
+      {isDesktop && (
+        <>
+          {/* Scroll runway — oversized so the single sticky wrapper
                         stays pinned for the full card-animation duration */}
-                    <div
-                        ref={runwayRef}
-                        className="relative mx-auto w-full max-w-(--width-container) px-(--spacing-container-x)"
-                        style={{ height: runwayH }}
-                    >
-                        {/* ─── Sticky wrapper ───
+          <div
+            ref={runwayRef}
+            className="relative mx-auto w-full max-w-(--width-container) px-(--spacing-container-x)"
+            style={{ height: runwayH }}
+          >
+            {/* ─── Sticky wrapper ───
                              Pins below the navbar. Title + card viewport move
                              as a single block when the runway scrolls past. */}
-                        <div className="sticky" style={{ top: NAVBAR_H }}>
-                            {/* Section title */}
-                            <div
-                                ref={titleRef}
-                                className="flex flex-col items-center select-none mb-4"
-                            >
-                                <h2
-                                    id="projects-heading"
-                                    className="font-body font-normal text-center text-[clamp(80px,14vw,181.9px)] leading-[0.8] tracking-normal bg-[linear-gradient(180deg,#8269cf81_0%,transparent_100%)] bg-clip-text text-transparent"
-                                >
-                                    Projects
-                                </h2>
-                            </div>
+            <div className="sticky" style={{ top: NAVBAR_H }}>
+              {/* Section title */}
+              <div
+                ref={titleRef}
+                className="flex flex-col items-center select-none mb-4"
+              >
+                <h2
+                  id="projects-heading"
+                  className="font-body font-semibold text-center text-[clamp(64px,10vw,128px)] leading-[1.15] tracking-normal bg-[linear-gradient(0deg,rgba(130,105,207,0.3)_0%,rgba(60,0,245,0.6)_100%)] bg-clip-text text-transparent"
+                >
+                  Projects
+                </h2>
+              </div>
 
-                            {/* Card viewport — clipPath hides cards entering from below.
+              {/* Card viewport — clipPath hides cards entering from below.
                                 Negative insets let rotated corners bleed without clipping. */}
-                            <div
-                                className="relative"
-                                style={{
-                                    height: cardAreaH,
-                                    clipPath: 'inset(-200px -200px -80px -200px)',
-                                }}
-                            >
-                                {PROJECTS.map((project, index) => (
-                                    <div
-                                        key={project.id}
-                                        ref={(el) => {
-                                            cardEls.current[index] = el
-                                            if (index === 0)
-                                                firstCardRef.current = el
-                                        }}
-                                        className="absolute inset-x-0 flex justify-center will-change-transform"
-                                        style={{ zIndex: index + 1 }}
-                                    >
-                                        <ProjectCard project={project} />
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </>
-            )}
-        </section>
-    )
+              <div
+                className="relative"
+                style={{
+                  height: cardAreaH,
+                  clipPath: "inset(-200px -200px -80px -200px)",
+                }}
+              >
+                {PROJECTS.map((project, index) => (
+                  <div
+                    key={project.id}
+                    ref={(el) => {
+                      cardEls.current[index] = el;
+                      if (index === 0) firstCardRef.current = el;
+                    }}
+                    className="absolute inset-x-0 flex justify-center will-change-transform"
+                    style={{ zIndex: index + 1 }}
+                  >
+                    <ProjectCard project={project} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+    </section>
+  );
 }
