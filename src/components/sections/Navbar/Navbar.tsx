@@ -7,7 +7,7 @@ import type { NavbarProps, NavLink } from './Navbar.types'
 
 const DEFAULT_LINKS: NavLink[] = [
     { label: 'About', href: '#what-we-do' },
-    { label: 'Testimonial', href: '#testimonials' },
+    { label: 'Testimonials', href: '#testimonials' },
     { label: 'Portfolio', href: '#projects' },
     { label: 'FAQs', href: '#faq' },
 ]
