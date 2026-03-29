@@ -123,7 +123,6 @@ export function Contact({ className }: ContactProps) {
             <p className="font-body font-medium text-white/80 text-base md:text-lg leading-[1.4] mt-4">
               Let's make something happen together
             </p>
-            <p className="font-body font-medium text-white/80 text-base md:text-md leading-[1.4] mt-4">BONOTECH HOLDINGS PTE. LTD. <br />111 SOMERSET ROAD #08-10A Singapore 238164</p>
           </div>
 
           {/* ─── Right Form ─── */}

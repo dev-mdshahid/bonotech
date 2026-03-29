@@ -1,4 +1,4 @@
-import { Mail } from 'lucide-react'
+import { Mail, Phone } from 'lucide-react'
 import bonotechLogo from '@/assets/bonotech-logo.png'
 
 export function FooterBrand() {
@@ -28,6 +28,16 @@ export function FooterBrand() {
                 />
                 contact@bonotech.io
             </a>
+
+            <p className="font-body text-sm leading-7 font-normal text-white opacity-50 max-w-[300px]"> BONOTECH HOLDINGS PTE. LTD. <br />111 SOMERSET ROAD #08-10A <br /> Singapore 238164</p>
+            <p className="font-body text-sm leading-7 font-normal text-white opacity-50 max-w-[300px]">
+                <span className="inline-flex items-center gap-2">
+                <Phone
+                    size={15}
+                    className="opacity-60 group-hover:opacity-100 transition-(--transition-base) mr-1"
+                />
+                </span> 
+                 +65 6515 6515</p>
         </div>
     )
 }
