@@ -14,6 +14,8 @@ const LINK_GROUPS: FooterLinkGroup[] = [
             { label: 'About', href: '#about' },
             { label: 'Contact', href: '#contact' },
             { label: 'FAQs', href: '#faqs' },
+            { label: 'Privacy Policy', href: '/privacy', internal: true },
+            { label: 'Terms and Conditions', href: '/terms', internal: true },
         ],
     },
     {
@@ -37,7 +39,7 @@ const LINK_GROUPS: FooterLinkGroup[] = [
 
 const BOTTOM_LINKS = [
     { label: '© Bonotech.io', href: '/', internal: true },
-    { label: 'Terms of Service', href: '/terms', internal: true },
+    { label: 'Terms and Conditions', href: '/terms', internal: true },
     { label: 'Privacy Policy', href: '/privacy', internal: true },
 ]
 

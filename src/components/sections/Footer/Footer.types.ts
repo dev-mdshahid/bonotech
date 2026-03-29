@@ -11,4 +11,6 @@ export interface FooterLink {
     label: string
     href: string
     badge?: string
+    /** Use React Router for in-app navigation (e.g. /privacy, /terms) */
+    internal?: boolean
 }
