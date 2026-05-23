@@ -1,15 +1,22 @@
 import { Mail, Phone } from 'lucide-react'
 import bonotechLogo from '@/assets/bonotech-logo.png'
+import cloudSeal from '@/assets/01_cloud_seal_dark.svg'
 
 export function FooterBrand() {
     return (
         <div className="flex flex-col gap-6">
-            {/* Logo — white monochrome on dark footer */}
-            <img
-                src={bonotechLogo}
-                alt="Bonotech"
-                className="select-none h-[30px] w-auto object-contain object-left brightness-0 invert opacity-90"
-            />
+            <div className="flex flex-col gap-3">
+                <img
+                    src={bonotechLogo}
+                    alt="Bonotech"
+                    className="select-none h-[30px] w-auto object-contain object-left brightness-0 invert opacity-90"
+                />
+                <img
+                    src={cloudSeal}
+                    alt="Secured by Axiler — protection live"
+                    className="select-none h-auto w-full max-w-[200px] object-contain object-left opacity-90"
+                />
+            </div>
 
             {/* Description */}
             <p className="font-body text-sm leading-7 font-normal text-white opacity-50 max-w-[300px]">
