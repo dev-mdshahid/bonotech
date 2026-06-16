@@ -5,6 +5,7 @@ import { Clients } from '@/components/sections/Clients/Clients'
 import { Introduction } from '@/components/sections/Introduction/Introduction'
 import { WhatWeDo } from '@/components/sections/WhatWeDo/WhatWeDo'
 import { Comparison } from '@/components/sections/Comparison/Comparison'
+import { Timeline } from '@/components/sections/Timeline/Timeline'
 import { Projects } from '@/components/sections/Projects/Projects'
 import { Testimonials } from '@/components/sections/Testimonials/Testimonials'
 import { FAQ } from '@/components/sections/FAQ/FAQ'
@@ -19,8 +20,9 @@ export default function App() {
             <Hero />
             <Clients />
             <Introduction />
-            <WhatWeDo />
             <Comparison />
+            <Timeline />
+            <WhatWeDo />
             <Projects />
             <Testimonials />
             <FAQ />
