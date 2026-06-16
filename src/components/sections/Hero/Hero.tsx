@@ -1,92 +1,48 @@
 import type { HeroProps } from "./Hero.types";
 import { HeroPill } from "./components/HeroPill";
 import { HeroButton } from "./components/HeroButton";
-import { BrandLogoBar } from "./components/BrandLogoBar";
-import { HeroImageSlider } from "./components/HeroImageSlider";
-import { HeroGrid } from "./components/HeroGrid";
 
-import heroBg1 from "@/assets/hero/hero-bg-1.jpg";
-import heroBg2 from "@/assets/hero/hero-bg-2.jpg";
-import heroBg6 from "@/assets/hero/hero-bg-6.png";
-import dekkoLogo from "@/assets/brands/dekko.png";
-import kpmgLogo from "@/assets/brands/kpmg.png";
-import edutechsLogo from "@/assets/brands/edutechs.png";
-
-const DEFAULT_IMAGES = [
-  { src: heroBg1, alt: "Project showcase — mobile app design" },
-  { src: heroBg2, alt: "Project showcase — payment solution" },
-  { src: heroBg6, alt: "Project showcase — creative design" },
-];
-
-const DEFAULT_BRANDS = [
-  { src: dekkoLogo, alt: "Dekko Media" },
-  { src: kpmgLogo, alt: "KPMG" },
-  { src: edutechsLogo, alt: "Edutechs" },
-];
+import bonotechHeroBg from "@/assets/bonotech-hero-bg.png";
 
 export function Hero({
-  pillText = "Transforming industries one idea at a time",
-  title = "Transitioning industries to the age of AI",
-  subtitle = "Rethink your entire business flow with our custom AI solutions",
+  pillText = "POWERED BY SPEED",
+  title = "Enterprise\nSoftware Development",
+  subtitle = "AI- Native, Expert-Led, Market-Ready Product Development",
   ctaLabel = "Book a free consultation with us today",
   ctaHref = "#contact",
-  images = DEFAULT_IMAGES,
-  brands = DEFAULT_BRANDS,
-  slideDuration = 4000,
 }: HeroProps) {
   return (
     <section
       id="hero"
       aria-labelledby="hero-heading"
-      className="relative w-full overflow-hidden bg-surface-white"
+      className="relative min-h-[823px] w-full overflow-hidden bg-[#020914] text-white max-lg:min-h-[720px] max-sm:min-h-[680px]"
     >
-      {/* Interactive grid background — z-10, captures all hover events */}
-      <HeroGrid />
+      <img
+        src={bonotechHeroBg}
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 h-full w-full object-cover object-center"
+      />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.32)_0%,rgba(0,0,0,0.12)_43%,rgba(0,0,0,0)_100%)]" />
 
-      {/* Top gradient overlay */}
-      <div className="absolute top-0 inset-x-0 h-32 bg-linear-to-b from-white to-transparent z-10 pointer-events-none" />
+      <div className="relative z-10 mx-auto flex min-h-[823px] w-full max-w-[1200px] flex-col justify-center px-0 pt-[122px] max-xl:px-6 max-lg:min-h-[720px] max-lg:items-center max-lg:text-center max-sm:min-h-[680px] max-sm:px-5 max-sm:pt-24">
+        <div className="mt-[64px] flex max-w-[980px] flex-col items-start max-lg:mt-0 max-lg:items-center">
+          <HeroPill text={pillText} />
 
-      {/* Bottom gradient overlay */}
-      <div className="absolute bottom-0 inset-x-0 h-32 bg-linear-to-t from-white to-transparent z-10 pointer-events-none" />
+          <h1
+            id="hero-heading"
+            className="mt-[20px] whitespace-pre-line font-display text-[80px] font-semibold leading-[1.15] tracking-[0] text-white max-lg:text-[64px] max-sm:text-[44px]"
+          >
+            {title}
+          </h1>
 
-      {/* Content — pointer-events-none so grid receives hover, 
-                 interactive children opt back in with pointer-events-auto */}
-      <div className="relative z-20 pointer-events-none mx-auto w-full max-w-(--width-container) px-(--spacing-container-x)">
-        <div className="flex flex-col lg:flex-row items-center lg:items-stretch gap-10 lg:gap-16 py-12 lg:py-20">
-          {/* Left column — text content */}
-          <div className="flex flex-col justify-between flex-1 min-w-0 my-10 items-center lg:items-start text-center lg:text-left">
-            {/* Top: Pill + Title + Subtitle + CTA */}
-            <div className="flex flex-col items-center lg:items-start">
-              {/* Pill */}
-              <HeroPill text={pillText} />
+          <p className="mt-[10px] font-body text-[18px] font-normal leading-[1.5] tracking-[0] text-white max-sm:text-[16px]">
+            {subtitle}
+          </p>
 
-              {/* Title — 12px gap from pill */}
-              <h1
-                id="hero-heading"
-                className="font-display font-semibold text-content-primary mt-3 text-display-sm lg:text-display-md"
-              >
-                {title}
-              </h1>
-
-              {/* Subtitle — 8px gap from title */}
-              <p className="font-body text-content-tertiary mt-2 text-lg leading-[1.6]">
-                {subtitle}
-              </p>
-
-              {/* CTA — 32px gap from subtitle */}
-              <div className="mt-8 pointer-events-auto w-full lg:w-auto">
-                <HeroButton label={ctaLabel} href={ctaHref} />
-              </div>
-            </div>
-
-            {/* Bottom: Brand logos */}
-            <div className="mt-12 lg:mt-0 pointer-events-auto w-full lg:w-auto">
-              <BrandLogoBar brands={brands} />
-            </div>
+          <div className="mt-[33px]">
+            <HeroButton label={ctaLabel} href={ctaHref} />
           </div>
-
-          {/* Right column — image slider */}
-          <HeroImageSlider images={images} slideDuration={slideDuration} />
         </div>
       </div>
     </section>
