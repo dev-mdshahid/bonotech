@@ -13,14 +13,27 @@ import olmoLogo from "@/assets/projects/olmo-logo.png";
 import milioMockup from "@/assets/projects/milio-mockup.png";
 import milioLogo from "@/assets/projects/milio-logo.svg";
 import milioIcon from "@/assets/projects/milio-icon.svg";
+import polysignalsMockup from "@/assets/projects/polysignals-mockup.png";
+import polysignalsIcon from "@/assets/projects/polysignals-icon.png";
+import polysignalsLogo from "@/assets/projects/polysignals-logo.png";
+import edutechsMockup from "@/assets/projects/edutechs-mockup.png";
+import edutechsIcon from "@/assets/projects/edutechs-icon.png";
+import edutechsLogo from "@/assets/projects/edutechs-logo.png";
 
 const PROJECTS: ProjectCardData[] = [
   {
     id: "gustav",
     category: "Travel & Tourism",
     title: "Gustav, Hotel Companion Mobile App",
-    subtitle:
-      "This app is your travel companion, offering everything from booking to check-out. Enjoy room service, concierge help, and local tips for a smooth stay.",
+    features: [
+      "Guest Experience",
+      "Mobile Ordering",
+      "Concierge workflow",
+      "Hospitality Operation",
+      "Service Request",
+      "Staff Communication",
+      "Customer facing Mobile Journey",
+    ],
     backgroundColor: "#FAF1E9",
     borderColor: "#D2CBC5",
     buttonColor: "#C0A080",
@@ -40,8 +53,15 @@ const PROJECTS: ProjectCardData[] = [
     id: "olmo",
     category: "Real Estate",
     title: "Olmo, Property Management Mobile App",
-    subtitle:
-      "Olmo transforms real estate management by streamlining tenant communication, maintenance, and financial tracking. Making property management easier for all and gives new experience.",
+    features: [
+      "Tenant Workflow",
+      "Property Operation",
+      "Maintenance Tracking",
+      "Rent Collection",
+      "Owner Dashboard",
+      "Real State Automation",
+      "Multi Stakeholder Communication",
+    ],
     backgroundColor: "#A2A5AA",
     borderColor: "#A6A9AD",
     buttonColor: "#2D343C",
@@ -61,8 +81,15 @@ const PROJECTS: ProjectCardData[] = [
     id: "milio",
     category: "Collectibles",
     title: "Where collectors Can buy their Collectibles",
-    subtitle:
-      "Milio is a game changing platform for collectors, helping them buy smarter and sell quicker. Its easy-to-use interface makes managing collectibles simple, allowing users to trade and sell with fellow enthusiasts. Whether you're expanding your collection or seeking the ideal buyer, we provides the tools to elevate your collecting journey.",
+    features: [
+      "Marketplace Flow",
+      "Inventory Like system",
+      "User accounts",
+      "Listings",
+      "Buyer seller workflow",
+      "Digital Commerce",
+      "Community Driven Platforms",
+    ],
     backgroundColor: "#D8D8D8",
     borderColor: "#D4D4D4",
     buttonColor: "#333333",
@@ -78,6 +105,63 @@ const PROJECTS: ProjectCardData[] = [
     appStoreHref: undefined,
     learnMoreHref: "#",
     opacity: 35,
+  },
+  {
+    id: "polysignals",
+    category: "Prediction",
+    title: "Build a Track Record People Can Trust.",
+    features: [
+      "Blockchain Verification",
+      "On chain Record",
+      "Reputation System",
+      "Financial Data Workflow",
+      "Public Accountability Systems",
+      "Market Facing Mobile Products",
+      "Complex Scoring and Ranking System",
+    ],
+    backgroundColor: "#EDF8F1",
+    borderColor: "#DAF1E2",
+    buttonColor: "#3D8B5F",
+    mockupSrc: polysignalsMockup,
+    iconSrc: polysignalsIcon,
+    logoSrc: polysignalsLogo,
+    logoAlt: "Polysignals logo",
+    logoWidth: 300,
+    logoHeight: 40,
+    playStoreHref:
+      "https://play.google.com/store/apps/details?id=app.zenythlabs.polysignals",
+    appStoreHref: "https://apps.apple.com/ua/app/polysignals/id6758582770",
+    learnMoreHref: "#",
+    opacity: 90,
+  },
+  {
+    id: "edutechs",
+    category: "LMS",
+    title: "Edutechs, Learning Management Mobile App",
+    features: [
+      "Student Information System",
+      "Learning Management",
+      "Attendance Tracking",
+      "Payments",
+      "Teacher Tools",
+      "School Administration",
+      "Education Workflow Automation",
+    ],
+    bulletColor: "#2B7FD4",
+    backgroundColor: "#E6F6FF",
+    borderColor: "#CCEDFF",
+    buttonColor: "#2B7FD4",
+    mockupSrc: edutechsMockup,
+    iconSrc: edutechsIcon,
+    logoSrc: edutechsLogo,
+    logoAlt: "Edutechs logo",
+    logoWidth: 274,
+    logoHeight: 64,
+    playStoreHref:
+      "https://play.google.com/store/apps/details?id=com.ekram21112.edutechsstudentapp2024",
+    appStoreHref: "https://apps.apple.com/ua/app/edutechs/id6602895268",
+    learnMoreHref: "#",
+    opacity: 90,
   },
 ];
 

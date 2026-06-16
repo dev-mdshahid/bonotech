@@ -1,21 +1,13 @@
-import { useState } from 'react'
 import { ArrowRight } from 'lucide-react'
 import type { ProjectCardProps } from '../Projects.types'
 
 import playStoreImg from '@/assets/playstore.png'
 import appStoreImg from '@/assets/apple-store.png'
 
-/** Max chars to show before "See more" is offered */
-const SUBTITLE_LIMIT = 130
+const DEFAULT_BULLET_COLOR = '#8269CF'
 
 export function ProjectCard({ project }: ProjectCardProps) {
-    const needsTruncation = project.subtitle.length > SUBTITLE_LIMIT
-    const [expanded, setExpanded] = useState(false)
-
-    const displayedSubtitle =
-        needsTruncation && !expanded
-            ? project.subtitle.slice(0, SUBTITLE_LIMIT).trimEnd() + '…'
-            : project.subtitle
+    const bulletColor = project.bulletColor ?? DEFAULT_BULLET_COLOR
 
     return (
         <div
@@ -82,28 +74,25 @@ export function ProjectCard({ project }: ProjectCardProps) {
                     {project.title}
                 </h3>
 
-                {/* Subtitle + See More toggle */}
-                <div className="max-w-100">
-                    <p className="font-body font-normal leading-normal tracking-[-0.016em] text-content-accent-dark
-                                  text-[13px] lg:text-sm xl:text-base">
-                        {displayedSubtitle}
-                    </p>
-                    {needsTruncation && (
-                        <button
-                            onClick={() => setExpanded((v) => !v)}
-                            className="mt-1 inline-flex items-center gap-1 font-body font-medium
-                                       text-[13px] xl:text-sm text-content-accent
-                                       underline-offset-2 hover:underline focus-visible:outline-none"
-                            aria-expanded={expanded}
+                {/* Feature list — bullets on the right, text right-aligned on desktop */}
+                <ul
+                    className="flex flex-col gap-2 w-full max-w-100 list-none m-0 p-0"
+                    aria-label={`${project.title} features`}
+                >
+                    {project.features.map((feature) => (
+                        <li
+                            key={feature}
+                            className="flex items-center justify-center md:justify-end gap-2.5 font-body font-normal leading-normal tracking-[-0.016em] text-content-accent-dark text-[13px] lg:text-sm xl:text-base"
                         >
-                            {expanded ? 'See less' : 'See more'}
-                            <ArrowRight
-                                className="w-3.5 h-3.5 shrink-0 transition-transform duration-200"
-                                style={{ transform: expanded ? 'rotate(90deg)' : 'rotate(0deg)' }}
+                            <span>{feature}</span>
+                            <span
+                                className="w-2 h-2 shrink-0 rounded-full"
+                                style={{ backgroundColor: bulletColor }}
+                                aria-hidden="true"
                             />
-                        </button>
-                    )}
-                </div>
+                        </li>
+                    ))}
+                </ul>
             </div>
 
             {/* Center Mockup — scales to original w-77.5 at xl */}
