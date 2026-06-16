@@ -93,6 +93,35 @@ const CARD_ROTATION = 2;
  */
 const DESKTOP_BREAKPOINT = 768;
 
+/* Shared section heading */
+const SectionHeading = ({ id }: { id?: string }) => (
+  <div className="flex flex-col items-center text-center px-4 max-w-[800px] mx-auto">
+    {/* Pill Badge */}
+    <div className="flex items-center gap-2 mb-4 py-1.5 px-4 rounded-full bg-white border border-[#E8E9EB] shadow-xs">
+      <div
+        className="w-2 h-2 rounded-full shrink-0 bg-[#8269CF]"
+        aria-hidden="true"
+      />
+      <span className="font-display font-medium text-[12px] leading-[140%] uppercase tracking-[0.05em] text-[#8269CF]">
+        PROJECTS
+      </span>
+    </div>
+
+    {/* Title */}
+    <h2
+      id={id}
+      className="font-display font-semibold text-[32px] md:text-[48px] leading-[1.15] text-[#272829]"
+    >
+      Bono-Fide Products,<br className="hidden sm:inline" /> Built for Good.
+    </h2>
+
+    {/* Subtitle */}
+    <p className="mt-4 font-body text-[16px] leading-[1.6] text-[#75777A] mb-20">
+      Bonotech is focus on reinventing how industries operate has helped shape innovative technology across education, real estate, marketplaces, hospitality, and verification systems.
+    </p>
+  </div>
+);
+
 export function Projects({ className }: ProjectsProps) {
   const runwayRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
@@ -229,22 +258,13 @@ export function Projects({ className }: ProjectsProps) {
     };
   }, [isDesktop, effectiveScrollPerCard, cardAreaH, stickyScale]);
 
-  /* Shared section heading — identical class to the original */
-  const SectionHeading = ({ id }: { id?: string }) => (
-    <h2
-      id={id}
-      className="font-body font-semibold text-center text-[clamp(64px,10vw,128px)] leading-[1.15] tracking-normal bg-[linear-gradient(0deg,rgba(130,105,207,0.3)_0%,rgba(60,0,245,0.6)_100%)] bg-clip-text text-transparent"
-    >
-      Projects
-    </h2>
-  );
 
   return (
     <section
       id="projects"
       aria-labelledby="projects-heading"
       className={cn(
-        "relative w-full bg-surface-neutral pt-28 lg:pb-28 pb-0",
+        "relative w-full bg-[#F7F7F8] pt-28 lg:pb-28 pb-0",
         className,
       )}
     >
