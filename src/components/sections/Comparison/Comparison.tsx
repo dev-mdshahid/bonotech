@@ -119,7 +119,7 @@ export function Comparison({ className }: ComparisonProps) {
                                         <div key={step.number} className="flex gap-4">
                                             {/* Left side: Circle and Line */}
                                             <div className="flex flex-col items-center shrink-0">
-                                                <div className="flex w-10 h-10 items-center justify-center rounded-full bg-white text-[16px] font-semibold text-[#272829] shadow-xs shrink-0">
+                                                <div className="flex w-10 h-10 items-center justify-center rounded-full bg-white text-[16px] font-bold text-[#272829] shadow-xs shrink-0">
                                                     {step.number}
                                                 </div>
                                                 {index < TRADITIONAL_STEPS.length - 1 && (
@@ -128,7 +128,7 @@ export function Comparison({ className }: ComparisonProps) {
                                             </div>
                                             {/* Right side: Text details */}
                                             <div className={cn("pt-1.5 flex flex-col justify-start", index === TRADITIONAL_STEPS.length - 1 ? "pb-0" : "pb-6")}>
-                                                <h4 className="text-[16px] font-semibold leading-[1.3] text-[#272829]">
+                                                <h4 className="text-[16px] font-bold leading-[1.3] text-[#272829]">
                                                     {step.title}
                                                 </h4>
                                                 <p className="mt-1 text-[14px] font-normal leading-[1.4] text-[#272829]">
@@ -175,7 +175,7 @@ export function Comparison({ className }: ComparisonProps) {
                                         <div key={step.number} className="flex gap-4">
                                             {/* Left side: Circle and Line */}
                                             <div className="flex flex-col items-center shrink-0">
-                                                <div className="flex w-10 h-10 items-center justify-center rounded-full bg-white text-[16px] font-semibold text-[#8269CF] shadow-xs shrink-0">
+                                                <div className="flex w-10 h-10 items-center justify-center rounded-full bg-white text-[16px] font-bold text-[#8269CF] shadow-xs shrink-0">
                                                     {step.number}
                                                 </div>
                                                 {index < BONOTECH_STEPS.length - 1 && (
@@ -184,7 +184,7 @@ export function Comparison({ className }: ComparisonProps) {
                                             </div>
                                             {/* Right side: Text details */}
                                             <div className={cn("pt-1.5 flex flex-col justify-start", index === BONOTECH_STEPS.length - 1 ? "pb-0" : "pb-6")}>
-                                                <h4 className="text-[16px] font-semibold leading-[1.3] text-white">
+                                                <h4 className="text-[16px] font-bold leading-[1.3] text-white">
                                                     {step.title}
                                                 </h4>
                                                 <p className="mt-1 text-[14px] font-normal leading-[1.4] text-white/95">
