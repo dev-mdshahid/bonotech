@@ -185,11 +185,22 @@ export function Testimonials({ className }: TestimonialsProps) {
       <div className="relative mx-auto w-full max-w-(--width-container) px-(--spacing-container-x) flex flex-col items-center py-28">
         {/* Section Title */}
         <div className="relative flex flex-col items-center select-none">
+          {/* Centered Pill Badge */}
+          <div className="flex items-center gap-2 mb-4 py-1.5 px-4 rounded-full bg-[#F4F0FA] border border-[#E8E9EB]/50 shadow-xs">
+            <div
+              className="w-2 h-2 rounded-full shrink-0 bg-[#8269CF]"
+              aria-hidden="true"
+            />
+            <span className="font-display font-medium text-[12px] leading-[140%] uppercase tracking-[0.05em] text-[#8269CF]">
+              TESTIMONIAL
+            </span>
+          </div>
+
           <h2
             id="testimonials-heading"
-            className="font-body font-semibold text-center text-[clamp(64px,10vw,128px)] leading-[1.15] tracking-normal bg-[linear-gradient(0deg,rgba(130,105,207,0.3)_0%,rgba(60,0,245,0.6)_100%)] bg-clip-text text-transparent"
+            className="font-display font-semibold text-center text-[32px] md:text-[48px] leading-[1.15] text-[#272829]"
           >
-            Testimonials
+            What Clients Say
           </h2>
         </div>
 
