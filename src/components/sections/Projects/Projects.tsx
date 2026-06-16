@@ -167,8 +167,10 @@ const PROJECTS: ProjectCardData[] = [
 
 /** Fixed height of the site navbar (px) */
 const NAVBAR_H = 80;
-/** Vertical padding around title block (px) */
-const TITLE_BOTTOM_MARGIN = 16;
+/** Gap between navbar and first card when stacking begins (px) */
+const CARD_STACK_TOP_GAP = 30;
+/** Sticky pin point for the card stack (px from viewport top) */
+const CARD_PIN_TOP = NAVBAR_H + CARD_STACK_TOP_GAP;
 /** Degrees to rotate stacked cards (alternates ±) */
 const CARD_ROTATION = 2;
 /**
@@ -208,7 +210,6 @@ const SectionHeading = ({ id }: { id?: string }) => (
 
 export function Projects({ className }: ProjectsProps) {
   const runwayRef = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLDivElement>(null);
   const firstCardRef = useRef<HTMLDivElement>(null);
   const cardEls = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -221,7 +222,6 @@ export function Projects({ className }: ProjectsProps) {
     () => window.innerWidth >= DESKTOP_BREAKPOINT,
   );
   const [dims, setDims] = useState(() => ({
-    titleH: 200,
     cardH: 600,
     viewportH: window.innerHeight,
     viewportW: window.innerWidth,
@@ -241,7 +241,6 @@ export function Projects({ className }: ProjectsProps) {
       const vh = window.innerHeight;
       setIsDesktop(vw >= DESKTOP_BREAKPOINT);
       setDims({
-        titleH: titleRef.current?.offsetHeight ?? 200,
         cardH: firstCardRef.current?.offsetHeight ?? 600,
         viewportH: vh,
         viewportW: vw,
@@ -255,7 +254,7 @@ export function Projects({ className }: ProjectsProps) {
     };
   }, []);
 
-  const { titleH, cardH, viewportH } = dims;
+  const { cardH, viewportH } = dims;
 
   /* Visible height of the card-stacking viewport */
   const cardAreaH = cardH;
@@ -266,14 +265,13 @@ export function Projects({ className }: ProjectsProps) {
     : Math.max(cardH * 0.5, 300);
 
   /* Height of what the sticky wrapper "displays" (before scaling) */
-  const stickyContentH = titleH + TITLE_BOTTOM_MARGIN + cardAreaH;
+  const stickyContentH = cardAreaH;
 
   /*
-   * Scale the sticky block down so title + cards always fit within
-   * the visible viewport regardless of zoom level or screen size.
-   * We leave a generous 48 px buffer below, plus the navbar height.
+   * Scale the card stack down so it fits within the visible viewport
+   * below the pin point, regardless of zoom level or screen size.
    */
-  const availableH = Math.max(viewportH - NAVBAR_H - 48, 320);
+  const availableH = Math.max(viewportH - CARD_PIN_TOP - 48, 320);
   const stickyScale =
     stickyContentH > 0 ? Math.min(1, availableH / stickyContentH) : 1;
 
@@ -301,8 +299,8 @@ export function Projects({ className }: ProjectsProps) {
       if (!runwayRef.current) return;
       const rect = runwayRef.current.getBoundingClientRect();
 
-      /* progress = how many px the runway has scrolled past the navbar pin point */
-      const progress = Math.max(0, NAVBAR_H - rect.top);
+      /* progress = how many px the runway has scrolled past the card pin point */
+      const progress = Math.max(0, CARD_PIN_TOP - rect.top);
 
       cardEls.current.forEach((el, i) => {
         if (!el) return;
@@ -371,72 +369,64 @@ export function Projects({ className }: ProjectsProps) {
         <>
           {/* Scroll runway — oversized so the sticky wrapper stays pinned
               for the full card-animation duration */}
-          <div
-            ref={runwayRef}
-            className="relative mx-auto w-full max-w-(--width-container) px-(--spacing-container-x)"
-            style={{ height: runwayH }}
-          >
-            {/* Sticky wrapper — pins below the navbar.
-                 Height is the VISUAL scaled height so the layout footprint
-                 matches what the user actually sees. The inner scale div
-                 overflows below this boundary, but its overflow is empty
-                 (no content there), so nothing is clipped visually. */}
+          <div className="mx-auto w-full max-w-(--width-container) px-(--spacing-container-x)">
+            {/* Title scrolls away naturally before stacking begins */}
+            <div className="flex flex-col items-center select-none">
+              <SectionHeading id="projects-heading" />
+            </div>
+
+            {/* Scroll runway — oversized so the sticky wrapper stays pinned
+                for the full card-animation duration */}
             <div
-              className="sticky"
-              style={{
-                top: NAVBAR_H,
-                height: stickyContentH * stickyScale,
-              }}
+              ref={runwayRef}
+              className="relative"
+              style={{ height: runwayH }}
             >
-              {/*
-               * Scale wrapper: shrinks the entire title+cards block uniformly
-               * so it always fits within the viewport, even when zoomed in.
-               * transform-origin: top center keeps the heading aligned correctly.
-               */}
+              {/* Sticky wrapper — pins when the first card reaches CARD_PIN_TOP.
+                   Height is the VISUAL scaled height so the layout footprint
+                   matches what the user actually sees. */}
               <div
+                className="sticky"
                 style={{
-                  transform: `scale(${stickyScale})`,
-                  transformOrigin: "top center",
-                  /*
-                   * When scaled down the block's layout height stays at the
-                   * original value (CSS transforms don't affect flow), so we
-                   * explicitly cap the visible area to avoid phantom whitespace.
-                   */
-                  height: stickyContentH,
-                  maxHeight: stickyContentH,
+                  top: CARD_PIN_TOP,
+                  height: stickyContentH * stickyScale,
                 }}
               >
-                {/* Section title */}
+                {/*
+                 * Scale wrapper: shrinks the card stack uniformly so it
+                 * always fits within the viewport below the pin point.
+                 */}
                 <div
-                  ref={titleRef}
-                  className="flex flex-col items-center select-none"
-                  style={{ marginBottom: TITLE_BOTTOM_MARGIN }}
-                >
-                  <SectionHeading id="projects-heading" />
-                </div>
-
-                {/* Card viewport — clipPath hides cards entering from below.
-                    Negative insets let rotated corners bleed without clipping. */}
-                <div
-                  className="relative"
                   style={{
-                    height: cardAreaH,
-                    clipPath: "inset(-200px -200px -200px -200px)",
+                    transform: `scale(${stickyScale})`,
+                    transformOrigin: "top center",
+                    height: stickyContentH,
+                    maxHeight: stickyContentH,
                   }}
                 >
-                  {PROJECTS.map((project, index) => (
-                    <div
-                      key={project.id}
-                      ref={(el) => {
-                        cardEls.current[index] = el;
-                        if (index === 0) firstCardRef.current = el;
-                      }}
-                      className="absolute inset-x-0 flex justify-center will-change-transform"
-                      style={{ zIndex: index + 1 }}
-                    >
-                      <ProjectCard project={project} />
-                    </div>
-                  ))}
+                  {/* Card viewport — clipPath hides cards entering from below.
+                      Negative insets let rotated corners bleed without clipping. */}
+                  <div
+                    className="relative"
+                    style={{
+                      height: cardAreaH,
+                      clipPath: "inset(-200px -200px -200px -200px)",
+                    }}
+                  >
+                    {PROJECTS.map((project, index) => (
+                      <div
+                        key={project.id}
+                        ref={(el) => {
+                          cardEls.current[index] = el;
+                          if (index === 0) firstCardRef.current = el;
+                        }}
+                        className="absolute inset-x-0 flex justify-center will-change-transform"
+                        style={{ zIndex: index + 1 }}
+                      >
+                        <ProjectCard project={project} />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>

@@ -103,13 +103,13 @@ export function Comparison({ className }: ComparisonProps) {
                             </h3>
 
                             {/* Timeframe Banner */}
-                            <div className="flex items-center gap-3 w-full my-6">
-                                <div className="h-[1px] flex-1 bg-[#8269CF]/25"></div>
-                                <div className="flex items-center gap-2 text-[#8269CF] text-[18px] font-semibold leading-none">
-                                    <Calendar className="w-[18px] h-[18px] text-[#8269CF]" strokeWidth={2.2} />
+                            <div className="flex items-center gap-3 w-full my-6 shrink-0">
+                                <div className="h-[1.5px] flex-1 bg-gradient-to-r from-transparent via-[#8269CF]/30 to-[#8269CF]/50" />
+                                <div className="flex items-center gap-2 text-[#8269CF] text-[18px] font-[700] leading-none shrink-0 font-display">
+                                    <Calendar className="w-[18px] h-[18px] text-[#8269CF] shrink-0" strokeWidth={2.2} />
                                     <span>10 Month</span>
                                 </div>
-                                <div className="h-[1px] flex-1 bg-[#8269CF]/25"></div>
+                                <div className="h-[1.5px] flex-1 bg-gradient-to-l from-transparent via-[#8269CF]/30 to-[#8269CF]/50" />
                             </div>
 
                             {/* Timeline Box */}
@@ -153,13 +153,13 @@ export function Comparison({ className }: ComparisonProps) {
                             </div>
 
                             {/* Timeframe Banner */}
-                            <div className="flex items-center gap-3 w-full my-6">
-                                <div className="h-[1px] flex-1 bg-[#8269CF]/25"></div>
-                                <div className="flex items-center gap-2 text-[#8269CF] text-[18px] font-semibold leading-none">
-                                    <Calendar className="w-[18px] h-[18px] text-[#8269CF]" strokeWidth={2.2} />
+                            <div className="flex items-center gap-3 w-full my-6 shrink-0">
+                                <div className="h-[1.5px] flex-1 bg-gradient-to-r from-transparent via-[#8269CF]/30 to-[#8269CF]/50" />
+                                <div className="flex items-center gap-2 text-[#8269CF] text-[18px] font-[700] leading-none shrink-0 font-display">
+                                    <Calendar className="w-[18px] h-[18px] text-[#8269CF] shrink-0" strokeWidth={2.2} />
                                     <span>2 Week</span>
                                 </div>
-                                <div className="h-[1px] flex-1 bg-[#8269CF]/25"></div>
+                                <div className="h-[1.5px] flex-1 bg-gradient-to-l from-transparent via-[#8269CF]/30 to-[#8269CF]/50" />
                             </div>
 
                             {/* Timeline Box */}
