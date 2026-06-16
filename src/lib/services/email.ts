@@ -5,8 +5,9 @@ const CONTACT_RECIPIENT = "ekram@edutechs.app";
 
 export interface ContactFormData {
   name: string;
-  emailOrPhone: string;
-  projectDetails: string;
+  email: string;
+  phone: string;
+  message: string;
 }
 
 interface EmailPayload {
@@ -45,15 +46,22 @@ export function validateContactForm(
     errors.name = "Name is required.";
   }
 
-  const contact = data.emailOrPhone.trim();
-  if (!contact) {
-    errors.emailOrPhone = "Email or phone number is required.";
-  } else if (!EMAIL_RE.test(contact) && !PHONE_RE.test(contact)) {
-    errors.emailOrPhone = "Please enter a valid email or phone number.";
+  const email = data.email.trim();
+  if (!email) {
+    errors.email = "Email is required.";
+  } else if (!EMAIL_RE.test(email)) {
+    errors.email = "Please enter a valid email address.";
   }
 
-  if (!data.projectDetails.trim()) {
-    errors.projectDetails = "Project details are required.";
+  const phone = data.phone.trim();
+  if (!phone) {
+    errors.phone = "Phone number is required.";
+  } else if (!PHONE_RE.test(phone)) {
+    errors.phone = "Please enter a valid phone number.";
+  }
+
+  if (!data.message.trim()) {
+    errors.message = "Message is required.";
   }
 
   return errors;
@@ -74,12 +82,16 @@ function buildContactEmailHtml(data: ContactFormData): string {
           <td style="padding:12px 8px;border-bottom:1px solid #eee;">${esc(data.name.trim())}</td>
         </tr>
         <tr>
-          <td style="padding:12px 8px;border-bottom:1px solid #eee;font-weight:bold;vertical-align:top;">Email / Phone</td>
-          <td style="padding:12px 8px;border-bottom:1px solid #eee;">${esc(data.emailOrPhone.trim())}</td>
+          <td style="padding:12px 8px;border-bottom:1px solid #eee;font-weight:bold;vertical-align:top;">Email</td>
+          <td style="padding:12px 8px;border-bottom:1px solid #eee;">${esc(data.email.trim())}</td>
         </tr>
         <tr>
-          <td style="padding:12px 8px;border-bottom:1px solid #eee;font-weight:bold;vertical-align:top;">Project Details</td>
-          <td style="padding:12px 8px;border-bottom:1px solid #eee;white-space:pre-wrap;">${esc(data.projectDetails.trim())}</td>
+          <td style="padding:12px 8px;border-bottom:1px solid #eee;font-weight:bold;vertical-align:top;">Phone</td>
+          <td style="padding:12px 8px;border-bottom:1px solid #eee;">${esc(data.phone.trim())}</td>
+        </tr>
+        <tr>
+          <td style="padding:12px 8px;border-bottom:1px solid #eee;font-weight:bold;vertical-align:top;">Message</td>
+          <td style="padding:12px 8px;border-bottom:1px solid #eee;white-space:pre-wrap;">${esc(data.message.trim())}</td>
         </tr>
       </table>
       <p style="margin-top:24px;font-size:13px;color:#999;">
@@ -138,9 +150,7 @@ export async function sendContactEmail(data: ContactFormData): Promise<void> {
     throw new EmailSendError(first);
   }
 
-  const senderEmail = EMAIL_RE.test(data.emailOrPhone.trim())
-    ? data.emailOrPhone.trim()
-    : "noreply@bonotech.io";
+  const senderEmail = data.email.trim() || "noreply@bonotech.io";
 
   const payload: EmailPayload = {
     recepient: [CONTACT_RECIPIENT],
