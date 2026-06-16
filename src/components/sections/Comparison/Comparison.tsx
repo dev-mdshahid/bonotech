@@ -94,14 +94,14 @@ export function Comparison({ className }: ComparisonProps) {
                 {/* Card Container */}
                 <div className="w-full bg-white rounded-[24px] p-6 md:p-10 shadow-xs">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
-                        
+
                         {/* Traditional Product Cycle (Left) */}
                         <div className="flex flex-col h-full">
                             {/* Column Header */}
                             <h3 className="text-[28px] font-semibold text-[#272829] text-center leading-tight">
                                 Traditional Product Cycle
                             </h3>
-                            
+
                             {/* Timeframe Banner */}
                             <div className="flex items-center gap-3 w-full my-6">
                                 <div className="h-[1px] flex-1 bg-[#8269CF]/25"></div>
@@ -144,11 +144,11 @@ export function Comparison({ className }: ComparisonProps) {
                         {/* BONOTECH (Right) */}
                         <div className="flex flex-col h-full">
                             {/* Column Header */}
-                            <div className="flex justify-center items-center h-[34px]">
+                            <div className="flex justify-center items-center h-[36px]">
                                 <img
                                     src={bonotechLogo}
                                     alt="BONOTECH"
-                                    className="h-[28px] w-auto object-contain"
+                                    className="h-[36px] w-auto object-contain"
                                 />
                             </div>
 

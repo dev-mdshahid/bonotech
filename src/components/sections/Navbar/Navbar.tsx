@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { ArrowRight, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import bonotechLogo from '@/assets/bonotech-logo.png'
+import bonotechLogo from '@/assets/bonotech-logo-mono.png'
 import menuIcon from '@/assets/icons/menu-line-horizontal.svg'
 import type { NavbarProps, NavLink } from './Navbar.types'
 
