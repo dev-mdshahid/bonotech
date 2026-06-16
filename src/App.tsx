@@ -6,6 +6,7 @@ import { Introduction } from '@/components/sections/Introduction/Introduction'
 import { WhatWeDo } from '@/components/sections/WhatWeDo/WhatWeDo'
 import { Comparison } from '@/components/sections/Comparison/Comparison'
 import { Timeline } from '@/components/sections/Timeline/Timeline'
+import { Speed } from '@/components/sections/Speed/Speed'
 import { Projects } from '@/components/sections/Projects/Projects'
 import { Testimonials } from '@/components/sections/Testimonials/Testimonials'
 import { FAQ } from '@/components/sections/FAQ/FAQ'
@@ -21,8 +22,9 @@ export default function App() {
             <Clients />
             <Introduction />
             <Comparison />
-            <Timeline />
             <WhatWeDo />
+            <Timeline />
+            <Speed />
             <Projects />
             <Testimonials />
             <FAQ />
