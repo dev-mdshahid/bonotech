@@ -113,8 +113,9 @@
     --color-status-active: #22C55E;
 
     /* ── Typography ───────────────────────────────── */
-    --font-display: "Rethink Sans", sans-serif;
-    --font-body: "Rethink Sans", sans-serif;
+    --font-sans: "Rethink Sans", sans-serif;
+    --font-display: var(--font-sans);
+    --font-body: var(--font-sans);
 
     /* ── Type Scale ───────────────────────────────── */
     --text-display-lg: 56px;
@@ -230,5 +231,5 @@ html {
 }
 
 body {
-    @apply bg-surface-neutral text-content-primary antialiased;
+    @apply bg-surface-neutral text-content-primary antialiased font-sans;
 }
