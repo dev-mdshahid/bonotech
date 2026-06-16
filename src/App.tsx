@@ -8,6 +8,7 @@ import { Comparison } from '@/components/sections/Comparison/Comparison'
 import { Timeline } from '@/components/sections/Timeline/Timeline'
 import { Speed } from '@/components/sections/Speed/Speed'
 import { Projects } from '@/components/sections/Projects/Projects'
+import { BonoExperience } from '@/components/sections/BonoExperience/BonoExperience'
 import { Testimonials } from '@/components/sections/Testimonials/Testimonials'
 import { FAQ } from '@/components/sections/FAQ/FAQ'
 import { Contact } from '@/components/sections/Contact/Contact'
@@ -26,6 +27,7 @@ export default function App() {
             <Timeline />
             <Speed />
             <Projects />
+            <BonoExperience />
             <Testimonials />
             <FAQ />
             <Contact />
