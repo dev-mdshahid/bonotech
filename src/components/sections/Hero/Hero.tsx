@@ -2,7 +2,7 @@ import type { HeroProps } from "./Hero.types";
 import { HeroPill } from "./components/HeroPill";
 import { HeroButton } from "./components/HeroButton";
 
-import bonotechHeroBg from "@/assets/bonotech-hero-bg.png";
+import bonotechHeroBg from "@/assets/bonotech-hero-bg.jpg";
 
 export function Hero({
   pillText = "POWERED BY SPEED",
