@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { ArrowRight, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import bonotechLogo from '@/assets/bonotech-logo-mono.png'
@@ -14,6 +15,11 @@ const DEFAULT_LINKS: NavLink[] = [
 
 export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    const location = useLocation()
+    const isHome = location.pathname === '/'
+
+    // From terms/privacy pages, nav links must go to homepage with hash so the section scroll works
+    const navHref = (hashLink: string) => (isHome ? hashLink : `/${hashLink}`)
 
     const closeMenu = () => setMobileMenuOpen(false)
 
@@ -98,7 +104,7 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
                         {links.map((link, i) => (
                             <a
                                 key={link.label}
-                                href={link.href}
+                                href={navHref(link.href)}
                                 onClick={closeMenu}
                                 className="text-[#131314] font-semibold text-center hover:opacity-50 transition-opacity duration-200"
                                 style={{
@@ -123,7 +129,7 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
                         }}
                     >
                         <a
-                            href="#contact"
+                            href={navHref('#contact')}
                             onClick={closeMenu}
                             className="inline-flex items-center gap-3 bg-[#131314] text-white rounded-full pl-[24px] pr-[6px] py-[6px] text-label-lg hover:opacity-90 transition-(--transition-base)"
                         >

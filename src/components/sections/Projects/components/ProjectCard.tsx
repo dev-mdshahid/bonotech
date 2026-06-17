@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { ArrowRight } from 'lucide-react'
 import type { ProjectCardProps } from '../Projects.types'
 
