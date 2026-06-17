@@ -74,7 +74,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                     {project.title}
                 </h3>
 
-                {/* Feature list — bullets on the right, text right-aligned on desktop */}
+                {/* Feature list — bullets left on mobile, right on desktop */}
                 <ul
                     className="flex flex-col gap-2 w-full max-w-100 list-none m-0 p-0"
                     aria-label={`${project.title} features`}
@@ -82,7 +82,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                     {project.features.map((feature) => (
                         <li
                             key={feature}
-                            className="flex items-center justify-center md:justify-end gap-2.5 font-body font-normal leading-normal tracking-[-0.016em] text-content-accent-dark text-[13px] lg:text-sm xl:text-base"
+                            className="flex flex-row-reverse md:flex-row items-center justify-center md:justify-end gap-2.5 font-body font-normal leading-normal tracking-[-0.016em] text-content-accent-dark text-[13px] lg:text-sm xl:text-base"
                         >
                             <span>{feature}</span>
                             <span
