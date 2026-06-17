@@ -6,10 +6,11 @@ export interface ProjectCardData {
     id: string
     category: string
     title: string
-    subtitle: string
+    features: string[]
     backgroundColor: string
     borderColor: string
     buttonColor: string
+    bulletColor?: string
     mockupSrc: string
     iconSrc?: string
     iconWidth?: number

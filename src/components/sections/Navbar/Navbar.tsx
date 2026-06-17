@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { ArrowRight, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import bonotechLogo from '@/assets/bonotech-logo.png'
+import bonotechLogo from '@/assets/bonotech-logo-mono.png'
 import menuIcon from '@/assets/icons/menu-line-horizontal.svg'
 import type { NavbarProps, NavLink } from './Navbar.types'
 
@@ -25,9 +25,8 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
 
     return (
         <>
-            <nav className="sticky top-0 z-[60] w-full bg-surface-white" aria-label="Main navigation">
-                <div className="mx-auto w-full max-w-(--width-container) px-(--spacing-container-x) flex items-center justify-between h-[80px]">
-                    {/* Logo */}
+            <nav className="absolute top-0 z-[60] w-full bg-transparent" aria-label="Main navigation">
+                <div className="mx-auto flex h-[104px] w-full max-w-[1200px] items-center justify-between px-0 max-xl:px-6">
                     <a href="/" className="shrink-0 relative z-[60]" aria-label="Bonotech Home">
                         <img
                             src={bonotechLogo}
@@ -36,34 +35,32 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
                         />
                     </a>
 
-                    {/* Desktop Nav Links */}
                     <div className="hidden lg:flex items-center gap-10">
                         {links.map((link) => (
                             <a
                                 key={link.label}
-                                href={navHref(link.href)}
-                                className="text-body-lg text-content-primary font-medium hover:text-content-tertiary transition-(--transition-base)"
+                                href={link.href}
+                                className="text-[17px] font-semibold leading-[1.4] text-white transition-(--transition-base) hover:text-white/75"
                             >
                                 {link.label}
                             </a>
                         ))}
                     </div>
 
-                    {/* Desktop CTA Button */}
                     <a
-                        href={navHref('#contact')}
-                        className="hidden lg:inline-flex items-center gap-3 bg-content-primary text-content-white rounded-full pl-[24px] pr-[6px] py-[6px] text-label-lg hover:opacity-90 transition-(--transition-base)"
+                        href="#contact"
+                        className="hidden h-[49px] items-center gap-3 rounded-full bg-white/13 py-[6px] pl-[25px] pr-[7px] text-[17px] font-semibold leading-[1.4] text-white backdrop-blur-sm transition-(--transition-base) hover:bg-white/20 lg:inline-flex"
                     >
                         Contact Us
-                        <span className="w-[36px] h-[36px] rounded-full bg-surface-white flex items-center justify-center">
-                            <ArrowRight className="w-[16px] h-[16px] text-content-primary" />
+                        <span className="flex h-[32px] w-[32px] items-center justify-center rounded-full bg-white">
+                            <ArrowRight className="h-[16px] w-[16px] text-[#131314]" />
                         </span>
                     </a>
 
                     {/* Mobile Menu Toggle */}
                     <button
                         type="button"
-                        className="lg:hidden relative z-[60] p-2 text-content-primary"
+                        className="relative z-[60] p-2 text-white lg:hidden"
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                         aria-expanded={mobileMenuOpen}
                         aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
@@ -74,7 +71,7 @@ export function Navbar({ links = DEFAULT_LINKS }: NavbarProps) {
                                 mobileMenuOpen ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-50'
                             )}
                         >
-                            <X className="w-6 h-6 text-content-primary" />
+                            <X className="w-6 h-6 text-white" />
                         </span>
                         <span
                             className={cn(

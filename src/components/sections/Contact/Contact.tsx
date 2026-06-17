@@ -7,14 +7,15 @@ import {
   EmailSendError,
   type ContactFormData,
 } from "@/lib/services/email";
-import contactBg from "@/assets/contact-section-bg.png";
+import { Mail, Phone, MapPin } from "lucide-react";
 
 type FormStatus = "idle" | "sending" | "success" | "error";
 
 const INITIAL_FORM: ContactFormData = {
   name: "",
-  emailOrPhone: "",
-  projectDetails: "",
+  email: "",
+  phone: "",
+  message: "",
 };
 
 const SUCCESS_RESET_MS = 5_000;
@@ -86,141 +87,232 @@ export function Contact({ className }: ContactProps) {
     <section
       id="contact"
       aria-labelledby="contact-heading"
-      className={cn("relative w-full bg-surface-neutral", className)}
+      className={cn("w-full bg-white py-20 md:py-28 overflow-hidden", className)}
     >
-      <div className="relative mx-auto w-full max-w-(--width-container) px-(--spacing-container-x) flex flex-col items-center py-28">
-        {/* Section Title — "Let's Connect" with gradient */}
-        <div className="relative flex flex-col items-center select-none mb-10">
-          <h2
-            id="contact-heading"
-            className="font-body font-semibold text-center text-[clamp(44px,9vw,128px)] leading-[1.15] tracking-normal bg-[linear-gradient(0deg,rgba(130,105,207,0.3)_0%,rgba(60,0,245,0.6)_100%)] bg-clip-text text-transparent"
-          >
-            Let's Connect
-          </h2>
-        </div>
-
-        {/* ─── Contact Card ─── */}
-        <div className="relative w-full max-w-300 overflow-hidden flex flex-col lg:flex-row justify-between rounded-4xl p-8 md:p-16 lg:h-179.5">
-          {/* Background image */}
-          <img
-            src={contactBg}
-            alt=""
-            aria-hidden="true"
-            className="absolute inset-0 w-full h-full object-cover z-0"
-          />
-
-          {/* Dark overlay for readability */}
-          <div
-            className="absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(0,0,0,0.1)_0%,rgba(0,0,0,0.3)_100%)]"
-            aria-hidden="true"
-          />
-
+      <div className="relative mx-auto w-full max-w-(--width-container) px-(--spacing-container-x)">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start w-full">
           {/* ─── Left Content ─── */}
-          <div className="relative z-20 flex flex-col justify-center w-full lg:w-1/2">
-            <h3 className="font-body font-medium text-white text-[32px] md:text-[40px] leading-[1.1] tracking-[-0.01em] lg:max-w-1/2">
-              Have an idea in your mind?
-            </h3>
-            <p className="font-body font-medium text-white/80 text-base md:text-lg leading-[1.4] mt-4">
-              Let's make something happen together
-            </p>
+          <div className="lg:col-span-6 flex flex-col lg:justify-between lg:h-full gap-12 lg:gap-0">
+            <div>
+              <h2
+                id="contact-heading"
+                className="font-display font-semibold text-[#131314] text-[48px] leading-[1.15] tracking-tight mb-4"
+              >
+                Get In Touch
+              </h2>
+              <p className="font-body text-[#444547] text-[18px] leading-[1.6] max-w-xl">
+                Schedule a 30- min free discovery call with our Bono-Pros. Our
+                experts will evaluate your business needs and goals to translate
+                them into market-ready business products.
+              </p>
+            </div>
+
+            {/* Contact Details */}
+            <div className="flex flex-col gap-4 mt-6 lg:mt-24">
+              {/* Email */}
+              <div className="flex items-center gap-4">
+                <div
+                  className="flex items-center justify-center w-[40px] h-[40px] bg-[#F2F3F4] rounded-full text-[#131314] shrink-0"
+                  aria-hidden="true"
+                >
+                  <Mail size={16} />
+                </div>
+                <a
+                  href="mailto:contact@bonotech.io"
+                  className="font-body text-[16px] text-[#272829] hover:underline"
+                >
+                  contact@bonotech.io
+                </a>
+              </div>
+
+              {/* Phone */}
+              <div className="flex items-center gap-4">
+                <div
+                  className="flex items-center justify-center w-[40px] h-[40px] bg-[#F2F3F4] rounded-full text-[#131314] shrink-0"
+                  aria-hidden="true"
+                >
+                  <Phone size={16} />
+                </div>
+                <a
+                  href="tel:+6565156515"
+                  className="font-body text-[16px] text-[#272829] hover:underline"
+                >
+                  +6565156515
+                </a>
+              </div>
+
+              {/* Address */}
+              <div className="flex items-start gap-4">
+                <div
+                  className="flex items-center justify-center w-[40px] h-[40px] bg-[#F2F3F4] rounded-full text-[#131314] shrink-0 mt-0.5"
+                  aria-hidden="true"
+                >
+                  <MapPin size={16} />
+                </div>
+                <span className="font-body text-[16px] text-[#272829] leading-relaxed max-w-sm">
+                  Bonotech Holdings PTE LTD. 111 Somerset Road, #08-10A, Singapore
+                  238164
+                </span>
+              </div>
+            </div>
           </div>
 
           {/* ─── Right Form ─── */}
-          <form
-            onSubmit={handleSubmit}
-            noValidate
-            className="relative z-20 flex flex-col justify-center w-full lg:w-1/2 lg:px-12 gap-8 mt-8 lg:mt-0"
-          >
-            {/* Name */}
-            <div>
-              <input
-                type="text"
-                placeholder="Name"
-                value={form.name}
-                onChange={(e) => updateField("name", e.target.value)}
-                disabled={isBusy}
-                aria-label="Name"
-                aria-invalid={!!fieldErrors.name}
-                className={cn(
-                  "font-body bg-transparent text-base leading-[1.4] font-normal text-white placeholder:text-white outline-none w-full pb-3 border-b transition-colors disabled:opacity-60",
-                  fieldErrors.name ? "border-red-400" : "border-[#E8E9EB]",
+          <div className="lg:col-span-6 w-full">
+            <div className="bg-[#F7F7F7] rounded-[24px] p-8 w-full">
+              <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-8">
+                {/* Name */}
+                <div className="flex flex-col">
+                  <label
+                    htmlFor="name"
+                    className="font-display font-semibold text-[#131314] text-[18px] mb-2"
+                  >
+                    Name
+                  </label>
+                  <input
+                    id="name"
+                    type="text"
+                    placeholder="Adam Smith"
+                    value={form.name}
+                    onChange={(e) => updateField("name", e.target.value)}
+                    disabled={isBusy}
+                    aria-label="Name"
+                    aria-invalid={!!fieldErrors.name}
+                    className={cn(
+                      "w-full bg-transparent border-b pb-2 text-[16px] text-[#272829] placeholder:text-[#B4B6B8] outline-none transition-colors disabled:opacity-60",
+                      fieldErrors.name
+                        ? "border-red-500 focus:border-red-500"
+                        : "border-[#DCDDE0] focus:border-[#7E60E8]",
+                    )}
+                  />
+                  {fieldErrors.name && (
+                    <p role="alert" className="mt-1.5 text-sm text-red-500">
+                      {fieldErrors.name}
+                    </p>
+                  )}
+                </div>
+
+                {/* Email */}
+                <div className="flex flex-col">
+                  <label
+                    htmlFor="email"
+                    className="font-display font-semibold text-[#131314] text-[18px] mb-2"
+                  >
+                    Email
+                  </label>
+                  <input
+                    id="email"
+                    type="email"
+                    placeholder="demo@gmail.com"
+                    value={form.email}
+                    onChange={(e) => updateField("email", e.target.value)}
+                    disabled={isBusy}
+                    aria-label="Email"
+                    aria-invalid={!!fieldErrors.email}
+                    className={cn(
+                      "w-full bg-transparent border-b pb-2 text-[16px] text-[#272829] placeholder:text-[#B4B6B8] outline-none transition-colors disabled:opacity-60",
+                      fieldErrors.email
+                        ? "border-red-500 focus:border-red-500"
+                        : "border-[#DCDDE0] focus:border-[#7E60E8]",
+                    )}
+                  />
+                  {fieldErrors.email && (
+                    <p role="alert" className="mt-1.5 text-sm text-red-500">
+                      {fieldErrors.email}
+                    </p>
+                  )}
+                </div>
+
+                {/* Phone */}
+                <div className="flex flex-col">
+                  <label
+                    htmlFor="phone"
+                    className="font-display font-semibold text-[#131314] text-[18px] mb-2"
+                  >
+                    Phone
+                  </label>
+                  <input
+                    id="phone"
+                    type="text"
+                    placeholder="++12345-678910"
+                    value={form.phone}
+                    onChange={(e) => updateField("phone", e.target.value)}
+                    disabled={isBusy}
+                    aria-label="Phone"
+                    aria-invalid={!!fieldErrors.phone}
+                    className={cn(
+                      "w-full bg-transparent border-b pb-2 text-[16px] text-[#272829] placeholder:text-[#B4B6B8] outline-none transition-colors disabled:opacity-60",
+                      fieldErrors.phone
+                        ? "border-red-500 focus:border-red-500"
+                        : "border-[#DCDDE0] focus:border-[#7E60E8]",
+                    )}
+                  />
+                  {fieldErrors.phone && (
+                    <p role="alert" className="mt-1.5 text-sm text-red-500">
+                      {fieldErrors.phone}
+                    </p>
+                  )}
+                </div>
+
+                {/* Message */}
+                <div className="flex flex-col">
+                  <label
+                    htmlFor="message"
+                    className="font-display font-semibold text-[#131314] text-[18px] mb-2"
+                  >
+                    Message
+                  </label>
+                  <input
+                    id="message"
+                    type="text"
+                    placeholder="Type message"
+                    value={form.message}
+                    onChange={(e) => updateField("message", e.target.value)}
+                    disabled={isBusy}
+                    aria-label="Message"
+                    aria-invalid={!!fieldErrors.message}
+                    className={cn(
+                      "w-full bg-transparent border-b pb-2 text-[16px] text-[#272829] placeholder:text-[#B4B6B8] outline-none transition-colors disabled:opacity-60",
+                      fieldErrors.message
+                        ? "border-red-500 focus:border-red-500"
+                        : "border-[#DCDDE0] focus:border-[#7E60E8]",
+                    )}
+                  />
+                  {fieldErrors.message && (
+                    <p role="alert" className="mt-1.5 text-sm text-red-500">
+                      {fieldErrors.message}
+                    </p>
+                  )}
+                </div>
+
+                {/* Status feedback */}
+                {statusMessage && (
+                  <p
+                    role="status"
+                    aria-live="polite"
+                    className={cn(
+                      "text-sm font-medium text-center",
+                      status === "success" && "text-emerald-600",
+                      status === "error" && "text-red-500",
+                    )}
+                  >
+                    {statusMessage}
+                  </p>
                 )}
-              />
-              {fieldErrors.name && (
-                <p role="alert" className="mt-1.5 text-sm text-red-400">
-                  {fieldErrors.name}
-                </p>
-              )}
+
+                {/* Submit Button */}
+                <div className="flex justify-start mt-2">
+                  <button
+                    type="submit"
+                    disabled={isBusy}
+                    className="font-body cursor-pointer text-white bg-[#7E60E8] hover:bg-[#6D4DE0] font-semibold text-[16px] px-10 py-3 rounded-full transition-all duration-200 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed disabled:active:scale-100"
+                  >
+                    {isBusy ? "Sending…" : "Submit"}
+                  </button>
+                </div>
+              </form>
             </div>
-
-            {/* Email / Phone */}
-            <div>
-              <input
-                type="text"
-                placeholder="Email/Phone No"
-                value={form.emailOrPhone}
-                onChange={(e) => updateField("emailOrPhone", e.target.value)}
-                disabled={isBusy}
-                aria-label="Email or Phone Number"
-                aria-invalid={!!fieldErrors.emailOrPhone}
-                className={cn(
-                  "font-body bg-transparent text-base leading-[1.4] font-normal text-white placeholder:text-white outline-none w-full pb-3 border-b transition-colors disabled:opacity-60",
-                  fieldErrors.emailOrPhone ? "border-red-400" : "border-[#E8E9EB]",
-                )}
-              />
-              {fieldErrors.emailOrPhone && (
-                <p role="alert" className="mt-1.5 text-sm text-red-400">
-                  {fieldErrors.emailOrPhone}
-                </p>
-              )}
-            </div>
-
-            {/* Project Details */}
-            <div>
-              <textarea
-                placeholder="Project Details"
-                value={form.projectDetails}
-                onChange={(e) => updateField("projectDetails", e.target.value)}
-                disabled={isBusy}
-                aria-label="Project Details"
-                aria-invalid={!!fieldErrors.projectDetails}
-                rows={4}
-                className={cn(
-                  "font-body bg-transparent text-base leading-[1.4] font-normal text-white placeholder:text-white outline-none w-full pb-3 border-b transition-colors resize-y min-h-[80px] disabled:opacity-60",
-                  fieldErrors.projectDetails ? "border-red-400" : "border-[#E8E9EB]",
-                )}
-              />
-              {fieldErrors.projectDetails && (
-                <p role="alert" className="mt-1.5 text-sm text-red-400">
-                  {fieldErrors.projectDetails}
-                </p>
-              )}
-            </div>
-
-            {/* Status feedback */}
-            {statusMessage && (
-              <p
-                role="status"
-                aria-live="polite"
-                className={cn(
-                  "text-sm font-medium text-center -mb-4",
-                  status === "success" && "text-emerald-400",
-                  status === "error" && "text-red-400",
-                )}
-              >
-                {statusMessage}
-              </p>
-            )}
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              disabled={isBusy}
-              className="font-body cursor-pointer transition-(--transition-base) hover:opacity-90 w-full h-14 rounded-full bg-white text-[#131314] font-semibold text-base leading-[1.4] mt-2 disabled:opacity-60 disabled:cursor-not-allowed"
-            >
-              {isBusy ? "Sending…" : "Send Message"}
-            </button>
-          </form>
+          </div>
         </div>
       </div>
     </section>
