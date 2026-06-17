@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import { Lightbulb, Rocket, ShieldCheck } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { IntroductionProps } from './Introduction.types'
@@ -7,24 +8,38 @@ const FEATURE_CARDS = [
         icon: Rocket,
         title: 'Speed',
         text: 'Faster product cycles.',
-        variant: 'light',
         iconClassName: 'text-[#168ED8]',
     },
     {
         icon: ShieldCheck,
         title: 'Security',
         text: 'Faster product cycles.',
-        variant: 'accent',
         iconClassName: 'text-[#05C982]',
     },
     {
         icon: Lightbulb,
         title: 'Outcome',
         text: 'Business metrics tied to every sprint.',
-        variant: 'light',
         iconClassName: 'text-[#FFC94D]',
     },
 ] as const
+
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: { staggerChildren: 0.12 },
+    },
+}
+
+const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { type: 'spring' as const, stiffness: 100, damping: 16 },
+    },
+}
 
 export function Introduction({ className }: IntroductionProps) {
     return (
@@ -71,21 +86,28 @@ export function Introduction({ className }: IntroductionProps) {
                     </div>
                 </div>
 
-                <div className="mt-[52px] grid grid-cols-3 gap-[14px] max-lg:grid-cols-1">
+                <motion.div
+                    className="mt-[52px] grid grid-cols-3 gap-[14px] max-lg:grid-cols-1"
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: '-80px' }}
+                >
                     {FEATURE_CARDS.map((card) => {
                         const Icon = card.icon
-                        const isAccent = card.variant === 'accent'
 
                         return (
-                            <article
+                            <motion.article
                                 key={card.title}
-                                className={cn(
-                                    'flex min-h-[200px] flex-col justify-between rounded-[16px] p-6',
-                                    isAccent
-                                        ? 'bg-[#8269CF] text-white'
-                                        : 'bg-[#F4F5F6] text-[#272829]'
-                                )}
+                                variants={cardVariants}
+                                className="group relative overflow-hidden flex min-h-[200px] flex-col justify-between rounded-[16px] bg-[#F4F5F6] p-6 text-[#272829] cursor-pointer transition-all duration-300 ease-in-out hover:bg-[#8269CF] hover:text-white"
                             >
+                                {/* Subtle background glow orb on hover */}
+                                <div
+                                    className="absolute bottom-0 right-0 w-[180px] h-[180px] rounded-full bg-white/[0.07] translate-x-1/4 translate-y-1/4 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                    aria-hidden="true"
+                                />
+
                                 <div
                                     className="flex h-[66px] w-[66px] items-center justify-center rounded-[8px] bg-white p-4"
                                     aria-hidden="true"
@@ -93,23 +115,18 @@ export function Introduction({ className }: IntroductionProps) {
                                     <Icon className={cn('h-10 w-10', card.iconClassName)} strokeWidth={2.2} />
                                 </div>
 
-                                <div>
+                                <div className="relative z-10">
                                     <h4 className="font-display text-[32px] font-semibold leading-[1.25] tracking-[0]">
                                         {card.title}
                                     </h4>
-                                    <p
-                                        className={cn(
-                                            'mt-[9px] font-body text-[16px] font-normal leading-[1.5] tracking-[0]',
-                                            isAccent ? 'text-white' : 'text-[#444547]'
-                                        )}
-                                    >
+                                    <p className="mt-[9px] font-body text-[16px] font-normal leading-[1.5] tracking-[0] text-[#444547] transition-colors duration-300 group-hover:text-white/85">
                                         {card.text}
                                     </p>
                                 </div>
-                            </article>
+                            </motion.article>
                         )
                     })}
-                </div>
+                </motion.div>
             </div>
         </section>
     )

@@ -172,7 +172,7 @@ const CARD_STACK_TOP_GAP = 10;
 /** Sticky pin point for the card stack (px from viewport top) */
 const CARD_PIN_TOP = NAVBAR_H + CARD_STACK_TOP_GAP;
 /** Degrees to rotate stacked cards (alternates ±) */
-const CARD_ROTATION = 2;
+const CARD_ROTATION = 3;
 /**
  * Minimum viewport width (px) to use the scroll-driven stacking layout.
  * Below this we fall back to the simple mobile stack.

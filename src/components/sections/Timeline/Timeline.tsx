@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import { Calendar } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { TimelineProps } from './Timeline.types'
@@ -89,6 +90,23 @@ const TIMELINE_DATA = [
     },
 ]
 
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: { staggerChildren: 0.15 },
+    },
+}
+
+const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { type: 'spring' as const, stiffness: 100, damping: 16 },
+    },
+}
+
 export function Timeline({ className }: TimelineProps) {
     return (
         <section
@@ -123,9 +141,15 @@ export function Timeline({ className }: TimelineProps) {
                 </p>
 
                 {/* Timeline Grid */}
-                <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 lg:gap-8">
+                <motion.div
+                    className="w-full grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 lg:gap-8"
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: '-100px' }}
+                >
                     {TIMELINE_DATA.map((item) => (
-                        <div key={item.days} className="flex flex-col h-full">
+                        <motion.div key={item.days} variants={itemVariants} className="flex flex-col h-full">
                             {/* Days Marker Banner */}
                             <div className="flex items-center gap-3 w-full mb-6 shrink-0">
                                 <div className="h-[1.5px] flex-1 bg-gradient-to-r from-transparent via-[#8269CF]/30 to-[#8269CF]/50" />
@@ -137,7 +161,13 @@ export function Timeline({ className }: TimelineProps) {
                             </div>
 
                             {/* Card Content */}
-                            <div className="flex-1 flex flex-col items-center text-center bg-[#F4F5F6] py-[24px] px-[16px] rounded-[24px] shadow-xs hover:shadow-md transition-shadow duration-300">
+                            <div className="group relative overflow-hidden flex-1 flex flex-col items-center text-center bg-[#F4F5F6] py-[24px] px-[16px] rounded-[24px] shadow-xs hover:bg-[#8269CF] hover:shadow-md transition-all duration-300 ease-in-out cursor-pointer">
+                                {/* Subtle background glow orb on hover */}
+                                <div
+                                    className="absolute bottom-0 right-0 w-[200px] h-[200px] rounded-full bg-white/[0.06] translate-x-1/4 translate-y-1/4 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                    aria-hidden="true"
+                                />
+
                                 {/* Icon White Container */}
                                 <div
                                     className="flex h-[72px] w-[72px] items-center justify-center rounded-[16px] bg-white p-[16px] mb-6 shadow-xs"
@@ -147,18 +177,18 @@ export function Timeline({ className }: TimelineProps) {
                                 </div>
 
                                 {/* Card Title */}
-                                <h3 className="font-display text-[20px] font-[700] leading-[1.3] text-[#313233] mb-3 max-w-[280px]">
+                                <h3 className="font-display text-[20px] font-[700] leading-[1.3] text-[#313233] mb-3 max-w-[280px] group-hover:text-white transition-colors duration-300">
                                     {item.title}
                                 </h3>
 
                                 {/* Card Subtitle */}
-                                <p className="font-body text-[16px] font-normal leading-[1.5] text-[#75777A] max-w-[280px]">
+                                <p className="font-body text-[16px] font-normal leading-[1.5] text-[#75777A] max-w-[280px] group-hover:text-white/80 transition-colors duration-300">
                                     {item.subtitle}
                                 </p>
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
-                </div>
+                </motion.div>
             </div>
         </section>
     )
