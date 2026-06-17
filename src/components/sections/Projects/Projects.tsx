@@ -168,7 +168,7 @@ const PROJECTS: ProjectCardData[] = [
 /** Fixed height of the site navbar (px) */
 const NAVBAR_H = 80;
 /** Gap between navbar and first card when stacking begins (px) */
-const CARD_STACK_TOP_GAP = 30;
+const CARD_STACK_TOP_GAP = 10;
 /** Sticky pin point for the card stack (px from viewport top) */
 const CARD_PIN_TOP = NAVBAR_H + CARD_STACK_TOP_GAP;
 /** Degrees to rotate stacked cards (alternates ±) */
@@ -317,7 +317,7 @@ export function Projects({ className }: ProjectsProps) {
           Math.max(0, (progress - animStart) / effectiveScrollPerCard),
         );
 
-        const entryY = cardAreaH + 100; // start below clip edge
+        const entryY = cardAreaH + 250; // start just beyond the -200px clip extension so card is hidden at rest
         const y = entryY + (0 - entryY) * t; // animate toward 0
 
         /* Alternating rotation when fully stacked */
