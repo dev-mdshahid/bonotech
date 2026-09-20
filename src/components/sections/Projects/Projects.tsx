@@ -8,13 +8,16 @@ import gustavMockup from "@/assets/projects/gustav-mockup.png";
 import gustavIcon from "@/assets/projects/gustav-icon.png";
 import gustavLogo from "@/assets/projects/gustav-logo.png";
 import olmoMockup from "@/assets/projects/olmo-mockup.png";
-import olmoIcon from "@/assets/projects/olmo-icon.svg";
+import olmoBg from "@/assets/projects/olmo-bg.png";
 import olmoLogo from "@/assets/projects/olmo-logo.png";
 import milioMockup from "@/assets/projects/milio-mockup.png";
-import milioLogo from "@/assets/projects/milio-logo.svg";
-import milioIcon from "@/assets/projects/milio-icon.svg";
+import getMyGrailIcon from "@/assets/projects/get-my-grail-icon.png";
+import getMyGrailLogo from "@/assets/projects/get-my-grail-logo.png";
+import evoGradingBg from "@/assets/projects/evo-grading-bg.png";
+import evoGradingMockup from "@/assets/projects/evo-grading-mockup.png";
+import evoGradingLogo from "@/assets/projects/evo-grading-logo.png";
 import polysignalsMockup from "@/assets/projects/polysignals-mockup.png";
-import polysignalsIcon from "@/assets/projects/polysignals-icon.png";
+import polysignalsBg from "@/assets/projects/polysignals-bg.png";
 import polysignalsLogo from "@/assets/projects/polysignals-logo.png";
 import edutechsMockup from "@/assets/projects/edutechs-mockup.png";
 import edutechsIcon from "@/assets/projects/edutechs-icon.png";
@@ -23,16 +26,17 @@ import edutechsLogo from "@/assets/projects/edutechs-logo.png";
 const PROJECTS: ProjectCardData[] = [
   {
     id: "gustav",
-    category: "Travel & Tourism",
-    title: "Gustav, Hotel Companion Mobile App",
+    category: "ERP",
+    title: "Gustav, Hotel Companion Hospitality System",
+    builtInDays: "Built In 60 Days",
     features: [
-      "Guest Experience",
+      "Booking Management",
+      "Revenue Management",
+      "Staff Management",
+      "F & B Operation",
       "Mobile Ordering",
-      "Concierge workflow",
-      "Hospitality Operation",
+      "Concierge Workflow",
       "Service Request",
-      "Staff Communication",
-      "Customer facing Mobile Journey",
     ],
     backgroundColor: "#FAF1E9",
     borderColor: "#D2CBC5",
@@ -46,27 +50,32 @@ const PROJECTS: ProjectCardData[] = [
     playStoreHref:
       "https://play.google.com/store/apps/details?id=com.ekram211.zen",
     appStoreHref: "https://apps.apple.com/ae/app/gustav/id6738002227",
-    learnMoreHref: "#",
+    learnMoreHref: "https://gustav.club/",
     opacity: 90,
+    radiusColor: "#BA9B7C",
   },
   {
     id: "olmo",
-    category: "Real Estate",
+    category: "PMS",
     title: "Olmo, Property Management Mobile App",
+    builtInDays: "Built in 90 Days",
+    builtInDaysColor: "#30A6D9",
     features: [
       "Tenant Workflow",
       "Property Operation",
       "Maintenance Tracking",
       "Rent Collection",
       "Owner Dashboard",
-      "Real State Automation",
-      "Multi Stakeholder Communication",
+      "Real Estate Automation",
+      "Multi-Stakeholder Communication",
     ],
-    backgroundColor: "#A2A5AA",
-    borderColor: "#A6A9AD",
-    buttonColor: "#2D343C",
+    backgroundColor: "#E5F6F8",
+    borderColor: "#B3DFF2",
+    buttonColor: "#B3DFF2",
+    categoryTextColor: "#272829",
     mockupSrc: olmoMockup,
-    iconSrc: olmoIcon,
+    iconSrc: olmoBg,
+    iconCover: true,
     logoSrc: olmoLogo,
     logoAlt: "Olmo logo",
     logoWidth: 166.43,
@@ -74,19 +83,22 @@ const PROJECTS: ProjectCardData[] = [
     playStoreHref:
       "https://play.google.com/store/apps/details?id=com.bonoholdings.proptech",
     appStoreHref: "https://apps.apple.com/gb/app/olmo-homes/id6747893455",
-    learnMoreHref: "#",
+    learnMoreHref: "https://olmo.homes/",
     opacity: 100,
+    radiusColor: "#ADD7E9",
   },
   {
-    id: "milio",
-    category: "Collectibles",
-    title: "Where collectors Can buy their Collectibles",
+    id: "get-my-grail",
+    category: "MMS",
+    title: "Where Collectors Can buy Their Collectibles",
+    builtInDays: "Built in 30 Days",
+    builtInDaysColor: "#2D343C",
     features: [
       "Marketplace Flow",
-      "Inventory Like system",
-      "User accounts",
+      "Inventory Like System",
+      "User Accounts",
       "Listings",
-      "Buyer seller workflow",
+      "Buyer Seller Workflow",
       "Digital Commerce",
       "Community Driven Platforms",
     ],
@@ -94,36 +106,37 @@ const PROJECTS: ProjectCardData[] = [
     borderColor: "#D4D4D4",
     buttonColor: "#333333",
     mockupSrc: milioMockup,
-    iconSrc: milioIcon,
-    iconWidth: 765,
-    logoSrc: milioLogo,
-    logoAlt: "Milio logo",
-    logoDark: true,
-    logoWidth: 164.77,
-    logoHeight: 56,
-    playStoreHref: undefined,
-    appStoreHref: undefined,
-    learnMoreHref: "#",
+    iconSrc: getMyGrailIcon,
+    iconCover: true,
+    logoSrc: getMyGrailLogo,
+    logoAlt: "Get My Grail logo",
+    logoWidth: 170,
+    logoHeight: 79,
+    learnMoreHref: "https://divc-milio.web.app/",
     opacity: 35,
+    radiusColor: "#8269CF",
   },
   {
     id: "polysignals",
-    category: "Prediction",
-    title: "Build a Track Record People Can Trust.",
+    category: "DRN",
+    title: "Build a Track Record People Can Trust",
+    builtInDays: "Built in 60 Days",
+    builtInDaysColor: "#8A5BF4",
     features: [
       "Blockchain Verification",
-      "On chain Record",
+      "On Chain Record",
       "Reputation System",
       "Financial Data Workflow",
       "Public Accountability Systems",
       "Market Facing Mobile Products",
       "Complex Scoring and Ranking System",
     ],
-    backgroundColor: "#EDF8F1",
-    borderColor: "#DAF1E2",
-    buttonColor: "#3D8B5F",
+    backgroundColor: "#F3F0F8",
+    borderColor: "#E5DDF0",
+    buttonColor: "#8B5CF6",
     mockupSrc: polysignalsMockup,
-    iconSrc: polysignalsIcon,
+    iconSrc: polysignalsBg,
+    iconCover: true,
     logoSrc: polysignalsLogo,
     logoAlt: "Polysignals logo",
     logoWidth: 300,
@@ -131,13 +144,16 @@ const PROJECTS: ProjectCardData[] = [
     playStoreHref:
       "https://play.google.com/store/apps/details?id=app.zenythlabs.polysignals",
     appStoreHref: "https://apps.apple.com/ua/app/polysignals/id6758582770",
-    learnMoreHref: "#",
-    opacity: 90,
+    learnMoreHref: "https://www.polysignals.app/",
+    opacity: 100,
+    radiusColor: "#8269CF",
   },
   {
     id: "edutechs",
     category: "LMS",
-    title: "Edutechs, Learning Management Mobile App",
+    title: "Edutechs Learning Management System",
+    builtInDays: "Built in 60 Days",
+    builtInDaysColor: "#038EDD",
     features: [
       "Student Information System",
       "Learning Management",
@@ -160,8 +176,39 @@ const PROJECTS: ProjectCardData[] = [
     playStoreHref:
       "https://play.google.com/store/apps/details?id=com.ekram21112.edutechsstudentapp2024",
     appStoreHref: "https://apps.apple.com/ua/app/edutechs/id6602895268",
-    learnMoreHref: "#",
+    learnMoreHref: "https://edutechs.app/",
     opacity: 90,
+    radiusColor: "#038CD9",
+  },
+  {
+    id: "evo-grading",
+    category: "Grading",
+    title: "Prep It, Send It, Track It, Collect It",
+    builtInDays: "Built in 30 Days",
+    builtInDaysColor: "#C79F44",
+    features: [
+      "Professional Card Prep",
+      "Advanced Slab Inspection",
+      "Tier-by-Tier Tracking",
+      "Multi-Sport Verification",
+      "Secure Submissions Vault",
+      "Professional Grading Logistics",
+      "Graded Return Dashboards",
+    ],
+    backgroundColor: "#F7F5EE",
+    borderColor: "#D2CBC5",
+    buttonColor: "#C0A080",
+    bulletColor: "#C0A080",
+    mockupSrc: evoGradingMockup,
+    mockupWidth: 520,
+    iconSrc: evoGradingBg,
+    iconCover: true,
+    logoSrc: evoGradingLogo,
+    logoAlt: "EVO Grading logo",
+    logoHeight: 48,
+    learnMoreHref: "https://evanevograding.web.app/",
+    opacity: 100,
+    radiusColor: "#C29B43",
   },
 ];
 
@@ -188,8 +235,8 @@ const SectionHeading = ({ id }: { id?: string }) => (
         className="w-2 h-2 rounded-full shrink-0 bg-[#8269CF]"
         aria-hidden="true"
       />
-      <span className="font-display font-medium text-[12px] leading-[140%] uppercase tracking-[0.05em] text-[#8269CF]">
-        PROJECTS
+      <span className="font-display text-[12px] font-medium leading-[140%] tracking-[0.05em] text-[#8269CF]">
+        WHAT WE BUILD
       </span>
     </div>
 
@@ -203,7 +250,7 @@ const SectionHeading = ({ id }: { id?: string }) => (
 
     {/* Subtitle */}
     <p className="mt-4 font-body text-[16px] leading-[1.6] text-[#75777A] mb-20">
-      Bonotech is focus on reinventing how industries operate has helped shape innovative technology across education, real estate, marketplaces, hospitality, and verification systems.
+      Bonotech’s focus on reinventing how industries operate has helped shape innovative technology across education, real estate, marketplaces, hospitality, and verification systems.
     </p>
   </div>
 );
@@ -302,8 +349,20 @@ export function Projects({ className }: ProjectsProps) {
       /* progress = how many px the runway has scrolled past the card pin point */
       const progress = Math.max(0, CARD_PIN_TOP - rect.top);
 
+      let activeIndex = 0;
+      for (let j = PROJECTS.length - 1; j >= 0; j--) {
+        if (j === 0) break;
+        const animStart = (j - 1) * effectiveScrollPerCard;
+        if (progress >= animStart) {
+          activeIndex = j;
+          break;
+        }
+      }
+
       cardEls.current.forEach((el, i) => {
         if (!el) return;
+
+        el.style.pointerEvents = i === activeIndex ? "auto" : "none";
 
         /* First card is always pinned at the top */
         if (i === 0) {

@@ -1,6 +1,11 @@
 @import "tailwindcss";
 
 :root {
+    /* Homepage section boundaries */
+    --home-section-seam: #12081e;
+    --home-section-seam-transparent: rgb(18 8 30 / 0%);
+    --home-section-edge-height: clamp(120px, 14vw, 180px);
+
     /* Primitives */
     --color-neutral-0: #FFFFFF;
     --color-neutral-1: #F2F3F4;
@@ -232,4 +237,65 @@ html {
 
 body {
     @apply bg-surface-neutral text-content-primary antialiased font-sans;
+}
+
+/* Calendly scheduling section loader */
+.calendly-loader {
+    width: 50px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background:
+        radial-gradient(farthest-side, #8269cf 94%, #0000) top / 8px 8px no-repeat,
+        conic-gradient(#0000 30%, #8269cf);
+    -webkit-mask: radial-gradient(
+        farthest-side,
+        #0000 calc(100% - 8px),
+        #000 0
+    );
+    mask: radial-gradient(
+        farthest-side,
+        #0000 calc(100% - 8px),
+        #000 0
+    );
+    animation: calendly-loader-spin 1s infinite linear;
+}
+
+@keyframes calendly-loader-spin {
+    100% {
+        transform: rotate(1turn);
+    }
+}
+
+/* Calendly inline embed: clip horizontal bleed; allow vertical scroll in iframe */
+.schedule-calendly-host .calendly-inline-widget {
+    overflow-x: hidden;
+    overflow-y: visible;
+}
+
+.schedule-calendly-host .calendly-inline-widget iframe {
+    display: block;
+    border: 0;
+}
+
+.home-page-background {
+    background: var(--home-section-seam);
+}
+
+.home-section-edge {
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    height: var(--home-section-edge-height);
+    pointer-events: none;
+}
+
+.home-section-edge--top {
+    top: 0;
+    background: linear-gradient(180deg, var(--home-section-seam) 0%, var(--home-section-seam-transparent) 100%);
+}
+
+.home-section-edge--bottom {
+    bottom: 0;
+    background: linear-gradient(0deg, var(--home-section-seam) 0%, var(--home-section-seam-transparent) 100%);
 }

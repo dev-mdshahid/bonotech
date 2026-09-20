@@ -1,34 +1,50 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, UserRound } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { TestimonialsProps, TestimonialData } from "./Testimonials.types";
+import Shakil from "@/assets/testimonials/Shakil.png";
+import Nafis from "@/assets/testimonials/Nafis.png";
+import Evan from "@/assets/testimonials/Evan.png";
+
 
 const TESTIMONIALS: TestimonialData[] = [
   {
     id: "testimonial-1",
     quote:
-      "Gustav is a user-friendly, visually appealing all-in-one cloud PMS. Intuitive, time-saving, and reliable—with excellent reports and friendly support for effortless hotel management.",
+      "Gustav Is a User-Friendly, Visually Appealing All-in-One Cloud PMS. Intuitive, Time-Saving, and Reliable—With Excellent Reports and Friendly Support for Effortless Hotel Management.",
     authorName: "MD. Shohiduzzaman Shakil",
     authorRole: "Generalist-Human Resources, Mermaid Beach Resort",
     backgroundColor: "#8269CF",
+     image: Shakil,
   },
-  // {
-  //   id: "testimonial-2",
-  //   quote:
-  //     "Created by my ex-students. They have made my classroom management much easier and have created all advanced custom features that I have asked for.",
-  //   authorName: "Engr. Md. Nadim",
-  //   authorRole: "Teacher, Edbase",
-  //   backgroundColor: "#131314",
-  // },
-  // {
-  //   id: "testimonial-3",
-  //   quote:
-  //     "Working with Bonotech was a game-changer for our business. They transformed our vision into a beautiful, functional application that our users love.",
-  //   authorName: "James Wilson",
-  //   authorRole: "Founder, BrightPath",
-  //   backgroundColor: "#F59E0B",
-  // },
+  {
+    id: "testimonial-2",
+    quote:
+      "I Couldn't Believe My Eyes When I First Saw What the Team Had Built Out for Me. Looks So Good. There's Massive Companies in the Space Who Still Haven't Been Able to Modernize a Proper Web Based Application Form So Excited to Be the First One to Launch a Modern Web Application for Card Prep & Cleaning.",
+    authorName: "Evan Milho",
+    authorRole: "CEO, EVO Grading",
+    backgroundColor: "#131314",
+    image: Evan
+  },
+  {
+    id: "testimonial-3",
+    quote:
+      "Super Impressive Team With a Can-Do Attitude. No Requests That I Have Made Has Ever Been Met With Not Possible or Can't Do. Pretty Much They Can Build Any and Everything!",
+    authorName: "Dan Iqbal",
+    authorRole: "CEO, Get My Grail",
+    backgroundColor: "#FFAB51",
+    image: ""
+  },
+  {
+    id: "testimonial-4",
+    quote:
+      "Polysignals Is the Highest Quality App Built in the Shortest Possible Time That I Have Seen in Quite Some Time. Speaking as Someone Who Works With the Highest Level of Engineers on a Daily Basis, Bonotech Is the Real Deal!",
+    authorName: "Nafis Abrar",
+    authorRole: "ML Engineer at Meta Facebook",
+    backgroundColor: "#3D8B5F",
+    image: Nafis
+  },
 ];
 
 /** Stack visual config — per-layer overrides for a natural deck look */
@@ -40,7 +56,7 @@ const STACK_LAYERS = [
   // layer 2 = second card behind (peeking out further)
   { rotation: -1, scale: 0.82, yOffset: -130, xOffset: 10 },
 ];
-const STACK_TOP_OFFSET = 48; // px — desired space under title
+const STACK_TOP_OFFSET = 100; // px — space under title; must clear stacked card peek (up to ~130px)
 
 function QuoteIcon() {
   return (
@@ -94,11 +110,18 @@ interface TestimonialCardProps {
 }
 
 function TestimonialCard({ testimonial }: TestimonialCardProps) {
-  const colors = getTextColor(testimonial.backgroundColor);
+  const colors = getTextColor(testimonial.backgroundColor)
+  const [imageError, setImageError] = useState(false)
+
+  useEffect(() => {
+    setImageError(false)
+  }, [testimonial.image])
+
+  const showImage = Boolean(testimonial.image) && !imageError
 
   return (
     <div
-      className="w-full max-w-300 md:min-h-99.25 rounded-3xl p-8 md:p-16 flex flex-col gap-5 md:gap-12"
+      className="flex w-full max-w-300 flex-col gap-5 rounded-3xl p-8 md:min-h-99.25 md:gap-12 md:p-16"
       style={{
         backgroundColor: testimonial.backgroundColor,
         color: colors.primary,
@@ -108,27 +131,50 @@ function TestimonialCard({ testimonial }: TestimonialCardProps) {
       <QuoteIcon />
 
       {/* Quote text */}
-      <p className="font-body font-medium text-base md:font-semibold md:text-[28px] leading-snug md:leading-none tracking-[-0.005em]">
+      <p className="font-body text-base font-medium leading-snug tracking-[-0.005em] md:text-[28px] md:font-semibold md:leading-none">
         {testimonial.quote}
       </p>
 
       {/* Author */}
-      <div className="flex flex-col gap-1">
-        <span
-          className="font-body font-bold text-base md:text-xl leading-[1.4]"
-          style={{ color: colors.primary }}
-        >
-          {testimonial.authorName}
-        </span>
-        <span
-          className="font-body font-normal text-sm md:text-lg leading-[1.4]"
-          style={{ color: colors.secondary }}
-        >
-          {testimonial.authorRole}
-        </span>
+      <div className="flex items-center gap-4 md:gap-5">
+        {showImage ? (
+          <img
+            src={testimonial.image}
+            alt={testimonial.authorName}
+            onError={() => setImageError(true)}
+            className="h-14 w-14 shrink-0 rounded-full object-cover md:h-[72px] md:w-[72px]"
+          />
+        ) : (
+          <div
+            className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white/20 md:h-[72px] md:w-[72px]"
+            aria-hidden="true"
+          >
+            <UserRound
+              className="h-7 w-7 md:h-9 md:w-9"
+              strokeWidth={1.8}
+              style={{ color: colors.primary }}
+            />
+          </div>
+        )}
+
+        <div className="flex min-w-0 flex-col gap-1">
+          <span
+            className="font-body text-base font-bold leading-[1.4] md:text-xl"
+            style={{ color: colors.primary }}
+          >
+            {testimonial.authorName}
+          </span>
+
+          <span
+            className="font-body text-sm font-normal leading-[1.4] md:text-lg"
+            style={{ color: colors.secondary }}
+          >
+            {testimonial.authorRole}
+          </span>
+        </div>
       </div>
     </div>
-  );
+  )
 }
 
 export function Testimonials({ className }: TestimonialsProps) {
