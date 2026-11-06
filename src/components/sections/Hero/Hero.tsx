@@ -1,15 +1,14 @@
 import type { HeroProps } from "./Hero.types";
-import { HeroPill } from "./components/HeroPill";
 import { HeroButton } from "./components/HeroButton";
 
-import bonotechHeroBg from "@/assets/bonotech-hero-bg.jpg";
+import bonotechHeroBg1 from "@/assets/bonotech-hero-bg-1.png";
 
 export function Hero({
-  pillText = "POWERED BY SPEED",
+  // pillText = "POWERED BY SPEED",
   title = "Enterprise\nSoftware Development",
   subtitle = "AI- Native, Expert-Led, Market-Ready Product Development",
-  ctaLabel = "Book a free consultation with us today",
-  ctaHref = "#contact",
+  ctaLabel = "Book a Free Consultation With Us Today",
+  ctaHref = "#schedule",
 }: HeroProps) {
   return (
     <section
@@ -18,7 +17,7 @@ export function Hero({
       className="relative min-h-[823px] w-full overflow-hidden bg-[#020914] text-white max-lg:min-h-[720px] max-sm:min-h-[680px]"
     >
       <img
-        src={bonotechHeroBg}
+        src={bonotechHeroBg1}
         alt=""
         aria-hidden="true"
         className="absolute inset-0 h-full w-full object-cover object-center"
@@ -27,7 +26,7 @@ export function Hero({
 
       <div className="relative z-10 mx-auto flex min-h-[823px] w-full max-w-[1200px] flex-col justify-center px-0 pt-[122px] max-xl:px-6 max-lg:min-h-[720px] max-lg:items-center max-lg:text-center max-sm:min-h-[680px] max-sm:px-5 max-sm:pt-24">
         <div className="mt-[64px] flex max-w-[980px] flex-col items-start max-lg:mt-0 max-lg:items-center">
-          <HeroPill text={pillText} />
+          {/* <HeroPill text={pillText} /> */}
 
           <h1
             id="hero-heading"
