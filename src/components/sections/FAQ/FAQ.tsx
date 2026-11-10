@@ -5,24 +5,24 @@ import { FAQCard } from './components/FAQCard'
 
 const FAQ_ITEMS: FAQItem[] = [
     {
-        question: 'What factors accelerate the development timeline?',
-        answer: 'Clear project requirements, timely feedback, well-defined scope, and active collaboration from stakeholders all contribute to accelerating the development timeline. Our agile methodology ensures rapid iteration and delivery.',
+        question: 'What Factors Accelerate The Development Timeline?',
+        answer: 'Clear project requirements, timely feedback, well-defined scope, and active collaboration from stakeholders all contribute to accelerating the development timeline Our agile methodology ensures rapid iteration and delivery',
     },
     {
-        question: 'Can you describe your ideal client?',
-        answer: 'We collaborate with visionary founders and companies that possess innovative ideas, practical execution plans, and a strong ambition to dominate their markets. Our ideal client sees us as a long-term strategic ally committed to shared success, rather than just a temporary vendor.',
+        question: 'Can You Describe Your Ideal Client?',
+        answer: 'We collaborate with visionary founders and companies that possess innovative ideas, practical execution plans, and a strong ambition to dominate their markets Our ideal client sees us as a long-term strategic ally committed to shared success, rather than just a temporary vendor',
     },
     {
-        question: 'Who fits your ideal client profile?',
-        answer: 'Startups and established businesses that value quality engineering, transparent communication, and long-term partnerships. We work best with teams who are passionate about their product and ready to invest in building something exceptional.',
+        question: 'Who Fits Your Ideal Client Profile?',
+        answer: 'Startups and established businesses that value quality engineering, transparent communication, and long-term partnerships We work best with teams who are passionate about their product and ready to invest in building something exceptional',
     },
     {
-        question: 'Given your high quality, how is your pricing structured?',
-        answer: 'Our pricing reflects the premium quality we deliver while remaining competitive. We offer flexible engagement models including fixed-price projects, time-and-materials, and dedicated team arrangements to suit different budgets and project scopes.',
+        question: 'Given Your High Quality, How Is Your Pricing Structured?',
+        answer: 'Our pricing reflects the premium quality we deliver while remaining competitive We offer flexible engagement models including fixed-price projects, time-and-materials, and dedicated team arrangements to suit different budgets and project scopes',
     },
     {
-        question: 'How do you structure pricing for your high-quality services?',
-        answer: 'We provide transparent pricing based on project complexity, timeline, and resource requirements. Our proposals include detailed breakdowns so you understand exactly what you are investing in. We believe in fair pricing that delivers exceptional ROI.',
+        question: 'How Do You Structure Pricing For Your High-Quality Services?',
+        answer: 'We provide transparent pricing based on project complexity, timeline, and resource requirements Our proposals include detailed breakdowns so you understand exactly what you are investing in We believe in fair pricing that delivers exceptional ROI',
     },
 ]
 
@@ -42,7 +42,7 @@ export function FAQ({ className }: FAQProps) {
             id="faq"
             aria-labelledby="faq-heading"
             className={cn(
-                'relative w-full overflow-hidden bg-[#F7F7F7] py-16 md:py-28',
+                'relative w-full overflow-hidden bg-[#FAFAFA] py-16 md:py-28',
                 className
             )}
         >
